@@ -15,6 +15,7 @@
         android:textSize="20dp"
         android:text="SMART WINERY"
         android:textColor="#9B1132"
+        android:textStyle="bold"
         />
 
     <GridLayout
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:paddingVertical="5dp"
-                android:background="#9B1132"
+                android:background="@drawable/red_back"
                 android:text="Red"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
@@ -46,35 +47,51 @@
                 android:layout_marginVertical="5dp"
                 android:orientation="horizontal"
                 android:columnCount="5">
-                <Button
+                <ImageButton
                     android:id="@+id/btn11"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp" />
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_border"
+                    android:src="@drawable/wine1"
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn12"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn13"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn14"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn15"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
             </GridLayout>
         </LinearLayout>
 
@@ -88,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:paddingVertical="5dp"
-                android:background="#CFE449"
+                android:background="@drawable/white_back"
                 android:text="White"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
@@ -100,35 +117,51 @@
                 android:layout_marginVertical="5dp"
                 android:orientation="horizontal"
                 android:columnCount="5">
-                <Button
+                <ImageButton
                     android:id="@+id/btn21"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/white_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn22"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/white_border"
+                    android:src="@drawable/wine2"
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn23"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/white_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn24"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/white_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn25"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/white_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
             </GridLayout>
         </LinearLayout>
 
@@ -142,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:paddingVertical="5dp"
-                android:background="#2589FF"
+                android:background="@drawable/sparkling_back"
                 android:text="Sparkle"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
@@ -154,35 +187,51 @@
                 android:layout_marginVertical="5dp"
                 android:orientation="horizontal"
                 android:columnCount="5">
-                <Button
+                <ImageButton
                     android:id="@+id/btn31"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/sparkling_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn32"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/sparkling_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn33"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/sparkling_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn34"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"/>
-                <Button
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/sparkling_border"
+                    android:src=""
+                    android:scaleType="fitCenter"/>
+                <ImageButton
                     android:id="@+id/btn35"
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/sparkling_border"
+                    android:src="@drawable/wine3"
+                    android:scaleType="fitCenter"/>
             </GridLayout>
         </LinearLayout>
 
