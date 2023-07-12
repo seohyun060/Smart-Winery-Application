@@ -54,7 +54,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/red_border"
-                    android:src="@drawable/wine1"
+                    android:src=""
                     android:scaleType="fitCenter"/>
                 <ImageButton
                     android:id="@+id/btn12"
@@ -133,7 +133,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/white_border"
-                    android:src="@drawable/wine2"
+                    android:src=""
                     android:scaleType="fitCenter"/>
                 <ImageButton
                     android:id="@+id/btn23"
@@ -230,7 +230,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/sparkling_border"
-                    android:src="@drawable/wine3"
+                    android:src=""
                     android:scaleType="fitCenter"/>
             </GridLayout>
         </LinearLayout>
