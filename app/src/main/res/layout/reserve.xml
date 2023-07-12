@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="300dp"
+    android:layout_height="348dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:background="@drawable/popup_border"
+
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:text="When do you want
+your wine to be served?"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        />
+    <LinearLayout
+        android:layout_width="160dp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/timer_border"
+        android:layout_height="100dp">
+        <EditText
+            android:id="@+id/hourET"
+            android:layout_width="50dp"
+            android:hint="00"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:text=":"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/startBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/minuteET"
+            android:layout_width="50dp"
+            android:hint="00"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="80dp"
+        android:layout_marginTop="59dp"
+        android:background="@drawable/popup_footer_border"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/grey_button"
+            android:text="Proceed"
+            android:padding="0dp"
+            android:textColor="@color/proceed"
+            android:layout_marginRight="30dp"
+            />
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/grey_button"
+            android:text="Cancel"
+            android:padding="0dp"
+            android:textColor="@color/cancel"
+            />
+    </LinearLayout>
+</LinearLayout>
