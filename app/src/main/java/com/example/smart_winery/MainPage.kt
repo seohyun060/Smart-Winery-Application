@@ -23,7 +23,7 @@ class MainPage : AppCompatActivity() {
         mainPageBinding.settings.setOnClickListener(){
 //            val intent = Intent(this,SettingPage::class.java)
 //            startActivity(intent)
-            
+            //dfdfsfdsdfsd
 
         }
     }
