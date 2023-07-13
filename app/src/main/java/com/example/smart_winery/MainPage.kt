@@ -20,7 +20,12 @@ class MainPage : AppCompatActivity() {
             val intent = Intent(this, ScanPage::class.java)
             startActivity(intent)
         }
+        mainPageBinding.settings.setOnClickListener(){
+//            val intent = Intent(this,SettingPage::class.java)
+//            startActivity(intent)
+            
 
+        }
     }
 
 }
