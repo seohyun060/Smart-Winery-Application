@@ -13,8 +13,8 @@ class MainPage : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        val binding = MainPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val mainPageBinding = MainPageBinding.inflate(layoutInflater)
+        setContentView(mainPageBinding.root)
 
         val firstfloor = arrayListOf<ImageButton>(
             findViewById(R.id.btn11),
