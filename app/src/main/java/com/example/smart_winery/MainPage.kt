@@ -1,5 +1,6 @@
 package com.example.smart_winery
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
@@ -12,10 +13,14 @@ class MainPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
         val mainPageBinding = MainPageBinding.inflate(layoutInflater)
-        setContentView(mainPageBinding.root)
 
+        setContentView(mainPageBinding.root)
+        mainPageBinding.addWine.setOnClickListener() {
+            val intent = Intent(this, ScanPage::class.java)
+            startActivity(intent)
+        }
 
     }
+
 }
