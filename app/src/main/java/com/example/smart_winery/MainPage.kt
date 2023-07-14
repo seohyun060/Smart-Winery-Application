@@ -93,14 +93,17 @@ class MainPage : AppCompatActivity() {
             startActivity(intent)
         }
         mainPageBinding.settings.setOnClickListener(){
-            //val intent = Intent(this,SettingPage::class.java)
-            //startActivity(intent)
+            val intent = Intent(this,SettingPage::class.java)
+            startActivity(intent)
+
+        }
+        mainPageBinding.mainLogo.setOnClickListener(){
             reserveBinding.minuteET.setText("0")
             reserveBinding.hourET.setText("0")
             val reserveBuilder = AlertDialog.Builder(this)
                 .setView(reserveView)
             if(reserveView.getParent() !=null){
-                    (reserveView.getParent() as ViewGroup).removeView(reserveView)
+                (reserveView.getParent() as ViewGroup).removeView(reserveView)
             }
             val reserveDialog = reserveBuilder.show()
             reserveBinding.proceed.setOnClickListener() {
@@ -120,5 +123,6 @@ class MainPage : AppCompatActivity() {
                 reserveDialog.dismiss()
             }
         }
+
     }
 }

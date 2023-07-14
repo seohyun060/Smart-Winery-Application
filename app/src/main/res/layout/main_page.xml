@@ -15,6 +15,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textSize="20dp"
+        android:id="@+id/main_logo"
         android:text="SMART WINERY"
         android:textColor="#9B1132"
         android:textStyle="bold"
