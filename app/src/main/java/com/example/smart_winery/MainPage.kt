@@ -98,8 +98,8 @@ class MainPage : AppCompatActivity() {
 
         }
         mainPageBinding.mainLogo.setOnClickListener(){
-            reserveBinding.minuteET.setText("0")
-            reserveBinding.hourET.setText("0")
+            reserveBinding.minuteET.setText("00")
+            reserveBinding.hourET.setText("00")
             val reserveBuilder = AlertDialog.Builder(this)
                 .setView(reserveView)
             if(reserveView.getParent() !=null){
