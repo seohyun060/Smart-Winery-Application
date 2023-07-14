@@ -5,7 +5,7 @@
     android:layout_height="348dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
-    android:background="@drawable/popup_border"
+
 
     android:orientation="vertical">
     <TextView
@@ -28,7 +28,7 @@ your wine to be served?"
         <EditText
             android:id="@+id/hourET"
             android:layout_width="50dp"
-            android:hint="00"
+            android:text="0"
             android:gravity="center"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -49,7 +49,7 @@ your wine to be served?"
         <EditText
             android:id="@+id/minuteET"
             android:layout_width="50dp"
-            android:hint="00"
+            android:text="0"
             android:gravity="center"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -59,11 +59,12 @@ your wine to be served?"
 
         android:layout_height="80dp"
         android:layout_marginTop="59dp"
-        android:background="@drawable/popup_footer_border"
+        android:background="@color/red_wine"
         android:orientation="horizontal"
         android:gravity="center"
         >
         <Button
+            android:id="@+id/proceed"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:backgroundTint="@color/grey_button"
@@ -73,6 +74,7 @@ your wine to be served?"
             android:layout_marginRight="30dp"
             />
         <Button
+            android:id="@+id/cancel"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:backgroundTint="@color/grey_button"
