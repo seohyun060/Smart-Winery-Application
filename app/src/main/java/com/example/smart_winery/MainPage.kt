@@ -1,42 +1,27 @@
 package com.example.smart_winery
 
-import android.content.DialogInterface
 import android.content.Intent
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
+
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import android.os.Handler
-import android.util.Log
-import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
-import java.util.Timer
-import java.util.TimerTask
-import kotlin.concurrent.timer
-import kotlin.concurrent.timerTask
 
 
 @GlideModule
 class MyGlide : AppGlideModule()
-
 
 
 class MainPage : AppCompatActivity() {
