@@ -14,11 +14,15 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
 
+import com.example.smart_winery.ScanPage.Companion.startScanner
+import com.google.mlkit.vision.barcode.common.Barcode
 
 @GlideModule
 class MyGlide : AppGlideModule()
@@ -26,10 +30,19 @@ class MyGlide : AppGlideModule()
 
 class MainPage : AppCompatActivity() {
 
+    private lateinit var binding: MainPageBinding
+    private val cameraPermission = android.Manifest.permission.CAMERA
+
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+            startScanner()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         val mainPageBinding = MainPageBinding.inflate(layoutInflater)
+        binding = MainPageBinding.inflate(layoutInflater)
         val reserveBinding = ReserveBinding.inflate(layoutInflater)
         val reserveView = reserveBinding.root
 
@@ -38,12 +51,12 @@ class MainPage : AppCompatActivity() {
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
 
-            }, { error ->
+        }, { error ->
             Log.e("TAGa", "RESPONSE IS $error")
             // in this case we are simply displaying a toast message.
             Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
                 .show()
-            })
+        })
 
         queue.add(request)
 
@@ -89,8 +102,9 @@ class MainPage : AppCompatActivity() {
 
         setContentView(mainPageBinding.root)
         mainPageBinding.addWine.setOnClickListener() {
-            val intent = Intent(this, ScanPage::class.java)
-            startActivity(intent)
+            requestCameraAndStartScanner()
+//            val intent = Intent(this, ScanPage::class.java)
+//            startActivity(intent)
         }
         mainPageBinding.settings.setOnClickListener(){
             val intent = Intent(this,SettingPage::class.java)
@@ -124,5 +138,60 @@ class MainPage : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun requestCameraAndStartScanner() {
+        if (isPermissionGranted(cameraPermission)) {
+            startScanner()
+        } else {
+            requestCameraPermission()
+        }
+    }
+
+    private fun startScanner() {
+        startScanner(this) { barcodes ->
+            barcodes.forEach { barcode ->
+                when (barcode.valueType) {
+                    Barcode.TYPE_URL -> {
+                        val scanPopupDialog = ScanPopup(this,"URL",barcode.url.toString())
+                        scanPopupDialog.show()
+//                        binding.textViewQrType.text = "URL"
+//                        binding.textViewQrContent.text = barcode.url.toString()
+                    }
+                    Barcode.TYPE_CONTACT_INFO -> {
+                        val scanPopupDialog = ScanPopup(this,"Contact",barcode.contactInfo.toString())
+                        scanPopupDialog.show()
+//                        binding.textViewQrType.text = "Contact"
+//                        binding.textViewQrContent.text = barcode.contactInfo.toString()
+                    }
+                    else -> {
+                        val scanPopupDialog = ScanPopup(this,"Other",barcode.rawValue.toString())
+                        scanPopupDialog.show()
+//                        val mDialogView = LayoutInflater.from(this).inflate(R.layout.scan_popup, null)
+//                        val mBuilder = AlertDialog.Builder(this)
+//                            .setView(mDialogView)
+//                            .setTitle("Result Form")
+//
+//                        mBuilder.show()
+//                        binding.textViewQrType.text = "Other"
+//                        binding.textViewQrContent.text = barcode.rawValue.toString()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun requestCameraPermission() {
+        when {
+            shouldShowRequestPermissionRationale(cameraPermission) -> {
+                cameraPermissionRequest(
+                    positive = { openPermissionSetting() }
+                )
+            }
+
+            else -> {
+                requestPermissionLauncher.launch(cameraPermission)
+            }
+        }
     }
 }
