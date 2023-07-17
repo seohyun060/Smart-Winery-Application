@@ -61,7 +61,7 @@
                         android:id="@+id/btn11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/red_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -75,7 +75,7 @@
                         android:id="@+id/btn12"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/red_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -89,7 +89,7 @@
                         android:id="@+id/btn13"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/red_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -103,7 +103,7 @@
                         android:id="@+id/btn14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/red_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -117,7 +117,7 @@
                         android:id="@+id/btn15"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/red_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
             </GridLayout>
@@ -156,7 +156,7 @@
                         android:id="@+id/btn21"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -170,7 +170,7 @@
                         android:id="@+id/btn22"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -184,7 +184,7 @@
                         android:id="@+id/btn23"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -198,7 +198,7 @@
                         android:id="@+id/btn24"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -212,7 +212,7 @@
                         android:id="@+id/btn25"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/white_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
             </GridLayout>
@@ -251,7 +251,7 @@
                         android:id="@+id/btn31"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/sparkling_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -265,7 +265,7 @@
                         android:id="@+id/btn32"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/sparkling_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -279,7 +279,7 @@
                         android:id="@+id/btn33"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/sparkling_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -293,7 +293,7 @@
                         android:id="@+id/btn34"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/sparkling_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
                 <LinearLayout
@@ -307,7 +307,7 @@
                         android:id="@+id/btn35"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/sparkling_border"
+                        android:background="@drawable/blank_wine"
                         android:scaleType="fitXY"/>
                 </LinearLayout>
             </GridLayout>

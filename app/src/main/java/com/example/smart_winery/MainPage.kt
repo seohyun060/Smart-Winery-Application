@@ -14,10 +14,14 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import android.os.Handler
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
+import org.json.JSONArray
+import org.json.JSONObject
+import java.lang.Exception
 
 
 @GlideModule
@@ -32,21 +36,6 @@ class MainPage : AppCompatActivity() {
         val mainPageBinding = MainPageBinding.inflate(layoutInflater)
         val reserveBinding = ReserveBinding.inflate(layoutInflater)
         val reserveView = reserveBinding.root
-
-        val url = "http://13.48.52.200:3000/winecellar/winename?id=64ae2b9048a3d71c485e2476"
-
-        val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
-        val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
-
-            }, { error ->
-            Log.e("TAGa", "RESPONSE IS $error")
-            // in this case we are simply displaying a toast message.
-            Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
-                .show()
-            })
-
-        queue.add(request)
-
         val firstfloor = arrayListOf<ImageView>(
             mainPageBinding.btn11,
             mainPageBinding.btn12,
@@ -68,24 +57,87 @@ class MainPage : AppCompatActivity() {
             mainPageBinding.btn34,
             mainPageBinding.btn35
         )
-        for (i in firstfloor){
-            GlideApp.with(this)
-                .load("")
-                .into(i)
-            i.clipToOutline = true
+        var floor1:JSONObject = JSONObject()
+        var floor2:JSONObject = JSONObject()
+        var floor3:JSONObject = JSONObject()
+
+        val wineInfo = View.OnClickListener {
+
         }
-        for (i in secondfloor){
-            GlideApp.with(this)
-                .load("")
-                .into(i)
-            i.clipToOutline = true
+
+
+        fun displayWine(){
+
+            val floor1wine:JSONArray = floor1.getJSONArray("cell_ids")
+            val floor2wine:JSONArray = floor2.getJSONArray("cell_ids")
+            val floor3wine:JSONArray = floor3.getJSONArray("cell_ids")
+
+
+            for ((index,i) in firstfloor.withIndex()){
+                for (j in 0 until floor1wine.length()){
+                    val wine:JSONObject = floor1wine.getJSONObject(j)
+                    if (wine.getInt("col") == index+1){
+                        try {
+                            GlideApp.with(this)
+                                .load(wine.getJSONObject("wine_id").getString("imgsrc"))
+                                .into(i)
+
+                        }catch (e:Exception){
+                            Log.e("Debug1","No IMG!")
+                        }
+                    }
+                }
+                i.clipToOutline = true
+            }
+            for ((index,i) in secondfloor.withIndex()){
+                for (j in 0 until floor2wine.length()){
+                    val wine:JSONObject = floor2wine.getJSONObject(j)
+                    if (wine.getInt("col") == index+1){
+                        try {
+                            GlideApp.with(this)
+                                .load(wine.getJSONObject("wine_id").getString("imgsrc"))
+                                .into(i)
+
+                        }catch (e:Exception){
+                            Log.e("Debug2","No $index , $j IMG!")
+                        }
+                    }
+                }
+                i.clipToOutline = true
+            }
+            for ((index,i) in thirdfloor.withIndex()){
+                for (j in 0 until floor3wine.length()){
+                    val wine:JSONObject = floor3wine.getJSONObject(j)
+                    if (wine.getInt("col") == index+1){
+                        try {
+                            GlideApp.with(this)
+                                .load(wine.getJSONObject("wine_id").getString("imgsrc"))
+                                .into(i)
+
+                        }catch (e:Exception){
+                            Log.e("Debug3","No $index , $j IMG!")
+                        }
+                    }
+                }
+                i.clipToOutline = true
+            }
         }
-        for (i in thirdfloor){
-            GlideApp.with(this)
-                .load("")
-                .into(i)
-            i.clipToOutline = true
-        }
+
+        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
+//        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
+        val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
+        val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+            floor1 = response.getJSONObject("floor1")
+            floor2 = response.getJSONObject("floor2")
+            floor3 = response.getJSONObject("floor3")
+            displayWine()
+            }, { error ->
+            Log.e("TAGa", "RESPONSE IS $error")
+            // in this case we are simply displaying a toast message.
+            Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                .show()
+            })
+        queue.add(request)
 
         setContentView(mainPageBinding.root)
         mainPageBinding.addWine.setOnClickListener() {
