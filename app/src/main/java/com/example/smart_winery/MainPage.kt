@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import android.os.Handler
+import android.view.LayoutInflater
+import androidx.activity.result.contract.ActivityResultContracts
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Space
@@ -23,6 +25,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
 
+import com.example.smart_winery.ScanPage.Companion.startScanner
+import com.google.mlkit.vision.barcode.common.Barcode
 
 @GlideModule
 class MyGlide : AppGlideModule()
@@ -30,6 +34,12 @@ class MyGlide : AppGlideModule()
 
 class MainPage : AppCompatActivity() {
 
+    private val cameraPermission = android.Manifest.permission.CAMERA
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+            startScanner()
+        }
+    }
     val WineList1: MutableList<WineInfo> = mutableListOf()
     val WineList2: MutableList<WineInfo> = mutableListOf()
     val WineList3: MutableList<WineInfo> = mutableListOf()
@@ -55,6 +65,7 @@ class MainPage : AppCompatActivity() {
         WineList3.add(WineInfo(2,getDrawable(R.drawable.wine2)))
         WineList3.add(WineInfo(4,getDrawable(R.drawable.wine3)))
         lateinit var wineTemp:WineInfo
+
         val firstfloor = arrayListOf<ImageView>(
             mainPageBinding.btn11,
             mainPageBinding.btn12,
@@ -154,8 +165,9 @@ class MainPage : AppCompatActivity() {
 
         setContentView(mainPageBinding.root)
         mainPageBinding.addWine.setOnClickListener() {
-            val intent = Intent(this, ScanPage::class.java)
-            startActivity(intent)
+            requestCameraAndStartScanner()
+//            val intent = Intent(this, ScanPage::class.java)
+//            startActivity(intent)
         }
         mainPageBinding.settings.setOnClickListener(){
             val intent = Intent(this,SettingPage::class.java)
@@ -343,5 +355,60 @@ class MainPage : AppCompatActivity() {
         mainPageBinding.btn35.setOnClickListener(cellListener)
 
 
+    }
+
+    private fun requestCameraAndStartScanner() {
+        if (isPermissionGranted(cameraPermission)) {
+            startScanner()
+        } else {
+            requestCameraPermission()
+        }
+    }
+
+    private fun startScanner() {
+        startScanner(this) { barcodes ->
+            barcodes.forEach { barcode ->
+                when (barcode.valueType) {
+                    Barcode.TYPE_URL -> {
+                        val dialog = ScanPopup(this@MainPage,"URL",barcode.url.toString())
+                        dialog.show()
+//                        binding.textViewQrType.text = "URL"
+//                        binding.textViewQrContent.text = barcode.url.toString()
+                    }
+                    Barcode.TYPE_CONTACT_INFO -> {
+                        val dialog = ScanPopup(this@MainPage,"CONTACT",barcode.contactInfo.toString())
+                        dialog.show()
+//                        binding.textViewQrType.text = "Contact"
+//                        binding.textViewQrContent.text = barcode.contactInfo.toString()
+                    }
+                    else -> {
+                        val dialog = ScanPopup(this@MainPage,"Other",barcode.rawValue.toString())
+                        dialog.show()
+//                        val mDialogView = LayoutInflater.from(this).inflate(R.layout.scan_popup, null)
+//                        val mBuilder = AlertDialog.Builder(this)
+//                            .setView(mDialogView)
+//                            .setTitle("Result Form")
+//
+//                        mBuilder.show()
+//                        binding.textViewQrType.text = "Other"
+//                        binding.textViewQrContent.text = barcode.rawValue.toString()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun requestCameraPermission() {
+        when {
+            shouldShowRequestPermissionRationale(cameraPermission) -> {
+                cameraPermissionRequest(
+                    positive = { openPermissionSetting() }
+                )
+            }
+
+            else -> {
+                requestPermissionLauncher.launch(cameraPermission)
+            }
+        }
     }
 }
