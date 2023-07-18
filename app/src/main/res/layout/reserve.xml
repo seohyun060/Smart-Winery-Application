@@ -28,8 +28,10 @@ your wine to be served?"
         <EditText
             android:id="@+id/hourET"
             android:layout_width="50dp"
-            android:text="0"
+            android:text="00"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="30dp"
             android:layout_height="wrap_content"
             android:inputType="number"/>
 
@@ -49,7 +51,9 @@ your wine to be served?"
         <EditText
             android:id="@+id/minuteET"
             android:layout_width="50dp"
-            android:text="0"
+            android:text="00"
+            android:textStyle="bold"
+            android:textSize="30dp"
             android:gravity="center"
             android:layout_height="wrap_content"
             android:inputType="number"/>

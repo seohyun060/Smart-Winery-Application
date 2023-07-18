@@ -112,8 +112,8 @@ class MainPage : AppCompatActivity() {
 
         }
         mainPageBinding.mainLogo.setOnClickListener(){
-            reserveBinding.minuteET.setText("0")
-            reserveBinding.hourET.setText("0")
+            reserveBinding.minuteET.setText("00")
+            reserveBinding.hourET.setText("00")
             val reserveBuilder = AlertDialog.Builder(this)
                 .setView(reserveView)
             if(reserveView.getParent() !=null){
@@ -153,20 +153,20 @@ class MainPage : AppCompatActivity() {
             barcodes.forEach { barcode ->
                 when (barcode.valueType) {
                     Barcode.TYPE_URL -> {
-                        val scanPopupDialog = ScanPopup(this,"URL",barcode.url.toString())
-                        scanPopupDialog.show()
+                        val dialog = ScanPopup(this@MainPage,"URL",barcode.url.toString())
+                        dialog.show()
 //                        binding.textViewQrType.text = "URL"
 //                        binding.textViewQrContent.text = barcode.url.toString()
                     }
                     Barcode.TYPE_CONTACT_INFO -> {
-                        val scanPopupDialog = ScanPopup(this,"Contact",barcode.contactInfo.toString())
-                        scanPopupDialog.show()
+                        val dialog = ScanPopup(this@MainPage,"CONTACT",barcode.contactInfo.toString())
+                        dialog.show()
 //                        binding.textViewQrType.text = "Contact"
 //                        binding.textViewQrContent.text = barcode.contactInfo.toString()
                     }
                     else -> {
-                        val scanPopupDialog = ScanPopup(this,"Other",barcode.rawValue.toString())
-                        scanPopupDialog.show()
+                        val dialog = ScanPopup(this@MainPage,"Other",barcode.rawValue.toString())
+                        dialog.show()
 //                        val mDialogView = LayoutInflater.from(this).inflate(R.layout.scan_popup, null)
 //                        val mBuilder = AlertDialog.Builder(this)
 //                            .setView(mDialogView)
