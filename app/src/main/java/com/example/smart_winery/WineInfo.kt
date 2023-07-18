@@ -25,10 +25,9 @@ data class WineInfo(private val col:Int
     var Wine_Acid:Int?=acid
     var Wine_Body:Int?=body
     var Wine_Tannin:Int?=tannin
-    var Wine_Aromas:List<AromaInfo> = aromas
+    var Wine_Aromas:List<AromaInfo>? = aromas
     var Wine_Alcohol:String? = alcohol
     var Wine_Temp:Int?=temp
     var Wine_Type:String? = type
-    var Wine_Pairings:List<PairingInfo> = pairings
-
+    var Wine_Pairings:List<PairingInfo>? = pairings
 }

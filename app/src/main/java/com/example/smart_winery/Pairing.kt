@@ -10,5 +10,5 @@ data class PairingInfo (
     var Pairing_Id:String? = id
     var Pairing_category:String? = category
     var Pairing_image: String? = imgsrc
-    var Pairing_names:List<String> = pairing_names
+    var Pairing_names:List<String>? = pairing_names
 }
