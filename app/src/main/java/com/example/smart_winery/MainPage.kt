@@ -93,54 +93,63 @@ class MainPage : AppCompatActivity() {
             for ((index,i) in firstfloor.withIndex()){
 
                 for (j in 0 until floor1wines.length()){
-
                     val wine:JSONObject = floor1wines.getJSONObject(j)
                     if (wine.getInt("col") == index+1){
                         val floor1wine = wine.getJSONObject("wine_id")
-                         var aromaList:MutableList<AromaInfo> = mutableListOf()
-                         var pairingList:MutableList<PairingInfo> = mutableListOf()
+
+                        var aromaList:MutableList<AromaInfo> = mutableListOf()
+                        var pairingList:MutableList<PairingInfo> = mutableListOf()
+                        var wineAromas:JSONArray = JSONArray()
                         try{
-                            val wineAromas = floor1wine.getJSONArray("aroma")
-                            for (k in 0..wineAromas.length()) {
-                                lateinit var wineAroma: AromaInfo
-                                lateinit var nameList: MutableList<String>
-
-                                var aromaNames =
-                                    wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-
-                                wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("id")
-                                wineAroma.Aroma_category =
-                                    wineAromas.getJSONObject(k).getString("category")
-                                wineAroma.Aroma_image =
-                                    wineAromas.getJSONObject(k).getString("imgsrc")
-
-                                for (j in 0..aromaNames.length()) {
-                                    var aromaName: String = aromaNames.getString(j)
-                                    nameList.add(aromaName)
-                                }
-                                wineAroma.Aroma_names = nameList
-                                aromaList.add(wineAroma)
-                            }
+                            wineAromas = floor1wine.getJSONArray("aroma")
+                            Log.d("aromacheck1",wineAromas.toString())
+                            Log.d("aromacheck11",wineAromas.length().toString())
                         } catch (e:Exception){
 
                         }
+                        for (k in 0 until wineAromas.length()) {
+                            Log.d("aromacheck12", k.toString())
+                            var wineAroma = AromaInfo("","","", mutableListOf())
+                            var nameList: MutableList<String> = mutableListOf()
+                            var aromaNames =
+                                wineAromas.getJSONObject(k).getJSONArray("aroma_names")
+                            Log.d("aromacheck5", aromaNames.toString())
+                            wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
+                            Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
+                            wineAroma.Aroma_category =
+                                wineAromas.getJSONObject(k).getString("category")
+                            Log.d("aromacheck7", wineAroma.Aroma_category.toString())
+                            wineAroma.Aroma_image =
+                                wineAromas.getJSONObject(k).getString("imgsrc")
+                            Log.d("aromacheck8", wineAroma.Aroma_image.toString())
+                            Log.d("aromacheck10",aromaNames.toString())
+                            Log.d("aromacheck11",aromaNames.length().toString())
+                            for (j in 0 until aromaNames.length()) {
+                                Log.d("aromacheck9", j.toString())
+                                var aromaName: String = aromaNames.getString(j)
+                                nameList.add(aromaName)
+                            }
+                            wineAroma.Aroma_names = nameList
+                            aromaList.add(wineAroma)
+                        }
                         try {
                             val winePairings = floor1wine.getJSONArray("pairing")
-                            for (k in 0..winePairings.length()) {
-                                lateinit var winePairing: PairingInfo
-                                lateinit var nameList: MutableList<String>
+                            var winePairing = PairingInfo("","","", mutableListOf())
+                            var nameList: MutableList<String> = mutableListOf()
+                            for (k in 0 until winePairings.length()) {
+
 
                                 var pairingNames =
                                     winePairings.getJSONObject(k).getJSONArray("pairing_names")
 
                                 winePairing.Pairing_Id =
-                                    winePairings.getJSONObject(k).getString("id")
+                                    winePairings.getJSONObject(k).getString("_id")
                                 winePairing.Pairing_category =
                                     winePairings.getJSONObject(k).getString("category")
                                 winePairing.Pairing_image =
                                     winePairings.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0..pairingNames.length()) {
+                                for (j in 0 until pairingNames.length()) {
                                     var pairingName: String = pairingNames.getString(j)
                                     nameList.add(pairingName)
                                 }
@@ -184,22 +193,24 @@ class MainPage : AppCompatActivity() {
                         val floor2wine = wine.getJSONObject("wine_id")
                         var aromaList:MutableList<AromaInfo> = mutableListOf()
                         var pairingList:MutableList<PairingInfo> = mutableListOf()
+
                         try{
                             val wineAromas = floor2wine.getJSONArray("aroma")
-                            for (k in 0..wineAromas.length()) {
-                                lateinit var wineAroma: AromaInfo
-                                lateinit var nameList: MutableList<String>
+                            lateinit var wineAroma: AromaInfo
+                            lateinit var nameList: MutableList<String>
+
+                            for (k in 0 until wineAromas.length()) {
 
                                 var aromaNames =
                                     wineAromas.getJSONObject(k).getJSONArray("aroma_names")
 
-                                wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("id")
+                                wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0..aromaNames.length()) {
+                                for (j in 0 until aromaNames.length()) {
                                     var aromaName: String = aromaNames.getString(j)
                                     nameList.add(aromaName)
                                 }
@@ -211,21 +222,22 @@ class MainPage : AppCompatActivity() {
                         }
                         try {
                             val winePairings = floor2wine.getJSONArray("pairing")
-                            for (k in 0..winePairings.length()) {
-                                lateinit var winePairing: PairingInfo
-                                lateinit var nameList: MutableList<String>
+                            lateinit var winePairing: PairingInfo
+                            lateinit var nameList: MutableList<String>
+                            for (k in 0 until winePairings.length()) {
+
 
                                 var pairingNames =
                                     winePairings.getJSONObject(k).getJSONArray("pairing_names")
 
                                 winePairing.Pairing_Id =
-                                    winePairings.getJSONObject(k).getString("id")
+                                    winePairings.getJSONObject(k).getString("_id")
                                 winePairing.Pairing_category =
                                     winePairings.getJSONObject(k).getString("category")
                                 winePairing.Pairing_image =
                                     winePairings.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0..pairingNames.length()) {
+                                for (j in 0 until pairingNames.length()) {
                                     var pairingName: String = pairingNames.getString(j)
                                     nameList.add(pairingName)
                                 }
@@ -271,20 +283,21 @@ class MainPage : AppCompatActivity() {
                         var pairingList:MutableList<PairingInfo> = mutableListOf()
                         try{
                             val wineAromas = floor3wine.getJSONArray("aroma")
-                            for (k in 0..wineAromas.length()) {
-                                lateinit var wineAroma: AromaInfo
-                                lateinit var nameList: MutableList<String>
+                            lateinit var wineAroma: AromaInfo
+                            lateinit var nameList: MutableList<String>
+                            for (k in 0 until wineAromas.length()) {
+
 
                                 var aromaNames =
                                     wineAromas.getJSONObject(k).getJSONArray("aroma_names")
 
-                                wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("id")
+                                wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0..aromaNames.length()) {
+                                for (j in 0 until aromaNames.length()) {
                                     var aromaName: String = aromaNames.getString(j)
                                     nameList.add(aromaName)
                                 }
@@ -296,21 +309,22 @@ class MainPage : AppCompatActivity() {
                         }
                         try {
                             val winePairings = floor3wine.getJSONArray("pairing")
-                            for (k in 0..winePairings.length()) {
-                                lateinit var winePairing: PairingInfo
-                                lateinit var nameList: MutableList<String>
+                            lateinit var winePairing: PairingInfo
+                            lateinit var nameList: MutableList<String>
+                            for (k in 0 until winePairings.length()) {
+
 
                                 var pairingNames =
                                     winePairings.getJSONObject(k).getJSONArray("pairing_names")
 
                                 winePairing.Pairing_Id =
-                                    winePairings.getJSONObject(k).getString("id")
+                                    winePairings.getJSONObject(k).getString("_id")
                                 winePairing.Pairing_category =
                                     winePairings.getJSONObject(k).getString("category")
                                 winePairing.Pairing_image =
                                     winePairings.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0..pairingNames.length()) {
+                                for (j in 0 until pairingNames.length()) {
                                     var pairingName: String = pairingNames.getString(j)
                                     nameList.add(pairingName)
                                 }
@@ -469,7 +483,9 @@ class MainPage : AppCompatActivity() {
 //                                            WineList1[index].Wine_location = clickedWineIndex
 //                                        }
 //                                    }
+                                Log.d("CellListener14",WineList1.size.toString())
                                 WineList1.add(wineTemp)
+                                Log.d("CellListener15",WineList1.size.toString())
                                 //Log.d("CellListener8",WineList1[1].Wine_location.toString())
 
                             }
