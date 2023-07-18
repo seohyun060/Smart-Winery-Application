@@ -34,9 +34,7 @@ class MyGlide : AppGlideModule()
 
 class MainPage : AppCompatActivity() {
 
-    private lateinit var binding: MainPageBinding
     private val cameraPermission = android.Manifest.permission.CAMERA
-
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) {
             startScanner()
@@ -55,7 +53,6 @@ class MainPage : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         val mainPageBinding = MainPageBinding.inflate(layoutInflater)
-        binding = MainPageBinding.inflate(layoutInflater)
         val reserveBinding = ReserveBinding.inflate(layoutInflater)
         val reserveView = reserveBinding.root
         val btnIdNumber = mainPageBinding.btn11.id
