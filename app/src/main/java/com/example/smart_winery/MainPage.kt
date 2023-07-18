@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
-
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -77,22 +76,15 @@ class MainPage : AppCompatActivity() {
             mainPageBinding.btn34,
             mainPageBinding.btn35
         )
-
         var floor1:JSONObject = JSONObject()
         var floor2:JSONObject = JSONObject()
         var floor3:JSONObject = JSONObject()
-
-        val wineInfo = View.OnClickListener {
-
-        }
-
 
         fun displayWine(){
 
             val floor1wine:JSONArray = floor1.getJSONArray("cell_ids")
             val floor2wine:JSONArray = floor2.getJSONArray("cell_ids")
             val floor3wine:JSONArray = floor3.getJSONArray("cell_ids")
-
 
             for ((index,i) in firstfloor.withIndex()){
                 for (j in 0 until floor1wine.length()){
@@ -106,15 +98,6 @@ class MainPage : AppCompatActivity() {
                         }catch (e:Exception){
                             Log.e("Debug1","No IMG!")
                         }
-                    }
-                }
-								for (w in WineList1){
-                    if (w.Wine_location == index){
-                        i.background = w.Wine_Img
-                        break
-                    }
-                    else {
-                        i.background = getDrawable(R.drawable.blank_wine)
                     }
                 }
                 i.clipToOutline = true
@@ -133,15 +116,6 @@ class MainPage : AppCompatActivity() {
                         }
                     }
                 }
-								for (w in WineList2){
-                    if (w.Wine_location == index){
-                        i.background = w.Wine_Img
-                        break
-                    }
-                    else {
-                        i.background = getDrawable(R.drawable.blank_wine)
-                    }
-                }
                 i.clipToOutline = true
             }
             for ((index,i) in thirdfloor.withIndex()){
@@ -158,19 +132,9 @@ class MainPage : AppCompatActivity() {
                         }
                     }
                 }
-								for (w in WineList3){
-                    if (w.Wine_location == index){
-                        i.background = w.Wine_Img
-                        break
-                    }
-                    else {
-                        i.background = getDrawable(R.drawable.blank_wine)
-                    }
-                }
                 i.clipToOutline = true
-						}
+            }
         }
-        displayWine()
 
         val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
 //        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
@@ -198,7 +162,6 @@ class MainPage : AppCompatActivity() {
             startActivity(intent)
 
         }
-
         mainPageBinding.mainSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // On 할 때
@@ -238,11 +201,9 @@ class MainPage : AppCompatActivity() {
         }
 
 
-
-
         val cellListener = object : View.OnClickListener {
             override fun onClick (v:View?){
-               
+
                 if (!isInfo) {
 
                     var clickedCellIndex = v?.id.toString().toInt() - btnIdNumber
@@ -274,38 +235,54 @@ class MainPage : AppCompatActivity() {
                     }
                     //Log.d("CellListener9",spaceVacant.toString())
                     if (spaceVacant) {
-                            //move 에서 빈칸
+                        //move 에서 빈칸
 
-                            if(isWineSelected){
-                                //move에서 빈칸이고 와인 선택됨
+                        if(isWineSelected){
+                            //move에서 빈칸이고 와인 선택됨
 
 
-                                isWineSelected = false
-                                //Log.d("CellListener6",isWineSelected.toString())
-                                wineTemp.Wine_location = clickedWineIndex
+                            isWineSelected = false
+                            //Log.d("CellListener6",isWineSelected.toString())
+                            wineTemp.Wine_location = clickedWineIndex
 
-                                //Log.d("CellListener7",wineTemp.Wine_location.toString())
+                            //Log.d("CellListener7",wineTemp.Wine_location.toString())
 
-                                if (clickedCellIndex < 5) {
-                                    WineList1.add(wineTemp)
-                                    //Log.d("CellListener8",WineList1[1].Wine_location.toString())
-
-                                }
-                                else if (clickedCellIndex < 10) {
-                                    WineList2.add(wineTemp)
-                                }
-                                else {
-                                    WineList3.add(wineTemp)
-                                }
-
-                                displayWine()
-
-                                //Log.d("CellListener",WineList1[0].Wine_location.toString())
-                                //Log.d("CellListener",WineList1[1].Wine_location.toString())
-
+                            if (clickedCellIndex < 5) {
+//                                    for ((index,w) in WineList1.withIndex()){
+//                                        if (w.Wine_location == wineTemp.Wine_location){
+//                                            WineList1[index].Wine_location = clickedWineIndex
+//                                        }
+//                                    }
+                                WineList1.add(wineTemp)
+                                //Log.d("CellListener8",WineList1[1].Wine_location.toString())
 
                             }
+                            else if (clickedCellIndex < 10) {
+//                                    for ((index,w) in WineList2.withIndex()){
+//                                        if (w.Wine_location == wineTemp.Wine_location){
+//                                            WineList2[index].Wine_location = clickedWineIndex
+//                                        }
+//                                    }
+                                WineList2.add(wineTemp)
+                            }
+                            else {
+//                                    for ((index,w) in WineList3.withIndex()){
+//                                        if (w.Wine_location == wineTemp.Wine_location){
+//                                            WineList3[index].Wine_location = clickedWineIndex
+//                                        }
+//                                    }
+                                WineList3.add(wineTemp)
+                            }
+                            displayWine()
+
+
+
+                            Log.d("CellListener",WineList1.toString())
+                            //Log.d("CellListener",WineList1[1].Wine_location.toString())
+
+
                         }
+                    }
                     else {
                         //move에서 와인칸
                         if (!isWineSelected){
@@ -317,8 +294,7 @@ class MainPage : AppCompatActivity() {
                             if (clickedCellIndex < 5) { // 1층
                                 for ((index,w) in WineList1.withIndex()) {
                                     if (w.Wine_location == clickedWineIndex){
-
-                                        wineTemp = w
+                                        wineTemp = w.clone()
                                         Log.d("CellListener",WineList1[index].Wine_location.toString())
                                         WineList1.removeAt(index)
 
@@ -332,7 +308,7 @@ class MainPage : AppCompatActivity() {
                                 for ((index,w) in WineList2.withIndex()) {
                                     if (w.Wine_location == clickedWineIndex){
                                         Log.d("CellListener12",clickedWineIndex.toString())
-                                        wineTemp = w
+                                        wineTemp = w.clone()
                                         Log.d("CellListener13",wineTemp.Wine_location.toString())
                                         WineList2.removeAt(index)
                                         Log.d("CellListener14",wineTemp.Wine_location.toString())
@@ -342,7 +318,7 @@ class MainPage : AppCompatActivity() {
                             else {
                                 for ((index,w) in WineList3.withIndex()) {
                                     if (w.Wine_location == clickedWineIndex){
-                                        wineTemp = w
+                                        wineTemp = w.clone()
                                         WineList3.removeAt(index)
                                     }
                                 }
