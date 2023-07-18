@@ -166,10 +166,10 @@ class MainPage : AppCompatActivity() {
             if (isChecked) {
                 // On 할 때
                 isInfo=false
-                mainPageBinding.infoMove.setText("Move     ")
+                mainPageBinding.infoMove.setText("Move")
             } else {
                 isInfo=true
-                mainPageBinding.infoMove.setText("Info     ")
+                mainPageBinding.infoMove.setText("Info")
 
             }
         }
@@ -236,17 +236,12 @@ class MainPage : AppCompatActivity() {
                     //Log.d("CellListener9",spaceVacant.toString())
                     if (spaceVacant) {
                         //move 에서 빈칸
-
                         if(isWineSelected){
                             //move에서 빈칸이고 와인 선택됨
-
-
                             isWineSelected = false
                             //Log.d("CellListener6",isWineSelected.toString())
                             wineTemp.Wine_location = clickedWineIndex
-
                             //Log.d("CellListener7",wineTemp.Wine_location.toString())
-
                             if (clickedCellIndex < 5) {
 //                                    for ((index,w) in WineList1.withIndex()){
 //                                        if (w.Wine_location == wineTemp.Wine_location){
