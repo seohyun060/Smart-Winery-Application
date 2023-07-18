@@ -10,5 +10,5 @@ data class AromaInfo (
     var Aroma_Id:String? = id
     var Aroma_category:String? = category
     var Aroma_image: String? = imgsrc
-    var Aroma_names:List<String> = aroma_names
+    var Aroma_names:List<String>? = aroma_names
 }

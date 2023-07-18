@@ -13,7 +13,7 @@ data class WineInfo(private val col:Int
                     ,private val alcohol: String
                     ,private val temp:Int
                     ,private val type:String
-                    ,private val pairings:List<Pairing>
+                    ,private val pairings:List<PairingInfo>
 ) :Cloneable {
     public override fun clone(): WineInfo = super.clone() as WineInfo
     var Wine_Location:Int? = col
@@ -25,10 +25,10 @@ data class WineInfo(private val col:Int
     var Wine_Acid:Int?=acid
     var Wine_Body:Int?=body
     var Wine_Tannin:Int?=tannin
-    var Wine_Aromas:List<AromaInfo> = aromas
+    var Wine_Aromas:List<AromaInfo>? = aromas
     var Wine_Alcohol:String? = alcohol
     var Wine_Temp:Int?=temp
     var Wine_Type:String? = type
-    var Wine_Pairings:List<Pairing> = pairings
+    var Wine_Pairings:List<PairingInfo>? = pairings
 
 }
