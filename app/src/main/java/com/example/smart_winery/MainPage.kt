@@ -61,6 +61,9 @@ class MainPage : AppCompatActivity() {
         var isInfo = true
         var isWineSelected = false
         lateinit var wineTemp:WineInfo
+        var floor3type = 1
+        var floor2type = 2
+        var floor1type = 3
 
         val firstfloor = arrayListOf<ImageView>(
             mainPageBinding.btn11,
@@ -631,8 +634,27 @@ class MainPage : AppCompatActivity() {
                         }
                     }
                     if (spaceVacant) {
+                        var clickedFloor:Int = clickedCellIndex / 5
+                        Log.d("clickedF",clickedFloor.toString())
+                        Log.d("clickedF2",wineTemp.Wine_Floor_Type.toString())
+                        var checkFloorWine = false
+                        if (clickedFloor == 0){
+                            if (floor1type == 0 || floor1type == wineTemp.Wine_Floor_Type){
+                                checkFloorWine = true
+                            }
+                        }
+                        else if (clickedFloor == 1) {
+                            if (floor2type == 0 || floor2type == wineTemp.Wine_Floor_Type){
+                                checkFloorWine = true
+                            }
+                        }
+                        else {
+                            if (floor3type == 0 || floor3type == wineTemp.Wine_Floor_Type){
+                                checkFloorWine = true
+                            }
+                        }
                         //move 에서 빈칸
-                        if(isWineSelected){
+                        if(isWineSelected && checkFloorWine){
                             //move에서 빈칸이고 와인 선택됨
                             isWineSelected = false
                             wineTemp.Wine_Location = clickedWineIndex
@@ -652,7 +674,7 @@ class MainPage : AppCompatActivity() {
                         //move에서 와인칸
                         if (!isWineSelected){
                             //아직 옮길 와인 선택 안됨
-
+                            Log.d("sibal",isWineSelected.toString())
                             isWineSelected = true
                             if (clickedCellIndex < 5) { // 1층
                                 for ((index,w) in WineList1.withIndex()) {

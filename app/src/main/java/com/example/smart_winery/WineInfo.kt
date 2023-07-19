@@ -1,6 +1,6 @@
 package com.example.smart_winery
 
-data class WineInfo(private val col:Int
+class WineInfo(private val col:Int
                     ,private val id:String
                     ,private val eng_name:String
                     ,private val wine_img: String
@@ -28,6 +28,25 @@ data class WineInfo(private val col:Int
     var Wine_Aromas:MutableList<AromaInfo>? = aromas
     var Wine_Alcohol:String? = alcohol
     var Wine_Temp:Int?=temp
-    var Wine_Type:String? = type
+    var Wine_Type:String = type
     var Wine_Pairings:MutableList<PairingInfo>? = pairings
+    var Wine_Floor_Type = 0
+
+    fun setWineFloorType(){
+        if (Wine_Type == "Red" || Wine_Type == "Fortified"){
+            Wine_Floor_Type = 1
+        }
+        else if (Wine_Type=="White" || Wine_Type == "Rose"){
+            Wine_Floor_Type = 2
+        }
+        else {
+            Wine_Floor_Type =3
+        }
+    }
+    init {
+        setWineFloorType()
+    }
+
+
 }
+
