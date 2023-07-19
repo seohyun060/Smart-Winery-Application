@@ -106,71 +106,48 @@ class MainPage : AppCompatActivity() {
                             var aromaList: MutableList<AromaInfo> = mutableListOf()
                             var pairingList: MutableList<PairingInfo> = mutableListOf()
                             var wineAromas: JSONArray = JSONArray()
+                            var winePairings: JSONArray = JSONArray()
                             try {
                                 wineAromas = floor1wine.getJSONArray("aroma")
-                                Log.d("aromacheck1", wineAromas.toString())
-                                Log.d("aromacheck11", wineAromas.length().toString())
-                            } catch (e: Exception) {
-
-                            }
+                            } catch (e: Exception) { }
+                            try{
+                                winePairings = floor1wine.getJSONArray("pairing")
+                            } catch (e:Exception){ }
                             for (k in 0 until wineAromas.length()) {
-                                Log.d("aromacheck12", k.toString())
                                 var wineAroma = AromaInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
-                                var aromaNames =
-                                    wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-                                Log.d("aromacheck5", aromaNames.toString())
+                                var aromaNames = wineAromas.getJSONObject(k).getJSONArray("aroma_names")
                                 wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
-                                Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
-                                Log.d("aromacheck7", wineAroma.Aroma_category.toString())
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
-                                Log.d("aromacheck8", wineAroma.Aroma_image.toString())
-                                Log.d("aromacheck10", aromaNames.toString())
-                                Log.d("aromacheck11", aromaNames.length().toString())
-                                for (j in 0 until aromaNames.length()) {
-                                    Log.d("aromacheck9", j.toString())
-                                    var aromaName: String = aromaNames.getString(j)
+                                for (l in 0 until aromaNames.length()) {
+                                    var aromaName: String = aromaNames.getString(l)
                                     nameList.add(aromaName)
                                 }
                                 wineAroma.Aroma_names = nameList
                                 aromaList.add(wineAroma)
                             }
-                            try {
-                                val winePairings = floor1wine.getJSONArray("pairing")
+                            for (k in 0 until winePairings.length()) {
                                 var winePairing = PairingInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
-                                for (k in 0 until winePairings.length()) {
-
-
-                                    var pairingNames =
-                                        winePairings.getJSONObject(k).getJSONArray("pairing_names")
-
-                                    winePairing.Pairing_Id =
-                                        winePairings.getJSONObject(k).getString("_id")
-                                    winePairing.Pairing_category =
-                                        winePairings.getJSONObject(k).getString("category")
-                                    winePairing.Pairing_image =
-                                        winePairings.getJSONObject(k).getString("imgsrc")
-
-                                    for (j in 0 until pairingNames.length()) {
-                                        var pairingName: String = pairingNames.getString(j)
-                                        nameList.add(pairingName)
-                                    }
-                                    winePairing.Pairing_names = nameList
-                                    pairingList.add(winePairing)
+                                var pairingNames = winePairings.getJSONObject(k).getJSONArray("pairing_names")
+                                winePairing.Pairing_Id = winePairings.getJSONObject(k).getString("_id")
+                                winePairing.Pairing_category = winePairings.getJSONObject(k).getString("category")
+                                winePairing.Pairing_image = winePairings.getJSONObject(k).getString("imgsrc")
+                                for (l in 0 until pairingNames.length()) {
+                                    var pairingName: String = pairingNames.getString(l)
+                                    nameList.add(pairingName)
                                 }
-                            } catch (e: Exception) {
-
+                                winePairing.Pairing_names = nameList
+                                pairingList.add(winePairing)
                             }
                             try {
-                                GlideApp.with(this)
+                                GlideApp.with(this).asBitmap()
                                     .load(floor1wine.getString("imgsrc"))
                                     .into(i)
-                            } catch (e: Exception) {
-                            }
+                            } catch (e: Exception) { }
                             WineList1.add(
                                 WineInfo(wine.getInt("row"),
                                     wine.getInt("col") - 1,
@@ -189,9 +166,7 @@ class MainPage : AppCompatActivity() {
                                     pairingList
                                 )
                             )
-                        }catch (e:Exception){
-
-                        }
+                        }catch (e:Exception){ }
                     }
                 }
                 i.clipToOutline = true
@@ -205,71 +180,48 @@ class MainPage : AppCompatActivity() {
                             var aromaList: MutableList<AromaInfo> = mutableListOf()
                             var pairingList: MutableList<PairingInfo> = mutableListOf()
                             var wineAromas: JSONArray = JSONArray()
+                            var winePairings: JSONArray = JSONArray()
                             try {
                                 wineAromas = floor2wine.getJSONArray("aroma")
-                                Log.d("aromacheck1", wineAromas.toString())
-                                Log.d("aromacheck11", wineAromas.length().toString())
-                            } catch (e: Exception) {
-
-                            }
+                            } catch (e: Exception) { }
+                            try{
+                                winePairings = floor2wine.getJSONArray("pairing")
+                            } catch (e:Exception){ }
                             for (k in 0 until wineAromas.length()) {
-                                Log.d("aromacheck12", k.toString())
                                 var wineAroma = AromaInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
-                                var aromaNames =
-                                    wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-                                Log.d("aromacheck5", aromaNames.toString())
+                                var aromaNames = wineAromas.getJSONObject(k).getJSONArray("aroma_names")
                                 wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
-                                Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
-                                Log.d("aromacheck7", wineAroma.Aroma_category.toString())
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
-                                Log.d("aromacheck8", wineAroma.Aroma_image.toString())
-                                Log.d("aromacheck10", aromaNames.toString())
-                                Log.d("aromacheck11", aromaNames.length().toString())
-                                for (j in 0 until aromaNames.length()) {
-                                    Log.d("aromacheck9", j.toString())
-                                    var aromaName: String = aromaNames.getString(j)
+                                for (l in 0 until aromaNames.length()) {
+                                    var aromaName: String = aromaNames.getString(l)
                                     nameList.add(aromaName)
                                 }
                                 wineAroma.Aroma_names = nameList
                                 aromaList.add(wineAroma)
                             }
-                            try {
-                                val winePairings = floor2wine.getJSONArray("pairing")
+                            for (k in 0 until winePairings.length()) {
                                 var winePairing = PairingInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
-                                for (k in 0 until winePairings.length()) {
-
-
-                                    var pairingNames =
-                                        winePairings.getJSONObject(k).getJSONArray("pairing_names")
-
-                                    winePairing.Pairing_Id =
-                                        winePairings.getJSONObject(k).getString("_id")
-                                    winePairing.Pairing_category =
-                                        winePairings.getJSONObject(k).getString("category")
-                                    winePairing.Pairing_image =
-                                        winePairings.getJSONObject(k).getString("imgsrc")
-
-                                    for (j in 0 until pairingNames.length()) {
-                                        var pairingName: String = pairingNames.getString(j)
-                                        nameList.add(pairingName)
-                                    }
-                                    winePairing.Pairing_names = nameList
-                                    pairingList.add(winePairing)
+                                var pairingNames = winePairings.getJSONObject(k).getJSONArray("pairing_names")
+                                winePairing.Pairing_Id = winePairings.getJSONObject(k).getString("_id")
+                                winePairing.Pairing_category = winePairings.getJSONObject(k).getString("category")
+                                winePairing.Pairing_image = winePairings.getJSONObject(k).getString("imgsrc")
+                                for (l in 0 until pairingNames.length()) {
+                                    var pairingName: String = pairingNames.getString(l)
+                                    nameList.add(pairingName)
                                 }
-                            } catch (e: Exception) {
-
+                                winePairing.Pairing_names = nameList
+                                pairingList.add(winePairing)
                             }
                             try {
-                                GlideApp.with(this)
+                                GlideApp.with(this).asBitmap()
                                     .load(floor2wine.getString("imgsrc"))
                                     .into(i)
-                            } catch (e: Exception) {
-                            }
+                            } catch (e: Exception) { }
                             WineList2.add(
                                 WineInfo(wine.getInt("row"),
                                     wine.getInt("col") - 1,
@@ -288,9 +240,7 @@ class MainPage : AppCompatActivity() {
                                     pairingList
                                 )
                             )
-                        }catch (e:Exception){
-
-                        }
+                        }catch (e:Exception){ }
                     }
                 }
                 i.clipToOutline = true
@@ -304,71 +254,48 @@ class MainPage : AppCompatActivity() {
                             var aromaList: MutableList<AromaInfo> = mutableListOf()
                             var pairingList: MutableList<PairingInfo> = mutableListOf()
                             var wineAromas: JSONArray = JSONArray()
+                            var winePairings: JSONArray = JSONArray()
                             try {
                                 wineAromas = floor3wine.getJSONArray("aroma")
-                                Log.d("aromacheck1", wineAromas.toString())
-                                Log.d("aromacheck11", wineAromas.length().toString())
-                            } catch (e: Exception) {
-
-                            }
+                            } catch (e: Exception) { }
+                            try{
+                                winePairings = floor3wine.getJSONArray("pairing")
+                            } catch (e:Exception){ }
                             for (k in 0 until wineAromas.length()) {
-                                Log.d("aromacheck12", k.toString())
                                 var wineAroma = AromaInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
-                                var aromaNames =
-                                    wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-                                Log.d("aromacheck5", aromaNames.toString())
+                                var aromaNames = wineAromas.getJSONObject(k).getJSONArray("aroma_names")
                                 wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
-                                Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
-                                Log.d("aromacheck7", wineAroma.Aroma_category.toString())
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
-                                Log.d("aromacheck8", wineAroma.Aroma_image.toString())
-                                Log.d("aromacheck10", aromaNames.toString())
-                                Log.d("aromacheck11", aromaNames.length().toString())
-                                for (j in 0 until aromaNames.length()) {
-                                    Log.d("aromacheck9", j.toString())
-                                    var aromaName: String = aromaNames.getString(j)
+                                for (l in 0 until aromaNames.length()) {
+                                    var aromaName: String = aromaNames.getString(l)
                                     nameList.add(aromaName)
                                 }
                                 wineAroma.Aroma_names = nameList
                                 aromaList.add(wineAroma)
                             }
-                            try {
-                                val winePairings = floor3wine.getJSONArray("pairing")
+                            for (k in 0 until winePairings.length()) {
                                 var winePairing = PairingInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
-                                for (k in 0 until winePairings.length()) {
-
-
-                                    var pairingNames =
-                                        winePairings.getJSONObject(k).getJSONArray("pairing_names")
-
-                                    winePairing.Pairing_Id =
-                                        winePairings.getJSONObject(k).getString("_id")
-                                    winePairing.Pairing_category =
-                                        winePairings.getJSONObject(k).getString("category")
-                                    winePairing.Pairing_image =
-                                        winePairings.getJSONObject(k).getString("imgsrc")
-
-                                    for (j in 0 until pairingNames.length()) {
-                                        var pairingName: String = pairingNames.getString(j)
-                                        nameList.add(pairingName)
-                                    }
-                                    winePairing.Pairing_names = nameList
-                                    pairingList.add(winePairing)
+                                var pairingNames = winePairings.getJSONObject(k).getJSONArray("pairing_names")
+                                winePairing.Pairing_Id = winePairings.getJSONObject(k).getString("_id")
+                                winePairing.Pairing_category = winePairings.getJSONObject(k).getString("category")
+                                winePairing.Pairing_image = winePairings.getJSONObject(k).getString("imgsrc")
+                                for (l in 0 until pairingNames.length()) {
+                                    var pairingName: String = pairingNames.getString(l)
+                                    nameList.add(pairingName)
                                 }
-                            } catch (e: Exception) {
-
+                                winePairing.Pairing_names = nameList
+                                pairingList.add(winePairing)
                             }
                             try {
-                                GlideApp.with(this)
+                                GlideApp.with(this).asBitmap()
                                     .load(floor3wine.getString("imgsrc"))
                                     .into(i)
-                            } catch (e: Exception) {
-                            }
+                            } catch (e: Exception) { }
                             WineList3.add(
                                 WineInfo(wine.getInt("row"),
                                     wine.getInt("col") - 1,
@@ -387,9 +314,7 @@ class MainPage : AppCompatActivity() {
                                     pairingList
                                 )
                             )
-                        }catch (e:Exception){
-
-                        }
+                        }catch (e:Exception){ }
                     }
                 }
                 i.clipToOutline = true
@@ -442,7 +367,7 @@ class MainPage : AppCompatActivity() {
             val wineInfoBuilder = AlertDialog.Builder(this)
                 .setView(wineInfoView)
             wineInfoBinding.scanName.text = w.Wine_Name
-            GlideApp.with(this)
+            GlideApp.with(this).asBitmap()
                 .load(w.Wine_Image)
                 .into(wineInfoBinding.scanImage)
             when (w.Wine_Sweet) {
@@ -475,67 +400,78 @@ class MainPage : AppCompatActivity() {
             }
 
             Log.i("wine_",w.toString())
-            Log.i("wine_aromas",w.Wine_Aromas.toString())
-            Log.i("wine_pairings",w.Wine_Pairings.toString())
+            Log.i("wine_aromas", w.Wine_Aromas?.size.toString())
+            Log.i("wine_pairings",w.Wine_Pairings?.size.toString())
 
             if (w.Wine_Aromas?.isEmpty() == true){
                 wineInfoBinding.aromaContainer.visibility = View.GONE
             }
             else {
+                wineInfoBinding.aromaContainer.visibility = View.VISIBLE
                 when (w.Wine_Aromas?.size){
                     1 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![0].Aroma_image)
                             .into(wineInfoBinding.aroma1img)
                         wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![0].Aroma_names?.joinToString()
+                        wineInfoBinding.aroma1.visibility = View.VISIBLE
                         wineInfoBinding.aroma2.visibility = View.GONE
                         wineInfoBinding.aroma3.visibility = View.GONE
                         wineInfoBinding.aroma4.visibility = View.GONE
                     }
                     2 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![0].Aroma_image)
                             .into(wineInfoBinding.aroma1img)
                         wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![0].Aroma_names?.joinToString()
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![1].Aroma_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![1].Aroma_names?.joinToString()
+                            .into(wineInfoBinding.aroma2img)
+                        wineInfoBinding.aroma2txt.text = w.Wine_Aromas!![1].Aroma_names?.joinToString()
+                        wineInfoBinding.aroma1.visibility = View.VISIBLE
+                        wineInfoBinding.aroma2.visibility = View.VISIBLE
                         wineInfoBinding.aroma3.visibility = View.GONE
                         wineInfoBinding.aroma4.visibility = View.GONE
                     }
                     3 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![0].Aroma_image)
                             .into(wineInfoBinding.aroma1img)
                         wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![0].Aroma_names?.joinToString()
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![1].Aroma_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![1].Aroma_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.aroma2img)
+                        wineInfoBinding.aroma2txt.text = w.Wine_Aromas!![1].Aroma_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![2].Aroma_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![2].Aroma_names?.joinToString()
+                            .into(wineInfoBinding.aroma3img)
+                        wineInfoBinding.aroma3txt.text = w.Wine_Aromas!![2].Aroma_names?.joinToString()
+                        wineInfoBinding.aroma1.visibility = View.VISIBLE
+                        wineInfoBinding.aroma2.visibility = View.VISIBLE
+                        wineInfoBinding.aroma3.visibility = View.VISIBLE
                         wineInfoBinding.aroma4.visibility = View.GONE
                     }
                     4 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![0].Aroma_image)
                             .into(wineInfoBinding.aroma1img)
                         wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![0].Aroma_names?.joinToString()
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![1].Aroma_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![1].Aroma_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.aroma2img)
+                        wineInfoBinding.aroma2txt.text = w.Wine_Aromas!![1].Aroma_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![2].Aroma_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![2].Aroma_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.aroma3img)
+                        wineInfoBinding.aroma3txt.text = w.Wine_Aromas!![2].Aroma_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Aromas!![3].Aroma_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![3].Aroma_names?.joinToString()
+                            .into(wineInfoBinding.aroma4img)
+                        wineInfoBinding.aroma4txt.text = w.Wine_Aromas!![3].Aroma_names?.joinToString()
+                        wineInfoBinding.aroma1.visibility = View.VISIBLE
+                        wineInfoBinding.aroma2.visibility = View.VISIBLE
+                        wineInfoBinding.aroma3.visibility = View.VISIBLE
+                        wineInfoBinding.aroma4.visibility = View.VISIBLE
                     }
                 }
             }
@@ -543,60 +479,74 @@ class MainPage : AppCompatActivity() {
                 wineInfoBinding.pairingContainer.visibility = View.GONE
             }
             else {
+                wineInfoBinding.pairingContainer.visibility = View.VISIBLE
                 when (w.Wine_Pairings?.size){
                     1 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![0].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
-                        wineInfoBinding.aroma2.visibility = View.GONE
-                        wineInfoBinding.aroma3.visibility = View.GONE
-                        wineInfoBinding.aroma4.visibility = View.GONE
+                            .into(wineInfoBinding.pair1img)
+                        wineInfoBinding.pair1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
+                        wineInfoBinding.pair1.visibility = View.VISIBLE
+                        wineInfoBinding.pair2.visibility = View.GONE
+                        wineInfoBinding.pair3.visibility = View.GONE
+                        wineInfoBinding.pair4.visibility = View.GONE
                     }
                     2 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![0].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.pair1img)
+                        wineInfoBinding.pair1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![1].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![1].Pairing_names?.joinToString()
-                        wineInfoBinding.aroma3.visibility = View.GONE
-                        wineInfoBinding.aroma4.visibility = View.GONE
+                            .into(wineInfoBinding.pair2img)
+                        wineInfoBinding.pair2txt.text = w.Wine_Pairings!![1].Pairing_names?.joinToString()
+                        wineInfoBinding.pair1.visibility = View.VISIBLE
+                        wineInfoBinding.pair2.visibility = View.VISIBLE
+                        wineInfoBinding.pair3.visibility = View.GONE
+                        wineInfoBinding.pair4.visibility = View.GONE
                     }
                     3 -> {
                         GlideApp.with(this)
+                            .asBitmap()
                             .load(w.Wine_Pairings!![0].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
+                            .into(wineInfoBinding.pair1img)
+                        wineInfoBinding.pair1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
                         GlideApp.with(this)
+                            .asBitmap()
                             .load(w.Wine_Pairings!![1].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![1].Pairing_names?.joinToString()
+                            .into(wineInfoBinding.pair2img)
+                        wineInfoBinding.pair2txt.text = w.Wine_Pairings!![1].Pairing_names?.joinToString()
                         GlideApp.with(this)
+                            .asBitmap()
                             .load(w.Wine_Pairings!![2].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![2].Pairing_names?.joinToString()
-                        wineInfoBinding.aroma4.visibility = View.GONE
+                            .into(wineInfoBinding.pair3img)
+                        wineInfoBinding.pair3txt.text = w.Wine_Pairings!![2].Pairing_names?.joinToString()
+                        wineInfoBinding.pair1.visibility = View.VISIBLE
+                        wineInfoBinding.pair2.visibility = View.VISIBLE
+                        wineInfoBinding.pair3.visibility = View.VISIBLE
+                        wineInfoBinding.pair4.visibility = View.GONE
                     }
                     4 -> {
-                        GlideApp.with(this)
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![0].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.pair1img)
+                        wineInfoBinding.pair1txt.text = w.Wine_Pairings!![0].Pairing_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![1].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![1].Pairing_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.pair2img)
+                        wineInfoBinding.pair2txt.text = w.Wine_Pairings!![1].Pairing_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![2].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![2].Pairing_names?.joinToString()
-                        GlideApp.with(this)
+                            .into(wineInfoBinding.pair3img)
+                        wineInfoBinding.pair3txt.text = w.Wine_Pairings!![2].Pairing_names?.joinToString()
+                        GlideApp.with(this).asBitmap()
                             .load(w.Wine_Pairings!![3].Pairing_image)
-                            .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![3].Pairing_names?.joinToString()
+                            .into(wineInfoBinding.pair4img)
+                        wineInfoBinding.pair4txt.text = w.Wine_Pairings!![3].Pairing_names?.joinToString()
+                        wineInfoBinding.pair1.visibility = View.VISIBLE
+                        wineInfoBinding.pair2.visibility = View.VISIBLE
+                        wineInfoBinding.pair3.visibility = View.VISIBLE
+                        wineInfoBinding.pair4.visibility = View.VISIBLE
                     }
                 }
             }

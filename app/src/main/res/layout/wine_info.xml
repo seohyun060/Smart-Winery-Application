@@ -252,7 +252,7 @@
                             android:background="@drawable/aroma_herbal" />
 
                         <TextView
-                            android:id="@+id/aroma41txt"
+                            android:id="@+id/aroma4txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
                             android:text="아시아"
