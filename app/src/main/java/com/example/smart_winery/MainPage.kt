@@ -26,11 +26,10 @@ import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
 import org.json.JSONArray
 import org.json.JSONObject
-import java.lang.Exception
-
 import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.WineInfoBinding
 import com.google.mlkit.vision.barcode.common.Barcode
+import kotlin.Exception
 
 @GlideModule
 class MyGlide : AppGlideModule()
@@ -99,266 +98,295 @@ class MainPage : AppCompatActivity() {
                 for (j in 0 until floor1wines.length()){
                     val wine:JSONObject = floor1wines.getJSONObject(j)
                     if (wine.getInt("col") == index+1){
-                        val floor1wine = wine.getJSONObject("wine_id")
-                        var aromaList:MutableList<AromaInfo> = mutableListOf()
-                        var pairingList:MutableList<PairingInfo> = mutableListOf()
-                        var wineAromas:JSONArray = JSONArray()
-                        try{
-                            wineAromas = floor1wine.getJSONArray("aroma")
-                            Log.d("aromacheck1",wineAromas.toString())
-                            Log.d("aromacheck11",wineAromas.length().toString())
-                        } catch (e:Exception){
-
-                        }
-                        for (k in 0 until wineAromas.length()) {
-                            Log.d("aromacheck12", k.toString())
-                            var wineAroma = AromaInfo("","","", mutableListOf())
-                            var nameList: MutableList<String> = mutableListOf()
-                            var aromaNames =
-                                wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-                            Log.d("aromacheck5", aromaNames.toString())
-                            wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
-                            Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
-                            wineAroma.Aroma_category =
-                                wineAromas.getJSONObject(k).getString("category")
-                            Log.d("aromacheck7", wineAroma.Aroma_category.toString())
-                            wineAroma.Aroma_image =
-                                wineAromas.getJSONObject(k).getString("imgsrc")
-                            Log.d("aromacheck8", wineAroma.Aroma_image.toString())
-                            Log.d("aromacheck10",aromaNames.toString())
-                            Log.d("aromacheck11",aromaNames.length().toString())
-                            for (j in 0 until aromaNames.length()) {
-                                Log.d("aromacheck9", j.toString())
-                                var aromaName: String = aromaNames.getString(j)
-                                nameList.add(aromaName)
-                            }
-                            wineAroma.Aroma_names = nameList
-                            aromaList.add(wineAroma)
-                        }
                         try {
-                            val winePairings = floor1wine.getJSONArray("pairing")
-                            var winePairing = PairingInfo("","","", mutableListOf())
-                            var nameList: MutableList<String> = mutableListOf()
-                            for (k in 0 until winePairings.length()) {
+                            val floor1wine = wine.getJSONObject("wine_id")
+                            var aromaList: MutableList<AromaInfo> = mutableListOf()
+                            var pairingList: MutableList<PairingInfo> = mutableListOf()
+                            var wineAromas: JSONArray = JSONArray()
+                            try {
+                                wineAromas = floor1wine.getJSONArray("aroma")
+                                Log.d("aromacheck1", wineAromas.toString())
+                                Log.d("aromacheck11", wineAromas.length().toString())
+                            } catch (e: Exception) {
 
-
-                                var pairingNames =
-                                    winePairings.getJSONObject(k).getJSONArray("pairing_names")
-
-                                winePairing.Pairing_Id =
-                                    winePairings.getJSONObject(k).getString("_id")
-                                winePairing.Pairing_category =
-                                    winePairings.getJSONObject(k).getString("category")
-                                winePairing.Pairing_image =
-                                    winePairings.getJSONObject(k).getString("imgsrc")
-
-                                for (j in 0 until pairingNames.length()) {
-                                    var pairingName: String = pairingNames.getString(j)
-                                    nameList.add(pairingName)
+                            }
+                            for (k in 0 until wineAromas.length()) {
+                                Log.d("aromacheck12", k.toString())
+                                var wineAroma = AromaInfo("", "", "", mutableListOf())
+                                var nameList: MutableList<String> = mutableListOf()
+                                var aromaNames =
+                                    wineAromas.getJSONObject(k).getJSONArray("aroma_names")
+                                Log.d("aromacheck5", aromaNames.toString())
+                                wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
+                                Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
+                                wineAroma.Aroma_category =
+                                    wineAromas.getJSONObject(k).getString("category")
+                                Log.d("aromacheck7", wineAroma.Aroma_category.toString())
+                                wineAroma.Aroma_image =
+                                    wineAromas.getJSONObject(k).getString("imgsrc")
+                                Log.d("aromacheck8", wineAroma.Aroma_image.toString())
+                                Log.d("aromacheck10", aromaNames.toString())
+                                Log.d("aromacheck11", aromaNames.length().toString())
+                                for (j in 0 until aromaNames.length()) {
+                                    Log.d("aromacheck9", j.toString())
+                                    var aromaName: String = aromaNames.getString(j)
+                                    nameList.add(aromaName)
                                 }
-                                winePairing.Pairing_names = nameList
-                                pairingList.add(winePairing)
+                                wineAroma.Aroma_names = nameList
+                                aromaList.add(wineAroma)
                             }
+                            try {
+                                val winePairings = floor1wine.getJSONArray("pairing")
+                                var winePairing = PairingInfo("", "", "", mutableListOf())
+                                var nameList: MutableList<String> = mutableListOf()
+                                for (k in 0 until winePairings.length()) {
+
+
+                                    var pairingNames =
+                                        winePairings.getJSONObject(k).getJSONArray("pairing_names")
+
+                                    winePairing.Pairing_Id =
+                                        winePairings.getJSONObject(k).getString("_id")
+                                    winePairing.Pairing_category =
+                                        winePairings.getJSONObject(k).getString("category")
+                                    winePairing.Pairing_image =
+                                        winePairings.getJSONObject(k).getString("imgsrc")
+
+                                    for (j in 0 until pairingNames.length()) {
+                                        var pairingName: String = pairingNames.getString(j)
+                                        nameList.add(pairingName)
+                                    }
+                                    winePairing.Pairing_names = nameList
+                                    pairingList.add(winePairing)
+                                }
+                            } catch (e: Exception) {
+
+                            }
+                            try {
+                                GlideApp.with(this)
+                                    .load(floor1wine.getString("imgsrc"))
+                                    .into(i)
+                            } catch (e: Exception) {
+                            }
+                            WineList1.add(
+                                WineInfo(
+                                    wine.getInt("col") - 1,
+                                    floor1wine.getString("_id"),
+                                    floor1wine.getString("eng_name"),
+                                    floor1wine.getString("imgsrc"),
+                                    floor1wine.getInt("price"),
+                                    floor1wine.getInt("sweet"),
+                                    floor1wine.getInt("acid"),
+                                    floor1wine.getInt("body"),
+                                    floor1wine.getInt("tannin"),
+                                    aromaList,
+                                    floor1wine.getString("alcohol"),
+                                    floor1wine.getInt("temp"),
+                                    floor1wine.getString("type"),
+                                    pairingList
+                                )
+                            )
                         }catch (e:Exception){
 
                         }
-                        try {
-                            GlideApp.with(this)
-                                .load(floor1wine.getString("imgsrc"))
-                                .into(i)
-                        }catch (e:Exception){
-                        }
-                        WineList1.add(WineInfo(
-                            wine.getInt("col") - 1
-                            ,floor1wine.getString("_id")
-                            ,floor1wine.getString("eng_name")
-                            ,floor1wine.getString("imgsrc")
-                            ,floor1wine.getInt("price")
-                            ,floor1wine.getInt("sweet")
-                            ,floor1wine.getInt("acid")
-                            ,floor1wine.getInt("body")
-                            ,floor1wine.getInt("tannin")
-                            ,aromaList
-                            ,floor1wine.getString("alcohol")
-                            ,floor1wine.getInt("temp")
-                            ,floor1wine.getString("type")
-                            ,pairingList
-                        ))
                     }
                 }
                 i.clipToOutline = true
             }
             for ((index,i) in secondfloor.withIndex()){
                 for (j in 0 until floor2wines.length()){
-
                     val wine:JSONObject = floor2wines.getJSONObject(j)
                     if (wine.getInt("col") == index+1){
-                        val floor2wine = wine.getJSONObject("wine_id")
-                        var aromaList:MutableList<AromaInfo> = mutableListOf()
-                        var pairingList:MutableList<PairingInfo> = mutableListOf()
+                        try {
+                            val floor2wine = wine.getJSONObject("wine_id")
+                            var aromaList: MutableList<AromaInfo> = mutableListOf()
+                            var pairingList: MutableList<PairingInfo> = mutableListOf()
+                            var wineAromas: JSONArray = JSONArray()
+                            try {
+                                wineAromas = floor2wine.getJSONArray("aroma")
+                                Log.d("aromacheck1", wineAromas.toString())
+                                Log.d("aromacheck11", wineAromas.length().toString())
+                            } catch (e: Exception) {
 
-                        try{
-                            val wineAromas = floor2wine.getJSONArray("aroma")
-                            lateinit var wineAroma: AromaInfo
-                            lateinit var nameList: MutableList<String>
-
+                            }
                             for (k in 0 until wineAromas.length()) {
-
+                                Log.d("aromacheck12", k.toString())
+                                var wineAroma = AromaInfo("", "", "", mutableListOf())
+                                var nameList: MutableList<String> = mutableListOf()
                                 var aromaNames =
                                     wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-
+                                Log.d("aromacheck5", aromaNames.toString())
                                 wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
+                                Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
+                                Log.d("aromacheck7", wineAroma.Aroma_category.toString())
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
-
+                                Log.d("aromacheck8", wineAroma.Aroma_image.toString())
+                                Log.d("aromacheck10", aromaNames.toString())
+                                Log.d("aromacheck11", aromaNames.length().toString())
                                 for (j in 0 until aromaNames.length()) {
+                                    Log.d("aromacheck9", j.toString())
                                     var aromaName: String = aromaNames.getString(j)
                                     nameList.add(aromaName)
                                 }
                                 wineAroma.Aroma_names = nameList
                                 aromaList.add(wineAroma)
                             }
-                        } catch (e:Exception){
-
-                        }
-                        try {
-                            val winePairings = floor2wine.getJSONArray("pairing")
-                            lateinit var winePairing: PairingInfo
-                            lateinit var nameList: MutableList<String>
-                            for (k in 0 until winePairings.length()) {
+                            try {
+                                val winePairings = floor2wine.getJSONArray("pairing")
+                                var winePairing = PairingInfo("", "", "", mutableListOf())
+                                var nameList: MutableList<String> = mutableListOf()
+                                for (k in 0 until winePairings.length()) {
 
 
-                                var pairingNames =
-                                    winePairings.getJSONObject(k).getJSONArray("pairing_names")
+                                    var pairingNames =
+                                        winePairings.getJSONObject(k).getJSONArray("pairing_names")
 
-                                winePairing.Pairing_Id =
-                                    winePairings.getJSONObject(k).getString("_id")
-                                winePairing.Pairing_category =
-                                    winePairings.getJSONObject(k).getString("category")
-                                winePairing.Pairing_image =
-                                    winePairings.getJSONObject(k).getString("imgsrc")
+                                    winePairing.Pairing_Id =
+                                        winePairings.getJSONObject(k).getString("_id")
+                                    winePairing.Pairing_category =
+                                        winePairings.getJSONObject(k).getString("category")
+                                    winePairing.Pairing_image =
+                                        winePairings.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0 until pairingNames.length()) {
-                                    var pairingName: String = pairingNames.getString(j)
-                                    nameList.add(pairingName)
+                                    for (j in 0 until pairingNames.length()) {
+                                        var pairingName: String = pairingNames.getString(j)
+                                        nameList.add(pairingName)
+                                    }
+                                    winePairing.Pairing_names = nameList
+                                    pairingList.add(winePairing)
                                 }
-                                winePairing.Pairing_names = nameList
-                                pairingList.add(winePairing)
+                            } catch (e: Exception) {
+
                             }
+                            try {
+                                GlideApp.with(this)
+                                    .load(floor2wine.getString("imgsrc"))
+                                    .into(i)
+                            } catch (e: Exception) {
+                            }
+                            WineList2.add(
+                                WineInfo(
+                                    wine.getInt("col") - 1,
+                                    floor2wine.getString("_id"),
+                                    floor2wine.getString("eng_name"),
+                                    floor2wine.getString("imgsrc"),
+                                    floor2wine.getInt("price"),
+                                    floor2wine.getInt("sweet"),
+                                    floor2wine.getInt("acid"),
+                                    floor2wine.getInt("body"),
+                                    floor2wine.getInt("tannin"),
+                                    aromaList,
+                                    floor2wine.getString("alcohol"),
+                                    floor2wine.getInt("temp"),
+                                    floor2wine.getString("type"),
+                                    pairingList
+                                )
+                            )
                         }catch (e:Exception){
 
                         }
-                        try {
-                            GlideApp.with(this)
-                                .load(floor2wine.getString("imgsrc"))
-                                .into(i)
-                        }catch (e:Exception){
-                        }
-                        WineList2.add(WineInfo(
-                            wine.getInt("col") - 1
-                            ,floor2wine.getString("_id")
-                            ,floor2wine.getString("eng_name")
-                            ,floor2wine.getString("imgsrc")
-                            ,floor2wine.getInt("price")
-                            ,floor2wine.getInt("sweet")
-                            ,floor2wine.getInt("acid")
-                            ,floor2wine.getInt("body")
-                            ,floor2wine.getInt("tannin")
-                            ,aromaList
-                            ,floor2wine.getString("alcohol")
-                            ,floor2wine.getInt("temp")
-                            ,floor2wine.getString("type")
-                            ,pairingList
-                        ))
                     }
                 }
                 i.clipToOutline = true
             }
             for ((index,i) in thirdfloor.withIndex()){
                 for (j in 0 until floor3wines.length()){
-
                     val wine:JSONObject = floor3wines.getJSONObject(j)
                     if (wine.getInt("col") == index+1){
-                        val floor3wine = wine.getJSONObject("wine_id")
-                        var aromaList:MutableList<AromaInfo> = mutableListOf()
-                        var pairingList:MutableList<PairingInfo> = mutableListOf()
-                        try{
-                            val wineAromas = floor3wine.getJSONArray("aroma")
-                            lateinit var wineAroma: AromaInfo
-                            lateinit var nameList: MutableList<String>
+                        try {
+                            val floor3wine = wine.getJSONObject("wine_id")
+                            var aromaList: MutableList<AromaInfo> = mutableListOf()
+                            var pairingList: MutableList<PairingInfo> = mutableListOf()
+                            var wineAromas: JSONArray = JSONArray()
+                            try {
+                                wineAromas = floor3wine.getJSONArray("aroma")
+                                Log.d("aromacheck1", wineAromas.toString())
+                                Log.d("aromacheck11", wineAromas.length().toString())
+                            } catch (e: Exception) {
+
+                            }
                             for (k in 0 until wineAromas.length()) {
-
-
+                                Log.d("aromacheck12", k.toString())
+                                var wineAroma = AromaInfo("", "", "", mutableListOf())
+                                var nameList: MutableList<String> = mutableListOf()
                                 var aromaNames =
                                     wineAromas.getJSONObject(k).getJSONArray("aroma_names")
-
+                                Log.d("aromacheck5", aromaNames.toString())
                                 wineAroma.Aroma_Id = wineAromas.getJSONObject(k).getString("_id")
+                                Log.d("aromacheck6", wineAroma.Aroma_Id.toString())
                                 wineAroma.Aroma_category =
                                     wineAromas.getJSONObject(k).getString("category")
+                                Log.d("aromacheck7", wineAroma.Aroma_category.toString())
                                 wineAroma.Aroma_image =
                                     wineAromas.getJSONObject(k).getString("imgsrc")
-
+                                Log.d("aromacheck8", wineAroma.Aroma_image.toString())
+                                Log.d("aromacheck10", aromaNames.toString())
+                                Log.d("aromacheck11", aromaNames.length().toString())
                                 for (j in 0 until aromaNames.length()) {
+                                    Log.d("aromacheck9", j.toString())
                                     var aromaName: String = aromaNames.getString(j)
                                     nameList.add(aromaName)
                                 }
                                 wineAroma.Aroma_names = nameList
                                 aromaList.add(wineAroma)
                             }
-                        } catch (e:Exception){
-
-                        }
-                        try {
-                            val winePairings = floor3wine.getJSONArray("pairing")
-                            lateinit var winePairing: PairingInfo
-                            lateinit var nameList: MutableList<String>
-                            for (k in 0 until winePairings.length()) {
+                            try {
+                                val winePairings = floor3wine.getJSONArray("pairing")
+                                var winePairing = PairingInfo("", "", "", mutableListOf())
+                                var nameList: MutableList<String> = mutableListOf()
+                                for (k in 0 until winePairings.length()) {
 
 
-                                var pairingNames =
-                                    winePairings.getJSONObject(k).getJSONArray("pairing_names")
+                                    var pairingNames =
+                                        winePairings.getJSONObject(k).getJSONArray("pairing_names")
 
-                                winePairing.Pairing_Id =
-                                    winePairings.getJSONObject(k).getString("_id")
-                                winePairing.Pairing_category =
-                                    winePairings.getJSONObject(k).getString("category")
-                                winePairing.Pairing_image =
-                                    winePairings.getJSONObject(k).getString("imgsrc")
+                                    winePairing.Pairing_Id =
+                                        winePairings.getJSONObject(k).getString("_id")
+                                    winePairing.Pairing_category =
+                                        winePairings.getJSONObject(k).getString("category")
+                                    winePairing.Pairing_image =
+                                        winePairings.getJSONObject(k).getString("imgsrc")
 
-                                for (j in 0 until pairingNames.length()) {
-                                    var pairingName: String = pairingNames.getString(j)
-                                    nameList.add(pairingName)
+                                    for (j in 0 until pairingNames.length()) {
+                                        var pairingName: String = pairingNames.getString(j)
+                                        nameList.add(pairingName)
+                                    }
+                                    winePairing.Pairing_names = nameList
+                                    pairingList.add(winePairing)
                                 }
-                                winePairing.Pairing_names = nameList
-                                pairingList.add(winePairing)
+                            } catch (e: Exception) {
+
                             }
+                            try {
+                                GlideApp.with(this)
+                                    .load(floor3wine.getString("imgsrc"))
+                                    .into(i)
+                            } catch (e: Exception) {
+                            }
+                            WineList3.add(
+                                WineInfo(
+                                    wine.getInt("col") - 1,
+                                    floor3wine.getString("_id"),
+                                    floor3wine.getString("eng_name"),
+                                    floor3wine.getString("imgsrc"),
+                                    floor3wine.getInt("price"),
+                                    floor3wine.getInt("sweet"),
+                                    floor3wine.getInt("acid"),
+                                    floor3wine.getInt("body"),
+                                    floor3wine.getInt("tannin"),
+                                    aromaList,
+                                    floor3wine.getString("alcohol"),
+                                    floor3wine.getInt("temp"),
+                                    floor3wine.getString("type"),
+                                    pairingList
+                                )
+                            )
                         }catch (e:Exception){
 
                         }
-                        try {
-                            GlideApp.with(this)
-                                .load(floor3wine.getString("imgsrc"))
-                                .into(i)
-                        }catch (e:Exception){
-                        }
-                        WineList3.add(WineInfo(
-                            wine.getInt("col") - 1
-                            ,floor3wine.getString("_id")
-                            ,floor3wine.getString("eng_name")
-                            ,floor3wine.getString("imgsrc")
-                            ,floor3wine.getInt("price")
-                            ,floor3wine.getInt("sweet")
-                            ,floor3wine.getInt("acid")
-                            ,floor3wine.getInt("body")
-                            ,floor3wine.getInt("tannin")
-                            ,aromaList
-                            ,floor3wine.getString("alcohol")
-                            ,floor3wine.getInt("temp")
-                            ,floor3wine.getString("type")
-                            ,pairingList
-                        ))
                     }
                 }
                 i.clipToOutline = true
@@ -495,9 +523,9 @@ class MainPage : AppCompatActivity() {
                             .into(wineInfoBinding.aroma1img)
                         wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![2].Aroma_names?.joinToString()
                         GlideApp.with(this)
-                            .load(w.Wine_Aromas!![4].Aroma_image)
+                            .load(w.Wine_Aromas!![3].Aroma_image)
                             .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![4].Aroma_names?.joinToString()
+                        wineInfoBinding.aroma1txt.text = w.Wine_Aromas!![3].Aroma_names?.joinToString()
                     }
                 }
             }
@@ -556,9 +584,9 @@ class MainPage : AppCompatActivity() {
                             .into(wineInfoBinding.aroma1img)
                         wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![2].Pairing_names?.joinToString()
                         GlideApp.with(this)
-                            .load(w.Wine_Pairings!![4].Pairing_image)
+                            .load(w.Wine_Pairings!![3].Pairing_image)
                             .into(wineInfoBinding.aroma1img)
-                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![4].Pairing_names?.joinToString()
+                        wineInfoBinding.aroma1txt.text = w.Wine_Pairings!![3].Pairing_names?.joinToString()
                     }
                 }
             }
@@ -776,7 +804,6 @@ class MainPage : AppCompatActivity() {
             }
         }
     }
-
 
     private fun requestCameraPermission() {
         when {
