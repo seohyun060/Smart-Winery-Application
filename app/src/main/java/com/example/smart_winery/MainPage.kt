@@ -390,8 +390,8 @@ class MainPage : AppCompatActivity() {
             }
         }
 
-        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
-//        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
+//        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
+        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             floor1 = response.getJSONObject("floor1")
