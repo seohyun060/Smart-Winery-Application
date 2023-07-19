@@ -3,7 +3,6 @@ package com.example.smart_winery
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +18,6 @@ import android.os.Handler
 import androidx.activity.result.contract.ActivityResultContracts
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Space
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
@@ -59,7 +56,8 @@ class MainPage : AppCompatActivity() {
         val btnIdNumber = mainPageBinding.btn11.id
         var isInfo = true
         var isWineSelected = false
-        lateinit var wineTemp:WineInfo
+        lateinit var wineBefore:WineInfo
+        lateinit var wineAfter:WineInfo
         var floor3type = 1
         var floor2type = 2
         var floor1type = 3
@@ -169,7 +167,7 @@ class MainPage : AppCompatActivity() {
                             } catch (e: Exception) {
                             }
                             WineList1.add(
-                                WineInfo(
+                                WineInfo(wine.getInt("row"),
                                     wine.getInt("col") - 1,
                                     floor1wine.getString("_id"),
                                     floor1wine.getString("eng_name"),
@@ -268,7 +266,7 @@ class MainPage : AppCompatActivity() {
                             } catch (e: Exception) {
                             }
                             WineList2.add(
-                                WineInfo(
+                                WineInfo(wine.getInt("row"),
                                     wine.getInt("col") - 1,
                                     floor2wine.getString("_id"),
                                     floor2wine.getString("eng_name"),
@@ -367,7 +365,7 @@ class MainPage : AppCompatActivity() {
                             } catch (e: Exception) {
                             }
                             WineList3.add(
-                                WineInfo(
+                                WineInfo(wine.getInt("row"),
                                     wine.getInt("col") - 1,
                                     floor3wine.getString("_id"),
                                     floor3wine.getString("eng_name"),
@@ -396,6 +394,16 @@ class MainPage : AppCompatActivity() {
 //        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
         var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
+        val postDataReq = """
+            {
+                "cellarid":"64b4f9a38b4dc227def9b5b1",
+                "wine_id": ${wineBefore.Wine_Id},
+                "wine1_row":${wineBefore.Wine_Floor},
+                "wine1_col":${wineBefore.Wine_Location},
+                "wine2_row":${wineAfter.Wine_Floor},
+                "wine2_col":${wineAfter.Wine_Location},
+            }""".trimIndent()
+        var post_data:JSONObject = JSONObject(postDataReq)
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             floor1 = response.getJSONObject("floor1")
             floor2 = response.getJSONObject("floor2")
@@ -407,8 +415,22 @@ class MainPage : AppCompatActivity() {
             Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
                 .show()
             })
-        queue.add(request)
+        
+        val moveRequest = JsonObjectRequest(Request.Method.POST, url, post_data, { response ->
+            floor1 = response.getJSONObject("floor1")
+            floor2 = response.getJSONObject("floor2")
+            floor3 = response.getJSONObject("floor3")
+            displayWine()
+        }, { error ->
+            Log.e("TAGa", "RESPONSE IS $error")
+            // in this case we are simply displaying a toast message.
+            Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                .show()
+        })
 
+
+        queue.add(request)
+        queue.add(moveRequest)
         setContentView(mainPageBinding.root)
         mainPageBinding.addWine.setOnClickListener() {
             requestCameraAndStartScanner()
@@ -664,38 +686,42 @@ class MainPage : AppCompatActivity() {
                     if (spaceVacant) {
                         var clickedFloor:Int = clickedCellIndex / 5
                         Log.d("clickedF",clickedFloor.toString())
-                        Log.d("clickedF2",wineTemp.Wine_Floor_Type.toString())
+                        Log.d("clickedF2",wineBefore.Wine_Floor_Type.toString())
                         var checkFloorWine = false
-                        if (clickedFloor == 0){
-                            if (floor1type == 0 || floor1type == wineTemp.Wine_Floor_Type){
-                                checkFloorWine = true
+                        if(isWineSelected){
+                            if (clickedFloor == 0){
+                                if (floor1type == 0 || floor1type == wineBefore.Wine_Floor_Type){
+                                    checkFloorWine = true
+                                }
                             }
-                        }
-                        else if (clickedFloor == 1) {
-                            if (floor2type == 0 || floor2type == wineTemp.Wine_Floor_Type){
-                                checkFloorWine = true
-                            }
-                        }
-                        else {
-                            if (floor3type == 0 || floor3type == wineTemp.Wine_Floor_Type){
-                                checkFloorWine = true
-                            }
-                        }
-                        //move 에서 빈칸
-                        if(isWineSelected && checkFloorWine){
-                            //move에서 빈칸이고 와인 선택됨
-                            isWineSelected = false
-                            wineTemp.Wine_Location = clickedWineIndex
-                            if (clickedCellIndex < 5) {
-                                WineList1.add(wineTemp)
-                            }
-                            else if (clickedCellIndex < 10) {
-                                WineList2.add(wineTemp)
+                            else if (clickedFloor == 1) {
+                                if (floor2type == 0 || floor2type == wineBefore.Wine_Floor_Type){
+                                    checkFloorWine = true
+                                }
                             }
                             else {
-                                WineList3.add(wineTemp)
+                                if (floor3type == 0 || floor3type == wineBefore.Wine_Floor_Type){
+                                    checkFloorWine = true
+                                }
                             }
-                            displayWine()
+                            if(checkFloorWine) {
+                                isWineSelected = false
+                                wineAfter = wineBefore.clone()
+                                wineAfter.Wine_Location = clickedWineIndex
+                                if (clickedCellIndex < 5) {
+                                    wineAfter.Wine_Floor = 1
+                                    WineList1.add(wineAfter)
+                                }
+                                else if (clickedCellIndex < 10) {
+                                    wineAfter.Wine_Floor = 2
+                                    WineList2.add(wineAfter)
+                                }
+                                else {
+                                    wineAfter.Wine_Floor = 3
+                                    WineList3.add(wineAfter)
+                                }
+                                displayWine()
+                            }
                         }
                     }
                     else {
@@ -707,16 +733,16 @@ class MainPage : AppCompatActivity() {
                             if (clickedCellIndex < 5) { // 1층
                                 for ((index,w) in WineList1.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
-                                        wineTemp = w.clone()
+                                        wineBefore = w.clone()
                                         WineList1.removeAt(index)
-
+                                        Log.d("sibal2",isWineSelected.toString())
                                     }
                                 }
                             }
                             else if (clickedCellIndex < 10) {
                                 for ((index,w) in WineList2.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
-                                        wineTemp = w.clone()
+                                        wineBefore = w.clone()
                                         WineList2.removeAt(index)
                                     }
                                 }
@@ -724,7 +750,7 @@ class MainPage : AppCompatActivity() {
                             else {
                                 for ((index,w) in WineList3.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
-                                        wineTemp = w.clone()
+                                        wineBefore = w.clone()
                                         WineList3.removeAt(index)
                                     }
                                 }

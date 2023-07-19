@@ -1,6 +1,7 @@
 package com.example.smart_winery
 
-class WineInfo(private val col:Int
+class WineInfo(     private val row:Int
+                    ,private val col:Int
                     ,private val id:String
                     ,private val eng_name:String
                     ,private val wine_img: String
@@ -16,6 +17,7 @@ class WineInfo(private val col:Int
                     ,private val pairings:MutableList<PairingInfo>
 ) :Cloneable {
     public override fun clone(): WineInfo = super.clone() as WineInfo
+    var Wine_Floor:Int = row
     var Wine_Location:Int? = col
     var Wine_Id:String? = id
     var Wine_Name:String? = eng_name
