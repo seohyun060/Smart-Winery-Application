@@ -56,12 +56,17 @@ class MainPage : AppCompatActivity() {
         val btnIdNumber = mainPageBinding.btn11.id
         var isInfo = true
         var isWineSelected = false
-        lateinit var wineBefore:WineInfo
-        lateinit var wineAfter:WineInfo
-        var floor3type = 1
-        var floor2type = 2
-        var floor1type = 3
+        var wineBefore:WineInfo = WineInfo(0,0,"","","",0,0,0,0,0, mutableListOf(),"",0,"",
+            mutableListOf()
+        )
+        var wineAfter:WineInfo = WineInfo(0,0,"","","",0,0,0,0,0, mutableListOf(),"",0,"",
+            mutableListOf()
+        )
 
+
+        var floor1type = 1
+        var floor2type = 3
+        var floor3type = 2
         val firstfloor = arrayListOf<ImageView>(
             mainPageBinding.btn11,
             mainPageBinding.btn12,
@@ -393,18 +398,11 @@ class MainPage : AppCompatActivity() {
 
 //        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
         var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
+
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
-        val postDataReq = """
-            {
-                "cellarid":"64b4f9a38b4dc227def9b5b1",
-                "wine_id": ${wineBefore.Wine_Id},
-                "wine1_row":${wineBefore.Wine_Floor},
-                "wine1_col":${wineBefore.Wine_Location},
-                "wine2_row":${wineAfter.Wine_Floor},
-                "wine2_col":${wineAfter.Wine_Location},
-            }""".trimIndent()
-        var post_data:JSONObject = JSONObject(postDataReq)
+
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+            Log.d("responseebal",response.toString())
             floor1 = response.getJSONObject("floor1")
             floor2 = response.getJSONObject("floor2")
             floor3 = response.getJSONObject("floor3")
@@ -416,21 +414,11 @@ class MainPage : AppCompatActivity() {
                 .show()
             })
         
-        val moveRequest = JsonObjectRequest(Request.Method.POST, url, post_data, { response ->
-            floor1 = response.getJSONObject("floor1")
-            floor2 = response.getJSONObject("floor2")
-            floor3 = response.getJSONObject("floor3")
-            displayWine()
-        }, { error ->
-            Log.e("TAGa", "RESPONSE IS $error")
-            // in this case we are simply displaying a toast message.
-            Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
-                .show()
-        })
+
 
 
         queue.add(request)
-        queue.add(moveRequest)
+
         setContentView(mainPageBinding.root)
         mainPageBinding.addWine.setOnClickListener() {
             requestCameraAndStartScanner()
@@ -689,8 +677,11 @@ class MainPage : AppCompatActivity() {
                         Log.d("clickedF2",wineBefore.Wine_Floor_Type.toString())
                         var checkFloorWine = false
                         if(isWineSelected){
+                            Log.d("clickedF3",floor1type.toString())
+                            Log.d("clickedF4",wineBefore.Wine_Floor_Type.toString())
                             if (clickedFloor == 0){
                                 if (floor1type == 0 || floor1type == wineBefore.Wine_Floor_Type){
+
                                     checkFloorWine = true
                                 }
                             }
@@ -705,12 +696,15 @@ class MainPage : AppCompatActivity() {
                                 }
                             }
                             if(checkFloorWine) {
+                                Log.d("clickedF4",wineBefore.Wine_Floor_Type.toString())
                                 isWineSelected = false
                                 wineAfter = wineBefore.clone()
                                 wineAfter.Wine_Location = clickedWineIndex
                                 if (clickedCellIndex < 5) {
                                     wineAfter.Wine_Floor = 1
+                                    Log.d("clickedF5",wineBefore.Wine_Floor_Type.toString())
                                     WineList1.add(wineAfter)
+                                    Log.d("clickedF6",wineBefore.Wine_Floor_Type.toString())
                                 }
                                 else if (clickedCellIndex < 10) {
                                     wineAfter.Wine_Floor = 2
@@ -720,7 +714,34 @@ class MainPage : AppCompatActivity() {
                                     wineAfter.Wine_Floor = 3
                                     WineList3.add(wineAfter)
                                 }
-                                displayWine()
+                                val postqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                                var postURL = "http://13.48.52.200:3000/winecellar/move"
+
+                                val postDataReq = """
+                                                {
+                                                    "cellarid": "64b4f9a38b4dc227def9b5b1",
+                                                    "wine_id": ${wineBefore.Wine_Id.toString()},
+                                                    "wine1_row": ${wineBefore.Wine_Floor},
+                                                    "wine1_col": ${wineBefore.Wine_Location + 1},
+                                                    "wine2_row": ${wineAfter.Wine_Floor},
+                                                    "wine2_col": ${wineAfter.Wine_Location + 1}
+                                                }
+                                                """.trimIndent()
+                                var post_data:JSONObject = JSONObject(postDataReq)
+                                val moveRequest = JsonObjectRequest(Request.Method.POST, postURL, post_data, { response ->
+                                    Log.d("responseebal",response.toString())
+                                    floor1 = response.getJSONObject("floor1")
+                                    floor2 = response.getJSONObject("floor2")
+                                    floor3 = response.getJSONObject("floor3")
+                                    displayWine()
+                                }, { error ->
+                                    Log.e("TAGa", "RESPONSE IS $error")
+                                    // in this case we are simply displaying a toast message.
+                                    Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                                        .show()
+                                })
+                                postqueue.add(moveRequest)
+                                //displayWine()
                             }
                         }
                     }

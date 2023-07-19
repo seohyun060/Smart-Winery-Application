@@ -18,8 +18,8 @@ class WineInfo(     private val row:Int
 ) :Cloneable {
     public override fun clone(): WineInfo = super.clone() as WineInfo
     var Wine_Floor:Int = row
-    var Wine_Location:Int? = col
-    var Wine_Id:String? = id
+    var Wine_Location:Int = col
+    var Wine_Id:String = id
     var Wine_Name:String? = eng_name
     var Wine_Image:String? = wine_img
     var Wine_Price:Int?=price
@@ -35,10 +35,10 @@ class WineInfo(     private val row:Int
     var Wine_Floor_Type = 0
 
     fun setWineFloorType(){
-        if (Wine_Type == "Red" || Wine_Type == "Fortified"){
+        if (Wine_Type == "Red" ){
             Wine_Floor_Type = 1
         }
-        else if (Wine_Type=="White" || Wine_Type == "Rose"){
+        else if (Wine_Type=="White"){
             Wine_Floor_Type = 2
         }
         else {
