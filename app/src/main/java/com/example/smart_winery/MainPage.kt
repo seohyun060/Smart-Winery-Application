@@ -3,22 +3,23 @@ package com.example.smart_winery
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
-import android.os.Handler
-import androidx.activity.result.contract.ActivityResultContracts
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
+import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
 import org.json.JSONArray
@@ -27,7 +28,8 @@ import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.SettingPageBinding
 import com.example.smart_winery.databinding.WineInfoBinding
 import com.google.mlkit.vision.barcode.common.Barcode
-import kotlin.Exception
+import org.json.JSONArray
+import org.json.JSONObject
 
 @GlideModule
 class MyGlide : AppGlideModule()
@@ -94,8 +96,14 @@ class MainPage : AppCompatActivity() {
         var floor2:JSONObject = JSONObject()
         var floor3:JSONObject = JSONObject()
 
-        fun displayWine(){
+        fun clearMain(){
+            WineList1.clear()
+            WineList2.clear()
+            WineList3.clear()
+        }
 
+        fun displayWine(){
+            clearMain()
             val floor1wines:JSONArray = floor1.getJSONArray("cell_ids")
             val floor2wines:JSONArray = floor2.getJSONArray("cell_ids")
             val floor3wines:JSONArray = floor3.getJSONArray("cell_ids")
@@ -340,10 +348,6 @@ class MainPage : AppCompatActivity() {
             Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
                 .show()
             })
-        
-
-
-
         queue.add(request)
 
         setContentView(mainPageBinding.root)
@@ -667,7 +671,9 @@ class MainPage : AppCompatActivity() {
                                     WineList3.add(wineAfter)
                                 }
                                 val postqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                                val getqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
                                 var postURL = "http://13.48.52.200:3000/winecellar/move"
+//                                var postURL = "http://10.0.2.2:3000/winecellar/move"
 
                                 val postDataReq = """
                                                 {
@@ -681,7 +687,16 @@ class MainPage : AppCompatActivity() {
                                                 """.trimIndent()
                                 var post_data:JSONObject = JSONObject(postDataReq)
                                 val moveRequest = JsonObjectRequest(Request.Method.POST, postURL, post_data, { response ->
-                                    Log.d("responseebal",response.toString())
+                                }, { error ->
+                                    Log.e("TAGa", "RESPONSE IS $error")
+                                    // in this case we are simply displaying a toast message.
+                                    Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                                        .show()
+                                })
+                                postqueue.add(moveRequest)
+                                Toast.makeText(this@MainPage, "Wine Move Complete.", Toast.LENGTH_SHORT)
+                                    .show()
+                                val request1 = JsonObjectRequest(Request.Method.GET, url, null, { response ->
                                     floor1 = response.getJSONObject("floor1")
                                     floor2 = response.getJSONObject("floor2")
                                     floor3 = response.getJSONObject("floor3")
@@ -692,23 +707,36 @@ class MainPage : AppCompatActivity() {
                                     Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
                                         .show()
                                 })
-                                postqueue.add(moveRequest)
-                                //displayWine()
+                                getqueue.add(request1)
+                                finish()
+                                overridePendingTransition(0, 0) //인텐트 효과 없애기
+                                val intent = intent //인텐트
+                                startActivity(intent) //액티비티 열기
+                                overridePendingTransition(0, 0) //인텐트 효과 없애기
                             }
+                            else{
+                                isWineSelected = false
+                                Toast.makeText(this@MainPage, "Cannot move Wine!\nWine-Floor type mismatch", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                        else{
+                            Toast.makeText(this@MainPage, "Nothing selected.", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                     else {
                         //move에서 와인칸
                         if (!isWineSelected){
                             //아직 옮길 와인 선택 안됨
-                            Log.d("sibal",isWineSelected.toString())
                             isWineSelected = true
                             if (clickedCellIndex < 5) { // 1층
                                 for ((index,w) in WineList1.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
                                         WineList1.removeAt(index)
-                                        Log.d("sibal2",isWineSelected.toString())
+                                        Toast.makeText(this@MainPage, "Cell 1, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
+                                            .show()
                                     }
                                 }
                             }
@@ -717,6 +745,8 @@ class MainPage : AppCompatActivity() {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
                                         WineList2.removeAt(index)
+                                        Toast.makeText(this@MainPage, "Cell 2, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
+                                            .show()
                                     }
                                 }
                             }
@@ -725,9 +755,15 @@ class MainPage : AppCompatActivity() {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
                                         WineList3.removeAt(index)
+                                        Toast.makeText(this@MainPage, "Cell 3, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
+                                            .show()
                                     }
                                 }
                             }
+                        }
+                        else{
+                            Toast.makeText(this@MainPage, "This space is not vacant!", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
