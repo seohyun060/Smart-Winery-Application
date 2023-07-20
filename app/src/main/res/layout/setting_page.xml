@@ -44,8 +44,10 @@
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content">
                 <Button
+                    android:id="@+id/floor1Type"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+
                     android:padding="0dp"
                     android:text="RED"
                     android:textSize="25dp"
@@ -57,7 +59,8 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-
+                    android:background="@drawable/border_blackout"
+                    android:id="@+id/updown1"
                     >
                     <Button
                         android:layout_width="40dp"
@@ -102,15 +105,15 @@
                 android:layout_marginTop="5dp"
                 android:gravity="right">
                 <TextView
-                    android:id="@+id/state3"
+                    android:id="@+id/state1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Manual   "
+                    android:text="Auto"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
                 <Switch
-                    android:id="@+id/switch3"
+                    android:id="@+id/switch1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:switchMinWidth="30dp"
@@ -143,12 +146,20 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:padding="0dp"
+                    android:id="@+id/floor2Type"
                     android:text="WHITE"
                     android:textSize="25dp"
                     android:layout_marginRight="100dp"
                     android:textStyle="bold"
                     android:backgroundTint="@color/white_wine"
                     />
+                <LinearLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border_blackout"
+                    android:id="@+id/updown2"
+                    >
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
@@ -183,6 +194,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -194,7 +206,7 @@
                     android:id="@+id/state2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Manual   "
+                    android:text="Auto"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
@@ -232,12 +244,18 @@
                     android:layout_height="wrap_content"
                     android:padding="0dp"
                     android:text="SPARKLE"
+                    android:id="@+id/floor3Type"
                     android:textSize="19dp"
                     android:layout_marginRight="100dp"
                     android:textStyle="bold"
                     android:backgroundTint="@color/sparkle_wine"
                     />
-
+                <LinearLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/updown3"
+                    android:background="@drawable/border_blackout">
                 <Button
                     android:id="@+id/sDown"
                     android:layout_width="40dp"
@@ -272,6 +290,7 @@
                     android:onClick="upDownClicked"
                     android:gravity="center"
                     />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -280,15 +299,15 @@
                 android:layout_marginTop="5dp"
                 android:gravity="right">
                 <TextView
-                    android:id="@+id/state1"
+                    android:id="@+id/state3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Manual   "
+                    android:text="Auto"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
                 <Switch
-                    android:id="@+id/switch1"
+                    android:id="@+id/switch3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:switchMinWidth="30dp"

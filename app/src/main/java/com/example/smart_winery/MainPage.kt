@@ -22,6 +22,10 @@ import com.bumptech.glide.module.AppGlideModule
 import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
+import org.json.JSONArray
+import org.json.JSONObject
+import com.example.smart_winery.ScanPage.Companion.startScanner
+import com.example.smart_winery.databinding.SettingPageBinding
 import com.example.smart_winery.databinding.WineInfoBinding
 import com.google.mlkit.vision.barcode.common.Barcode
 import org.json.JSONArray
@@ -43,13 +47,16 @@ class MainPage : AppCompatActivity() {
     val WineList2: MutableList<WineInfo> = mutableListOf()
     val WineList3: MutableList<WineInfo> = mutableListOf()
 
-
+    var floor1type = 1
+     var floor2type = 3
+     var floor3type = 2
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         val mainPageBinding = MainPageBinding.inflate(layoutInflater)
         val reserveBinding = ReserveBinding.inflate(layoutInflater)
         val wineInfoBinding = WineInfoBinding.inflate(layoutInflater)
+        val settingPageBinding = SettingPageBinding.inflate(layoutInflater)
         val reserveView = reserveBinding.root
         val wineInfoView = wineInfoBinding.root
         val btnIdNumber = mainPageBinding.btn11.id
@@ -63,9 +70,7 @@ class MainPage : AppCompatActivity() {
         )
 
 
-        var floor1type = 1
-        var floor2type = 3
-        var floor3type = 2
+
         val firstfloor = arrayListOf<ImageView>(
             mainPageBinding.btn11,
             mainPageBinding.btn12,

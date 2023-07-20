@@ -3,21 +3,54 @@ package com.example.smart_winery
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.SettingPageBinding
+import org.json.JSONArray
+import org.json.JSONObject
 
 class SettingPage : AppCompatActivity() {
     private lateinit var binding: SettingPageBinding
-
+    var floor1type = MainPage().floor1type
+    var floor2type = MainPage().floor2type
+    var floor3type = MainPage().floor3type
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         binding = SettingPageBinding.inflate(layoutInflater)
+        val mainPageBinding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
+        var cellfloor1:JSONObject = JSONObject()
+        var cellfloor2:JSONObject = JSONObject()
+        var cellfloor3:JSONObject = JSONObject()
+//        val floor1wines: JSONArray = cellfloor1.getJSONArray("cell_ids")
+//        val floor2wines: JSONArray = cellfloor2.getJSONArray("cell_ids")
+//        val floor3wines: JSONArray = cellfloor3.getJSONArray("cell_ids")
+        val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
 
+        val typebuttonNumber = 2131231315
+        val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+            Log.d("responseebal",response.toString())
+            cellfloor1 = response.getJSONObject("floor1")
+            cellfloor2 = response.getJSONObject("floor2")
+            cellfloor3 = response.getJSONObject("floor3")
+        }, { error ->
+            Log.e("TAGa", "RESPONSE IS $error")
+            // in this case we are simply displaying a toast message.
+            Toast.makeText(this@SettingPage, "Fail to get response", Toast.LENGTH_SHORT)
+                .show()
+        })
+        queue.add(request)
         binding.apply {
             // RED 온도 증가 및 감소 버튼
             rUp.setOnClickListener(::upDownClicked)
@@ -37,14 +70,14 @@ class SettingPage : AppCompatActivity() {
                     rUp.isEnabled = false
                     rDown.isEnabled = false
                     rTemp.text = "16"
-                    floor3.setBackgroundColor(Color.GRAY)
-                    state3.setText("Auto     ")
+                    updown3.background = getDrawable(R.drawable.border_blackout)
+                    state3.setText("Auto")
                 } else {
                     // Off 할 때
                     rUp.isEnabled = true
                     rDown.isEnabled = true
-                    floor3.setBackgroundResource(R.drawable.border_top)
-                    state3.setText("Manual   ")
+                    updown3.background = getDrawable(R.drawable.timer_border)
+                    state3.setText("User")
                 }
             }
 
@@ -53,15 +86,18 @@ class SettingPage : AppCompatActivity() {
                     // On 할 때
                     wUp.isEnabled=false
                     wDown.isEnabled=false
+                    updown2.background = getDrawable(R.drawable.border_blackout)
+
                     wTemp.text="13"
-                    floor2.setBackgroundColor(Color.GRAY)
-                    state2.setText("Auto     ")
+                    //floor2.setBackgroundColor(Color.GRAY)
+                    state2.setText("Auto")
                 } else {
                     // Off 할 때
                     wUp.isEnabled=true
                     wDown.isEnabled=true
-                    floor2.setBackgroundResource(R.drawable.border_top)
-                    state2.setText("Manual   ")
+                    updown2.background = getDrawable(R.drawable.timer_border)
+                    //floor2.setBackgroundResource(R.drawable.border_top)
+                    state2.setText("User")
                 }
             }
 
@@ -71,17 +107,41 @@ class SettingPage : AppCompatActivity() {
                     sUp.isEnabled=false
                     sDown.isEnabled=false
                     sTemp.text="8"
-                    floor1.setBackgroundColor(Color.GRAY)
-                    state1.setText("Auto     ")
+                    updown1.background = getDrawable(R.drawable.border_blackout)
+                    //floor1.setBackgroundColor(Color.GRAY)
+                    state1.setText("Auto")
                 } else {
                     // Off 할 때
                     sUp.isEnabled=true
                     sDown.isEnabled=true
-                    floor1.setBackgroundResource(R.drawable.border_top_bottom)
-                    state1.setText("Manual   ")
+                    updown1.background = getDrawable(R.drawable.timer_border)
+                    //floor2.setBackgroundResource(R.drawable.border_top)
+                    //floor1.setBackgroundResource(R.drawable.border_top_bottom)
+                    state1.setText("User")
                 }
             }
         }
+        val typeButtonListener = object : View.OnClickListener {
+            override fun onClick (v:View?) {
+                val clickedFloorButton = v?.id.toString().toInt() - typebuttonNumber
+
+                if (clickedFloorButton == 1){
+                    if(cellfloor1.getJSONArray("cell_ids").length()==0 && (binding.state1.text == "Auto")){
+                            if(binding.floor1Type.text == "RED"){
+                                binding.floor1Type.setText("WHITE")
+                                binding.floor1Type.setBackgroundColor(Color.parseColor("#CFE449"))
+
+                                mainPageBinding.floor3Type.background = getDrawable(R.drawable.white_back)
+                            }
+                    }
+
+                }
+
+            }
+        }
+        binding.floor1Type.setOnClickListener(typeButtonListener)
+        binding.floor2Type.setOnClickListener(typeButtonListener)
+        binding.floor3Type.setOnClickListener(typeButtonListener)
     }
 
     private fun upDownClicked(view: View) {
