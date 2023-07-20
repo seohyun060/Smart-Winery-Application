@@ -127,16 +127,13 @@ class SettingPage : AppCompatActivity() {
 
                 if (clickedFloorButton == 1){
                     if(cellfloor1.getJSONArray("cell_ids").length()==0 && (binding.state1.text == "Auto")){
-                            if(binding.floor1Type.text == "RED"){
-                                binding.floor1Type.setText("WHITE")
-                                binding.floor1Type.setBackgroundColor(Color.parseColor("#CFE449"))
-
-                                mainPageBinding.floor3Type.background = getDrawable(R.drawable.white_back)
-                            }
+                        if(binding.floor1Type.text == "RED"){
+                            binding.floor1Type.setText("WHITE")
+                            binding.floor1Type.setBackgroundColor(Color.parseColor("#CFE449"))
+                            mainPageBinding.floor1Type.background = getDrawable(R.drawable.white_back)
+                        }
                     }
-
                 }
-
             }
         }
         binding.floor1Type.setOnClickListener(typeButtonListener)
