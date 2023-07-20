@@ -12,5 +12,4 @@ data class PairingInfo (
     var Pairing_image: String? = imgsrc
     var Pairing_names:MutableList<String> = pairing_names
 
-
 }

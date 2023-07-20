@@ -296,7 +296,6 @@ class SettingPage : AppCompatActivity() {
                         if(WineList1.size ==0 && (binding.state1.text == "Auto")){
                             when(floor1type)
                             {
-
                                 1 ->  floor1type = 2
                                 2 -> floor1type = 3
                                 3 -> floor1type = 1

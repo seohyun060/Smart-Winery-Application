@@ -46,11 +46,12 @@ class MainPage : AppCompatActivity() {
 
     var floor1type = 1
     var floor2type = 3
-     var floor3type = 2
+    var floor3type = 2
 
     var floor1smart = true
     var floor2smart = true
     var floor3smart = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -568,7 +569,47 @@ class MainPage : AppCompatActivity() {
             }
             val wineInfoDialog = wineInfoBuilder.show()
             wineInfoBinding.takeWine.setOnClickListener(){
+                val getqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                val postqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                var postURL = "http://13.48.52.200:3000/winecellar"
+                val postDataReq = """
+                                {
+                                    "cellarid": "64b4f9a38b4dc227def9b5b1",
+                                    "row": ${w.Wine_Floor},
+                                    "col": ${w.Wine_Location + 1}
+                                }
+                                """.trimIndent()
+                var post_data1:JSONObject = JSONObject(postDataReq)
+                val moveRequest = JsonObjectRequest(Request.Method.POST, postURL, post_data1, { response ->
+                    Toast.makeText(this@MainPage, "Wine is taken out.", Toast.LENGTH_SHORT)
+                        .show()
+                }, { error ->
+                    Log.e("TAGa", "RESPONSE IS $error")
+                    // in this case we are simply displaying a toast message.
+                    Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                        .show()
+                })
+                postqueue.add(moveRequest)
+                Toast.makeText(this@MainPage, "Wine Move Complete.", Toast.LENGTH_SHORT)
+                    .show()
+                val request1 = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+                    floor1 = response.getJSONObject("floor1")
+                    floor2 = response.getJSONObject("floor2")
+                    floor3 = response.getJSONObject("floor3")
+                    displayWine()
+                }, { error ->
+                    Log.e("TAGa", "RESPONSE IS $error")
+                    // in this case we are simply displaying a toast message.
+                    Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                        .show()
+                })
+                getqueue.add(request1)
                 wineInfoDialog.dismiss()
+                finish()
+                overridePendingTransition(0, 0) //인텐트 효과 없애기
+                val intent = intent //인텐트
+                startActivity(intent) //액티비티 열기
+                overridePendingTransition(0, 0) //인텐트 효과 없애기
             }
             wineInfoBinding.reserve.setOnClickListener() {
                 wineInfoDialog.dismiss()
