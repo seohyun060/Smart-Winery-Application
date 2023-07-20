@@ -24,12 +24,9 @@ import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
 import org.json.JSONArray
 import org.json.JSONObject
-import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.SettingPageBinding
 import com.example.smart_winery.databinding.WineInfoBinding
 import com.google.mlkit.vision.barcode.common.Barcode
-import org.json.JSONArray
-import org.json.JSONObject
 
 @GlideModule
 class MyGlide : AppGlideModule()
