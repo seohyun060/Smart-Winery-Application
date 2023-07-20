@@ -47,6 +47,11 @@ class MainPage : AppCompatActivity() {
     var floor1type = 1
     var floor2type = 3
     var floor3type = 2
+
+    var floor1smart = true
+    var floor2smart = true
+    var floor3smart = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -104,6 +109,12 @@ class MainPage : AppCompatActivity() {
             val floor1wines:JSONArray = floor1.getJSONArray("cell_ids")
             val floor2wines:JSONArray = floor2.getJSONArray("cell_ids")
             val floor3wines:JSONArray = floor3.getJSONArray("cell_ids")
+            floor1type = floor1.getInt("type")
+            floor2type = floor2.getInt("type")
+            floor3type = floor3.getInt("type")
+            floor1smart = floor1.getBoolean("is_smart_mode")
+            floor2smart =floor2.getBoolean("is_smart_mode")
+            floor3smart =floor3.getBoolean("is_smart_mode")
             for ((index,i) in firstfloor.withIndex()){
                 for (j in 0 until floor1wines.length()){
                     val wine:JSONObject = floor1wines.getJSONObject(j)

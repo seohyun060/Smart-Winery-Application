@@ -25,7 +25,7 @@
         android:orientation="vertical"
         >
         <LinearLayout
-            android:id="@+id/floor3"
+            android:id="@+id/cell1"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:background="@drawable/border_top"
@@ -33,8 +33,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3rd Floor"
-                android:textSize="25dp"
+                android:text="1st cell"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"
                 />
@@ -50,7 +50,7 @@
 
                     android:padding="0dp"
                     android:text="RED"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     android:layout_marginRight="100dp"
                     android:backgroundTint="@color/red_wine"
@@ -65,8 +65,9 @@
                     <Button
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/rDown"
+                        android:id="@+id/down1"
                         android:text="-"
+                        android:enabled="false"
                         android:gravity="center"
                         android:background="#00ff0000"
                         android:textColor="@color/black"
@@ -77,7 +78,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/rTemp"
+                        android:id="@+id/temp1"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -86,8 +87,9 @@
                     <Button
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/rUp"
+                        android:id="@+id/up1"
                         android:text="+"
+                        android:enabled="false"
                         android:onClick="upDownClicked"
                         android:background="#00ff0000"
                         android:textColor="@color/black"
@@ -122,7 +124,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/floor2"
+            android:id="@+id/cell2"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:background="@drawable/border_top"
@@ -130,8 +132,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2nd Floor"
-                android:textSize="25dp"
+                android:text="2nd Cell"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"
 
@@ -148,7 +150,7 @@
                     android:padding="0dp"
                     android:id="@+id/floor2Type"
                     android:text="WHITE"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:layout_marginRight="100dp"
                     android:textStyle="bold"
                     android:backgroundTint="@color/white_wine"
@@ -163,8 +165,9 @@
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/wDown"
+                    android:id="@+id/down2"
                     android:text="-"
+                    android:enabled="false"
                     android:background="#00ff0000"
                     android:textColor="@color/black"
                     android:textSize="25dp"
@@ -174,7 +177,7 @@
                     android:onClick="upDownClicked"
                     />
                 <TextView
-                    android:id="@+id/wTemp"
+                    android:id="@+id/temp2"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -184,9 +187,10 @@
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/wUp"
+                    android:id="@+id/up2"
                     android:text="+"
                     android:onClick="upDownClicked"
+                    android:enabled="false"
                     android:background="#00ff0000"
                     android:textColor="@color/black"
                     android:textSize="25dp"
@@ -219,20 +223,20 @@
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/floor1"
+            android:id="@+id/cell3"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:background="@drawable/border_top_bottom"
 
             android:layout_height="160dp">
+
             <TextView
-                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1st Floor"
+                android:layout_marginTop="15dp"
+                android:text="3rd Cell"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:gravity="center"
@@ -245,7 +249,7 @@
                     android:padding="0dp"
                     android:text="SPARKLE"
                     android:id="@+id/floor3Type"
-                    android:textSize="19dp"
+                    android:textSize="20dp"
                     android:layout_marginRight="100dp"
                     android:textStyle="bold"
                     android:backgroundTint="@color/sparkle_wine"
@@ -257,12 +261,13 @@
                     android:id="@+id/updown3"
                     android:background="@drawable/border_blackout">
                 <Button
-                    android:id="@+id/sDown"
+                    android:id="@+id/down3"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:background="#00ff0000"
                     android:textColor="@color/black"
+                    android:enabled="false"
                     android:textSize="25dp"
                     android:padding="0dp"
                     android:textStyle="bold"
@@ -270,7 +275,7 @@
                     android:text="-" />
 
                 <TextView
-                    android:id="@+id/sTemp"
+                    android:id="@+id/temp3"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -280,11 +285,12 @@
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/sUp"
+                    android:id="@+id/up3"
                     android:text="+"
                     android:background="#00ff0000"
                     android:textColor="@color/black"
                     android:textSize="25dp"
+                    android:enabled="false"
                     android:padding="0dp"
                     android:textStyle="bold"
                     android:onClick="upDownClicked"
