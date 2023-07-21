@@ -390,11 +390,12 @@ class SettingPage : AppCompatActivity() {
         }
         val typeButtonListener = object : View.OnClickListener {
             override fun onClick (v:View?) {
-                val clickedFloorButton = v?.id.toString().toInt() - typebuttonNumber
+                val clickedFloorButton = v?.id.toString().toInt()
                 Log.d("floortype",floor2type.toString())
                 Log.d("floortype0",WineList1.size.toString())
+                Log.d("clickedFloorButton","$clickedFloorButton")
                 when (clickedFloorButton) {
-                    1 -> {
+                    binding.floor1Type.id -> {
                         Log.d("floortype",floor1type.toString())
                         if(WineList1.size ==0 && (binding.state1.text == "Auto")){
                             when(floor1type)
@@ -407,7 +408,9 @@ class SettingPage : AppCompatActivity() {
                         }
 
                     }
-                    2 -> {
+                    binding.floor2Type.id -> {
+                        Log.d("floortype",floor2type.toString())
+                        Log.d("floortype0",WineList2.size.toString())
                         if(WineList2.size ==0 && (binding.state2.text == "Auto")){
                             when(floor2type)
                             {
@@ -417,7 +420,7 @@ class SettingPage : AppCompatActivity() {
                             }
                         }
                     }
-                    3 -> {
+                    binding.floor3Type.id -> {
                         if(WineList3.size ==0 && (binding.state3.text == "Auto")){
                             when(floor3type)
                             {
