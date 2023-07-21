@@ -242,9 +242,12 @@ class MainPage : AppCompatActivity() {
                     }
                 }
             }
-            mainPageBinding.floor1Now.setText("${floor1.getInt("temperature_now")}℃")
-            mainPageBinding.floor2Now.setText("${floor2.getInt("temperature_now")}℃")
-            mainPageBinding.floor3Now.setText("${floor3.getInt("temperature_now")}℃")
+            mainPageBinding.floor1Now.setText("Now: ${floor1.getInt("temperature_now")}℃")
+            mainPageBinding.floor2Now.setText("Now: ${floor2.getInt("temperature_now")}℃")
+            mainPageBinding.floor3Now.setText("Now: ${floor3.getInt("temperature_now")}℃")
+            mainPageBinding.floor1Target.setText("Target: ${floor1.getInt("temperature_target")}℃")
+            mainPageBinding.floor2Target.setText("Target: ${floor2.getInt("temperature_target")}℃")
+            mainPageBinding.floor3Target.setText("Target: ${floor3.getInt("temperature_target")}℃")
             for ((index,i) in firstfloor.withIndex()){
                 for (j in 0 until floor1wines.length()){
                     val wine:JSONObject = floor1wines.getJSONObject(j)
