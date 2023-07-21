@@ -836,18 +836,18 @@ class MainPage : AppCompatActivity() {
                             Log.d("clickedF3",floor1type.toString())
                             Log.d("clickedF4",wineBefore.Wine_Floor_Type.toString())
                             if (clickedFloor == 0){
-                                if (floor1type == 0 || floor1type == wineBefore.Wine_Floor_Type){
+                                if (!floor1smart || floor1type == wineBefore.Wine_Floor_Type){
 
                                     checkFloorWine = true
                                 }
                             }
                             else if (clickedFloor == 1) {
-                                if (floor2type == 0 || floor2type == wineBefore.Wine_Floor_Type){
+                                if (!floor2smart || floor2type == wineBefore.Wine_Floor_Type){
                                     checkFloorWine = true
                                 }
                             }
                             else {
-                                if (floor3type == 0 || floor3type == wineBefore.Wine_Floor_Type){
+                                if (!floor3smart || floor3type == wineBefore.Wine_Floor_Type){
                                     checkFloorWine = true
                                 }
                             }
@@ -1019,13 +1019,13 @@ class MainPage : AppCompatActivity() {
 
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        overridePendingTransition(0, 0) //인텐트 효과 없애기
-        val intent = intent //인텐트
-        startActivity(intent) //액티비티 열기
-        overridePendingTransition(0, 0) //인텐트 효과 없애기
-    }
+//    override fun onRestart() {
+//        super.onRestart()
+//        overridePendingTransition(0, 0) //인텐트 효과 없애기
+//        val intent = intent //인텐트
+//        startActivity(intent) //액티비티 열기
+//        overridePendingTransition(0, 0) //인텐트 효과 없애기
+//    }
     private fun requestCameraAndStartScanner() {
         if (isPermissionGranted(cameraPermission)) {
             startScanner()
