@@ -1,5 +1,8 @@
 package com.example.smart_winery
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
+import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
@@ -46,11 +51,12 @@ class MainPage : AppCompatActivity() {
 
     var floor1type = 1
     var floor2type = 3
-     var floor3type = 2
+    var floor3type = 2
 
     var floor1smart = true
     var floor2smart = true
     var floor3smart = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -81,6 +87,13 @@ class MainPage : AppCompatActivity() {
             mainPageBinding.btn14,
             mainPageBinding.btn15
         )
+        val firstlayout = arrayListOf<LinearLayout>(
+            mainPageBinding.layout11,
+            mainPageBinding.layout12,
+            mainPageBinding.layout13,
+            mainPageBinding.layout14,
+            mainPageBinding.layout15
+        )
         val secondfloor = arrayListOf<ImageView>(
             mainPageBinding.btn21,
             mainPageBinding.btn22,
@@ -88,12 +101,26 @@ class MainPage : AppCompatActivity() {
             mainPageBinding.btn24,
             mainPageBinding.btn25
         )
+        val secondlayout = arrayListOf<LinearLayout>(
+            mainPageBinding.layout21,
+            mainPageBinding.layout22,
+            mainPageBinding.layout23,
+            mainPageBinding.layout24,
+            mainPageBinding.layout25
+        )
         val thirdfloor = arrayListOf<ImageView>(
             mainPageBinding.btn31,
             mainPageBinding.btn32,
             mainPageBinding.btn33,
             mainPageBinding.btn34,
             mainPageBinding.btn35
+        )
+        val thirdlayout = arrayListOf<LinearLayout>(
+            mainPageBinding.layout31,
+            mainPageBinding.layout32,
+            mainPageBinding.layout33,
+            mainPageBinding.layout34,
+            mainPageBinding.layout35
         )
         var floor1:JSONObject = JSONObject()
         var floor2:JSONObject = JSONObject()
@@ -111,11 +138,117 @@ class MainPage : AppCompatActivity() {
             val floor2wines:JSONArray = floor2.getJSONArray("cell_ids")
             val floor3wines:JSONArray = floor3.getJSONArray("cell_ids")
             floor1type = floor1.getInt("type")
+            when(floor1type){
+                1 -> {
+                    mainPageBinding.floor1Type.setText("Red")
+                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.red_back)
+                    for (i in firstlayout) {
+                        i.setBackgroundResource(R.drawable.red_border)
+                    }
+                }
+                2 -> {
+                    mainPageBinding.floor1Type.setText("White")
+                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.white_back)
+                    for (i in firstlayout){
+                        i.setBackgroundResource(R.drawable.white_border)
+                    }
+
+                }
+                3 -> {
+                    mainPageBinding.floor1Type.setText("Sparkling")
+                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.sparkling_back)
+                    for (i in firstlayout){
+                        i.setBackgroundResource(R.drawable.sparkling_border)
+                    }
+                }
+            }
             floor2type = floor2.getInt("type")
+            when(floor2type){
+                1 -> {
+                    mainPageBinding.floor2Type.setText("Red")
+                    mainPageBinding.floor2Type.setBackgroundResource(R.drawable.red_back)
+                    for (i in secondlayout){
+                        i.setBackgroundResource(R.drawable.red_border)
+                    }
+                }
+                2 -> {
+                    mainPageBinding.floor2Type.setText("White")
+                    mainPageBinding.floor2Type.setBackgroundResource(R.drawable.white_back)
+                    for (i in secondlayout){
+                        i.setBackgroundResource(R.drawable.white_border)
+                    }
+                }
+                3 -> {
+                    mainPageBinding.floor2Type.setText("Sparkling")
+                    mainPageBinding.floor2Type.setBackgroundResource(R.drawable.sparkling_back)
+                    for (i in secondlayout){
+                        i.setBackgroundResource(R.drawable.sparkling_border)
+                    }
+                }
+            }
             floor3type = floor3.getInt("type")
+            when(floor3type){
+                1 -> {
+                    mainPageBinding.floor3Type.setText("Red")
+                    mainPageBinding.floor3Type.setBackgroundResource(R.drawable.red_back)
+                    for (i in thirdlayout){
+                        i.setBackgroundResource(R.drawable.red_border)
+                    }
+                }
+                2 -> {
+                    mainPageBinding.floor3Type.setText("White")
+                    mainPageBinding.floor3Type.setBackgroundResource(R.drawable.white_back)
+                    for (i in thirdlayout){
+                        i.setBackgroundResource(R.drawable.white_border)
+                    }
+                }
+                3 -> {
+                    mainPageBinding.floor3Type.setText("Sparkling")
+                    mainPageBinding.floor3Type.setBackgroundResource(R.drawable.sparkling_back)
+                    for (i in thirdlayout){
+                        i.setBackgroundResource(R.drawable.sparkling_border)
+                    }
+                }
+            }
             floor1smart = floor1.getBoolean("is_smart_mode")
-            floor2smart =floor2.getBoolean("is_smart_mode")
-            floor3smart =floor3.getBoolean("is_smart_mode")
+            when(floor1smart){
+                true -> {}
+                false -> {
+                    mainPageBinding.floor1Type.setText("User")
+                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.user_back)
+                    for (i in firstlayout) {
+                        i.setBackgroundResource(R.drawable.user_border)
+                    }
+                }
+            }
+            floor2smart = floor2.getBoolean("is_smart_mode")
+            when(floor2smart){
+                true -> {}
+                false -> {
+                    mainPageBinding.floor1Type.setText("User")
+                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.user_back)
+                    for (i in firstlayout) {
+                        i.setBackgroundResource(R.drawable.user_border)
+                    }
+                }
+            }
+            floor3smart = floor3.getBoolean("is_smart_mode")
+            when(floor3smart){
+                true -> {}
+                false -> {
+                    mainPageBinding.floor1Type.setText("User")
+                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.user_back)
+                    for (i in firstlayout) {
+                        i.setBackgroundResource(R.drawable.user_border)
+                    }
+                }
+            }
+            mainPageBinding.floor1Now.setText("Now : ${floor1.getInt("temperature_now")}℃")
+            mainPageBinding.floor2Now.setText("Now : ${floor2.getInt("temperature_now")}℃")
+            mainPageBinding.floor3Now.setText("Now : ${floor3.getInt("temperature_now")}℃")
+            mainPageBinding.floor1Target.setText("Target : ${floor1.getInt("temperature_target")}℃")
+            mainPageBinding.floor2Target.setText("Target : ${floor2.getInt("temperature_target")}℃")
+            mainPageBinding.floor3Target.setText("Target : ${floor3.getInt("temperature_target")}℃")
             for ((index,i) in firstfloor.withIndex()){
                 for (j in 0 until floor1wines.length()){
                     val wine:JSONObject = floor1wines.getJSONObject(j)
@@ -342,7 +475,6 @@ class MainPage : AppCompatActivity() {
 
 //        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
         var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
-
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
 
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
@@ -572,7 +704,47 @@ class MainPage : AppCompatActivity() {
             }
             val wineInfoDialog = wineInfoBuilder.show()
             wineInfoBinding.takeWine.setOnClickListener(){
+                val getqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                val postqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                var postURL = "http://13.48.52.200:3000/winecellar"
+                val postDataReq = """
+                                {
+                                    "cellarid": "64b4f9a38b4dc227def9b5b1",
+                                    "row": ${w.Wine_Floor},
+                                    "col": ${w.Wine_Location + 1}
+                                }
+                                """.trimIndent()
+                var post_data1:JSONObject = JSONObject(postDataReq)
+                val moveRequest = JsonObjectRequest(Request.Method.POST, postURL, post_data1, { response ->
+                    Toast.makeText(this@MainPage, "Wine is taken out.", Toast.LENGTH_SHORT)
+                        .show()
+                }, { error ->
+                    Log.e("TAGa", "RESPONSE IS $error")
+                    // in this case we are simply displaying a toast message.
+                    Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                        .show()
+                })
+                postqueue.add(moveRequest)
+                Toast.makeText(this@MainPage, "Wine Move Complete.", Toast.LENGTH_SHORT)
+                    .show()
+                val request1 = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+                    floor1 = response.getJSONObject("floor1")
+                    floor2 = response.getJSONObject("floor2")
+                    floor3 = response.getJSONObject("floor3")
+                    displayWine()
+                }, { error ->
+                    Log.e("TAGa", "RESPONSE IS $error")
+                    // in this case we are simply displaying a toast message.
+                    Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                        .show()
+                })
+                getqueue.add(request1)
                 wineInfoDialog.dismiss()
+                finish()
+                overridePendingTransition(0, 0) //인텐트 효과 없애기
+                val intent = intent //인텐트
+                startActivity(intent) //액티비티 열기
+                overridePendingTransition(0, 0) //인텐트 효과 없애기
             }
             wineInfoBinding.reserve.setOnClickListener() {
                 wineInfoDialog.dismiss()
