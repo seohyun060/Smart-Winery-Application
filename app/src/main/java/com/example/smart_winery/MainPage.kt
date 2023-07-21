@@ -1,5 +1,8 @@
 package com.example.smart_winery
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,11 +16,9 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import android.os.Handler
-import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Space
 import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
@@ -147,8 +148,8 @@ class MainPage : AppCompatActivity() {
             }
         }
 
-        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
-//        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
+//        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
+        var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             floor1 = response.getJSONObject("floor1")
@@ -198,6 +199,7 @@ class MainPage : AppCompatActivity() {
                 var hour = Integer.parseInt(reserveBinding.hourET.getText().toString())
                 var minute = Integer.parseInt(reserveBinding.minuteET.getText().toString())
                 var reserveTime = (hour * 60 + minute)*1000
+
                 val handler = Handler()
                 val handlerTask = object : Runnable {
                     override fun run() {
