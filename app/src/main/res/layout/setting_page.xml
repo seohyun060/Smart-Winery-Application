@@ -74,7 +74,6 @@
                         android:textSize="25dp"
                         android:padding="0dp"
                         android:textStyle="bold"
-                        android:onClick="upDownClicked"
                         />
 
                     <TextView
@@ -90,7 +89,6 @@
                         android:id="@+id/up1"
                         android:text="+"
                         android:enabled="false"
-                        android:onClick="upDownClicked"
                         android:background="#00ff0000"
                         android:textColor="@color/black"
                         android:textSize="25dp"
@@ -174,7 +172,6 @@
                     android:padding="0dp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:onClick="upDownClicked"
                     />
                 <TextView
                     android:id="@+id/temp2"
@@ -189,7 +186,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/up2"
                     android:text="+"
-                    android:onClick="upDownClicked"
                     android:enabled="false"
                     android:background="#00ff0000"
                     android:textColor="@color/black"
@@ -271,7 +267,6 @@
                     android:textSize="25dp"
                     android:padding="0dp"
                     android:textStyle="bold"
-                    android:onClick="upDownClicked"
                     android:text="-" />
 
                 <TextView
@@ -293,7 +288,6 @@
                     android:enabled="false"
                     android:padding="0dp"
                     android:textStyle="bold"
-                    android:onClick="upDownClicked"
                     android:gravity="center"
                     />
                 </LinearLayout>
@@ -321,5 +315,13 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+    <Button
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="APPLY"
+        android:backgroundTint="@color/grey_button"
+        android:id="@+id/apply"
+        />
 
 </LinearLayout>

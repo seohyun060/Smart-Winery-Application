@@ -69,7 +69,9 @@ class MainPage : AppCompatActivity() {
         var wineAfter:WineInfo = WineInfo(0,0,"","","",0,0,0,0,0, mutableListOf(),"",0,"",
             mutableListOf()
         )
-
+        var wineInfoTemp:WineInfo = WineInfo(0,0,"","","",0,0,0,0,0, mutableListOf(),"",0,"",
+            mutableListOf()
+        )
 
 
         val firstfloor = arrayListOf<ImageView>(
@@ -363,6 +365,7 @@ class MainPage : AppCompatActivity() {
         }
         mainPageBinding.settings.setOnClickListener(){
             val intent = Intent(this,SettingPage::class.java)
+
             startActivity(intent)
         }
         mainPageBinding.mainSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -563,6 +566,7 @@ class MainPage : AppCompatActivity() {
                     }
                 }
             }
+            Log.d("winelist3",WineList3[0].Wine_Name.toString())
             if(wineInfoView.getParent() !=null){
                 (wineInfoView.getParent() as ViewGroup).removeView(wineInfoView)
             }
@@ -582,9 +586,31 @@ class MainPage : AppCompatActivity() {
                 val reserveDialog = reserveBuilder.show()
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 reserveBinding.proceed.setOnClickListener() {
+
                     var hour = Integer.parseInt(reserveBinding.hourET.getText().toString())
                     var minute = Integer.parseInt(reserveBinding.minuteET.getText().toString())
+
                     var reserveTime = (hour * 60 + minute)*1000
+                    val postReserveQueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
+                    val postReserveURL = "http://13.48.52.200:3000/winecellar/reserve"
+                    val postReserveReq = """
+                                                {
+                                                    "cellar_id": "64b4f9a38b4dc227def9b5b1",
+                                                    "row": ${wineInfoTemp.Wine_Floor},
+                                                    "col": ${wineInfoTemp.Wine_Location + 1}
+                                                }
+                                                """.trimIndent()
+                    var post_reserve_data:JSONObject = JSONObject(postReserveReq)
+                    val reserveRequest = JsonObjectRequest(Request.Method.POST, postReserveURL, post_reserve_data, { response ->
+                    }, { error ->
+                        Log.e("TAGa", "RESPONSE IS $error")
+                        // in this case we are simply displaying a toast message.
+                        Toast.makeText(this@MainPage, "Fail to get response", Toast.LENGTH_SHORT)
+                            .show()
+                    })
+                    postReserveQueue.add(reserveRequest)
+                    Toast.makeText(this@MainPage, "Your reserved wine will be ready in ${hour} : ${minute}", Toast.LENGTH_SHORT)
+                        .show()
                     val handler = Handler()
                     val handlerTask = object : Runnable {
                         override fun run() {
@@ -601,7 +627,7 @@ class MainPage : AppCompatActivity() {
         }
 
 
-        val cellListener = object : View.OnClickListener {
+        val cellListener  = object : View.OnClickListener  {
             override fun onClick (v:View?){
                 var clickedCellIndex = v?.id.toString().toInt() - btnIdNumber
                 var clickedWineIndex = clickedCellIndex % 5//move 상황
@@ -783,6 +809,7 @@ class MainPage : AppCompatActivity() {
                     if (clickedCellIndex < 5) { // 1층
                         for (w in WineList1) {
                             if (w.Wine_Location == clickedWineIndex){
+                                wineInfoTemp = w.clone()
                                 openWineinfo(w)
                             }
                         }
@@ -790,6 +817,7 @@ class MainPage : AppCompatActivity() {
                     else if (clickedCellIndex < 10) {
                         for (w in WineList2) {
                             if (w.Wine_Location == clickedWineIndex){
+                                wineInfoTemp = w.clone()
                                 openWineinfo(w)
                             }
                         }
@@ -797,6 +825,7 @@ class MainPage : AppCompatActivity() {
                     else {
                         for (w in WineList3) {
                             if (w.Wine_Location == clickedWineIndex) {
+                                wineInfoTemp = w.clone()
                                 openWineinfo(w)
                             }
                         }
@@ -823,6 +852,13 @@ class MainPage : AppCompatActivity() {
 
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        val intent = intent //인텐트
+        startActivity(intent) //액티비티 열기
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
+    }
     private fun requestCameraAndStartScanner() {
         if (isPermissionGranted(cameraPermission)) {
             startScanner()
