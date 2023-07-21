@@ -80,16 +80,16 @@
                     android:layout_marginRight="10dp"
                     android:text=""
                     android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="left"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/floor1_target"
                     android:layout_marginRight="10dp"
                     android:text=""
                     android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="left"/>
 
             </LinearLayout>
 
@@ -205,16 +205,16 @@
                     android:layout_marginRight="10dp"
                     android:text=""
                     android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="left"/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/floor2_target"
                     android:layout_marginRight="10dp"
                     android:text=""
                     android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="left"/>
 
             </LinearLayout>
             <GridLayout
@@ -330,16 +330,16 @@
                     android:id="@+id/floor3_now"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:text=""/>
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/floor3_target"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:text=""/>
 
             </LinearLayout>
