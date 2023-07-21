@@ -58,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="당도"
+                        android:text="Sweet"
                         android:textColor="@color/black"
                         android:textSize="8dp"
                         android:textStyle="bold" />
@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="산미"
+                        android:text="Acid"
                         android:textColor="@color/black"
                         android:textSize="8dp"
                         android:textStyle="bold" />
@@ -103,7 +103,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="바디"
+                        android:text="Body"
                         android:textColor="@color/black"
                         android:textSize="8dp"
                         android:textStyle="bold" />
@@ -126,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="타닌"
+                        android:text="Tannin"
                         android:textColor="@color/black"
                         android:textSize="8dp"
                         android:textStyle="bold" />
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textStyle="bold"
-                    android:text="아로마"
+                    android:text="Aroma"
                     android:textSize="10dp" />
 
                 <GridLayout
@@ -180,7 +180,7 @@
                             android:id="@+id/aroma1txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
@@ -207,7 +207,7 @@
                             android:layout_height="25dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp" />
 
                     </LinearLayout>
@@ -230,7 +230,7 @@
                             android:id="@+id/aroma3txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
@@ -255,7 +255,7 @@
                             android:id="@+id/aroma4txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
@@ -276,7 +276,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="페어링"
+                    android:text="Pairing"
                     android:textStyle="bold"
                     android:textSize="10dp" />
 
@@ -303,7 +303,7 @@
                             android:id="@+id/pair1txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
@@ -328,7 +328,7 @@
                             android:id="@+id/pair2txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
@@ -353,7 +353,7 @@
                             android:id="@+id/pair3txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
@@ -378,7 +378,7 @@
                             android:id="@+id/pair4txt"
                             android:layout_height="25dp"
                             android:layout_width="match_parent"
-                            android:text="아시아"
+                            android:text=""
                             android:textSize="8dp"
                             android:layout_gravity="center"
                             android:gravity="center"/>

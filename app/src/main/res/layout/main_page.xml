@@ -78,7 +78,19 @@
                     android:layout_height="match_parent"
                     android:id="@+id/floor1_now"
                     android:layout_marginRight="10dp"
-                    android:text=""/>
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/floor1_target"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
+
             </LinearLayout>
 
             <GridLayout
@@ -191,7 +203,18 @@
                     android:layout_height="match_parent"
                     android:id="@+id/floor2_now"
                     android:layout_marginRight="10dp"
-                    android:text=""/>
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/floor2_target"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
             <GridLayout
@@ -306,6 +329,17 @@
                     android:layout_height="match_parent"
                     android:id="@+id/floor3_now"
                     android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/floor3_target"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:text=""/>
 
             </LinearLayout>
