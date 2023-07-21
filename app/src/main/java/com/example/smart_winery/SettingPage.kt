@@ -73,7 +73,6 @@ class SettingPage : AppCompatActivity() {
 //            }
 //        }
         val typebuttonNumber = binding.floor1Type.id - 1
-        
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             Log.d("responseebal",response.toString())
             cellfloor1 = response.getJSONObject("floor1")
