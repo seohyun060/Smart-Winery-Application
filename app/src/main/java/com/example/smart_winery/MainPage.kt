@@ -1,5 +1,8 @@
 package com.example.smart_winery
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -20,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
+import androidx.appcompat.app.AlertDialog
 import com.example.smart_winery.ScanPage.Companion.startScanner
 import com.example.smart_winery.databinding.MainPageBinding
 import com.example.smart_winery.databinding.ReserveBinding
@@ -469,7 +473,6 @@ class MainPage : AppCompatActivity() {
 
 //        val url = "http://10.0.2.2:3000/winecellar/status?id=64ae2b0848a3d71c485e2472"
         var url = "http://13.48.52.200:3000/winecellar/status?id=64b4f9a38b4dc227def9b5b1"
-
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
 
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
