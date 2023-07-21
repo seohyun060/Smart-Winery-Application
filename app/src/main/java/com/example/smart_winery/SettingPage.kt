@@ -72,7 +72,8 @@ class SettingPage : AppCompatActivity() {
 //                binding.floor1Type.setBackgroundColor(Color.parseColor("#2589FF"))
 //            }
 //        }
-        val typebuttonNumber = 2131231315
+        val typebuttonNumber = binding.floor1Type.id - 1
+        
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             Log.d("responseebal",response.toString())
             cellfloor1 = response.getJSONObject("floor1")
@@ -324,6 +325,9 @@ class SettingPage : AppCompatActivity() {
         val handlerTask = object : Runnable {
             override fun run() {
                 setCellInfo(cell1TargetTemp,cell2TargetTemp,cell3TargetTemp,floor1type,floor2type,floor3type,floor1smart,floor2smart,floor3smart)
+                binding.switch3.isChecked = !floor3smart
+                binding.switch2.isChecked = !floor2smart
+                binding.switch1.isChecked = !floor1smart
             }
         }
         handler.postDelayed(handlerTask, time.toLong())
@@ -458,6 +462,7 @@ class SettingPage : AppCompatActivity() {
                 postSettingQueue.add(settingRequest)
                 finish()
             }
+
             switch3.setOnCheckedChangeListener { _, isChecked ->
                 if (!isChecked) {
                     var changeable = true
@@ -520,6 +525,7 @@ class SettingPage : AppCompatActivity() {
                     floor3smart = false
                     binding.temp3.setText("${cell3TargetTemp}")
                     binding.floor3Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor3Type.setTextColor(Color.WHITE)
                     updown3.background = getDrawable(R.drawable.timer_border)
                     state3.setText("User")
                 }
@@ -589,6 +595,7 @@ class SettingPage : AppCompatActivity() {
                     floor2smart = false
                     binding.temp2.setText("${cell2TargetTemp}")
                     binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor2Type.setTextColor(Color.WHITE)
                     updown2.background = getDrawable(R.drawable.timer_border)
                     //floor2.setBackgroundResource(R.drawable.border_top)
                     state2.setText("User")
@@ -662,6 +669,7 @@ class SettingPage : AppCompatActivity() {
 
                     binding.temp1.setText("${cell1TargetTemp}")
                     binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor1Type.setTextColor(Color.WHITE)
                     floor1Type.isEnabled = false
                     updown1.background = getDrawable(R.drawable.timer_border)
                     //floor2.setBackgroundResource(R.drawable.border_top)
@@ -724,6 +732,7 @@ class SettingPage : AppCompatActivity() {
         else {
             binding.floor1Type.setText("USER")
             binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
+            binding.floor1Type.setTextColor(Color.WHITE)
         }
         if (floor2smart) {
             when(floor2type) {
@@ -745,6 +754,7 @@ class SettingPage : AppCompatActivity() {
         else {
             binding.floor2Type.setText("USER")
             binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
+            binding.floor2Type.setTextColor(Color.WHITE)
         }
         if (floor3smart) {
             Log.d("winelist3",WineList3.size.toString())
@@ -769,6 +779,7 @@ class SettingPage : AppCompatActivity() {
         else {
             binding.floor3Type.setText("USER")
             binding.floor3Type.setBackgroundColor(Color.parseColor("#888888"))
+            binding.floor3Type.setTextColor(Color.WHITE)
         }
     }
 
