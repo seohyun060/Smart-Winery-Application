@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="300dp"
-    android:layout_height="348dp"
+    android:layout_height="350dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:background="@drawable/popup_border"
-
     android:orientation="vertical">
     <LinearLayout
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_marginTop="15dp"
-        android:layout_height="50dp">
+        android:layout_marginHorizontal="15dp"
+        android:layout_height="30dp">
         <TextView
             android:textAlignment="center"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:id="@+id/scan_name"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:textSize="13dp"
             android:text="여자랑 먹으면 쥰내 맛있는 와인"
             />
 
@@ -29,24 +28,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="203dp"
+        android:layout_height="225dp"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/scan_image"
-            android:layout_width="42dp"
+            android:layout_width="100dp"
             android:layout_height="180dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/wine1" />
+            android:layout_marginRight="10dp"
+            android:background="@drawable/wine1"
+            android:scaleType="fitXY"/>
 
         <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="190dp"
+            android:layout_width="180dp"
+            android:layout_height="210dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="110dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -131,7 +132,7 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/tanin_level"
+                        android:id="@+id/tannin_level"
                         android:layout_width="80dp"
 
                         android:layout_height="11dp"
@@ -143,116 +144,269 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/aromaContainer"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
                     android:text="아로마"
                     android:textSize="10dp" />
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="2dp">
 
-                    <ImageView
-                        android:id="@+id/aroma1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/aroma_berry" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/aroma1">
 
-                    <ImageView
-                        android:id="@+id/aroma2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/aroma_apple" />
+                        <ImageView
+                            android:id="@+id/aroma1img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/aroma_berry" />
 
-                    <ImageView
-                        android:id="@+id/aroma3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/aroma_croissant" />
+                        <TextView
+                            android:id="@+id/aroma1txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
 
-                    <ImageView
-                        android:id="@+id/aroma4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/aroma_herbal" />
-                </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/aroma2">
+
+                        <ImageView
+                            android:id="@+id/aroma2img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/aroma_apple" />
+
+                        <TextView
+                            android:id="@+id/aroma2txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="아시아"
+                            android:textSize="8dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/aroma3">
+
+                        <ImageView
+                            android:id="@+id/aroma3img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/aroma_croissant" />
+
+                        <TextView
+                            android:id="@+id/aroma3txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/aroma4">
+
+                        <ImageView
+                            android:id="@+id/aroma4img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/aroma_herbal" />
+
+                        <TextView
+                            android:id="@+id/aroma4txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </GridLayout>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/pairingContainer"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="페어링"
+                    android:textStyle="bold"
                     android:textSize="10dp" />
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="2dp">
 
-                    <ImageView
-                        android:id="@+id/pair1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/pair_asia" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/pair1">
 
-                    <ImageView
-                        android:id="@+id/pair2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/pair_beef" />
+                        <ImageView
+                            android:id="@+id/pair1img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/pair_asia"
+                            android:layout_gravity="center"/>
 
-                    <ImageView
-                        android:id="@+id/pair3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/pair_chicken" />
+                        <TextView
+                            android:id="@+id/pair1txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
 
-                    <ImageView
-                        android:id="@+id/pair4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/pair_champagne" />
-                </LinearLayout>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/pair2">
+
+                        <ImageView
+                            android:id="@+id/pair2img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/pair_beef"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/pair2txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/pair3">
+
+                        <ImageView
+                            android:id="@+id/pair3img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/pair_chicken"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/pair3txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_columnWeight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/pair4">
+
+                        <ImageView
+                            android:id="@+id/pair4img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/pair_champagne"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/pair4txt"
+                            android:layout_height="25dp"
+                            android:layout_width="match_parent"
+                            android:text="아시아"
+                            android:textSize="8dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+                </GridLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-
+        android:id="@+id/footer"
         android:layout_height="80dp"
         android:background="@drawable/popup_footer_border"
         android:orientation="horizontal"
         android:gravity="center"
         >
+
         <Button
+            android:id="@+id/take_wine"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:backgroundTint="@color/grey_button"
-            android:text="Take wine"
-            android:padding="0dp"
-            android:id="@+id/take_wine"
             android:layout_marginRight="30dp"
-            />
+            android:backgroundTint="@color/grey_button"
+            android:padding="0dp"
+            android:text="Take wine" />
+
         <Button
             android:layout_width="100dp"
             android:layout_height="40dp"
@@ -260,7 +414,6 @@
             android:text="Reserve"
             android:id="@+id/reserve"
             android:padding="0dp"
-
             />
     </LinearLayout>
 </LinearLayout>
