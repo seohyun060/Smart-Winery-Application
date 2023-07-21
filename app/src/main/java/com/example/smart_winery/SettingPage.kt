@@ -72,7 +72,7 @@ class SettingPage : AppCompatActivity() {
 //                binding.floor1Type.setBackgroundColor(Color.parseColor("#2589FF"))
 //            }
 //        }
-        val typebuttonNumber = 2131231315
+        val typebuttonNumber = binding.floor1Type.id - 1
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             Log.d("responseebal",response.toString())
             cellfloor1 = response.getJSONObject("floor1")
@@ -324,6 +324,9 @@ class SettingPage : AppCompatActivity() {
         val handlerTask = object : Runnable {
             override fun run() {
                 setCellInfo(cell1TargetTemp,cell2TargetTemp,cell3TargetTemp,floor1type,floor2type,floor3type,floor1smart,floor2smart,floor3smart)
+                binding.switch3.isChecked = !floor3smart
+                binding.switch2.isChecked = !floor2smart
+                binding.switch1.isChecked = !floor1smart
             }
         }
         handler.postDelayed(handlerTask, time.toLong())

@@ -224,9 +224,9 @@ class MainPage : AppCompatActivity() {
             when(floor2smart){
                 true -> {}
                 false -> {
-                    mainPageBinding.floor1Type.setText("User")
-                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.user_back)
-                    for (i in firstlayout) {
+                    mainPageBinding.floor2Type.setText("User")
+                    mainPageBinding.floor2Type.setBackgroundResource(R.drawable.user_back)
+                    for (i in secondlayout) {
                         i.setBackgroundResource(R.drawable.user_border)
                     }
                 }
@@ -235,9 +235,9 @@ class MainPage : AppCompatActivity() {
             when(floor3smart){
                 true -> {}
                 false -> {
-                    mainPageBinding.floor1Type.setText("User")
-                    mainPageBinding.floor1Type.setBackgroundResource(R.drawable.user_back)
-                    for (i in firstlayout) {
+                    mainPageBinding.floor3Type.setText("User")
+                    mainPageBinding.floor3Type.setBackgroundResource(R.drawable.user_back)
+                    for (i in thirdlayout) {
                         i.setBackgroundResource(R.drawable.user_border)
                     }
                 }
