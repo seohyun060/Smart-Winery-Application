@@ -461,6 +461,7 @@ class SettingPage : AppCompatActivity() {
                 postSettingQueue.add(settingRequest)
                 finish()
             }
+
             switch3.setOnCheckedChangeListener { _, isChecked ->
                 if (!isChecked) {
                     var changeable = true
@@ -523,6 +524,7 @@ class SettingPage : AppCompatActivity() {
                     floor3smart = false
                     binding.temp3.setText("${cell3TargetTemp}")
                     binding.floor3Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor3Type.setTextColor(Color.WHITE)
                     updown3.background = getDrawable(R.drawable.timer_border)
                     state3.setText("User")
                 }
@@ -592,6 +594,7 @@ class SettingPage : AppCompatActivity() {
                     floor2smart = false
                     binding.temp2.setText("${cell2TargetTemp}")
                     binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor2Type.setTextColor(Color.WHITE)
                     updown2.background = getDrawable(R.drawable.timer_border)
                     //floor2.setBackgroundResource(R.drawable.border_top)
                     state2.setText("User")
@@ -665,6 +668,7 @@ class SettingPage : AppCompatActivity() {
 
                     binding.temp1.setText("${cell1TargetTemp}")
                     binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor1Type.setTextColor(Color.WHITE)
                     floor1Type.isEnabled = false
                     updown1.background = getDrawable(R.drawable.timer_border)
                     //floor2.setBackgroundResource(R.drawable.border_top)
@@ -727,6 +731,7 @@ class SettingPage : AppCompatActivity() {
         else {
             binding.floor1Type.setText("USER")
             binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
+            binding.floor1Type.setTextColor(Color.WHITE)
         }
         if (floor2smart) {
             when(floor2type) {
@@ -748,6 +753,7 @@ class SettingPage : AppCompatActivity() {
         else {
             binding.floor2Type.setText("USER")
             binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
+            binding.floor2Type.setTextColor(Color.WHITE)
         }
         if (floor3smart) {
             Log.d("winelist3",WineList3.size.toString())
@@ -772,6 +778,7 @@ class SettingPage : AppCompatActivity() {
         else {
             binding.floor3Type.setText("USER")
             binding.floor3Type.setBackgroundColor(Color.parseColor("#888888"))
+            binding.floor3Type.setTextColor(Color.WHITE)
         }
     }
 
