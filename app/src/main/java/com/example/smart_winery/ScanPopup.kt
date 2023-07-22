@@ -2,6 +2,7 @@ package com.example.smart_winery
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -167,6 +168,9 @@ class ScanPopup(@NonNull context: Context, private val barcodeTypeValue: String 
                     })
                 queue.add(post_request)
                 dismiss()
+                MainPage.instance?.finish()
+                val intents = Intent(this.context,MainPage::class.java)
+                context.startActivity(intents)
             }
         }
         binding.cancel.setOnClickListener {

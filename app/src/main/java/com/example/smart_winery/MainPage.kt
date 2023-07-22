@@ -1,5 +1,7 @@
 package com.example.smart_winery
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningTaskInfo
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -56,9 +58,14 @@ class MainPage : AppCompatActivity() {
     var floor2smart = true
     var floor3smart = true
 
+    companion object{
+        var instance:MainPage? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        instance = this
         val mainPageBinding = MainPageBinding.inflate(layoutInflater)
         val reserveBinding = ReserveBinding.inflate(layoutInflater)
         val wineInfoBinding = WineInfoBinding.inflate(layoutInflater)
@@ -496,7 +503,6 @@ class MainPage : AppCompatActivity() {
         }
         mainPageBinding.settings.setOnClickListener(){
             val intent = Intent(this,SettingPage::class.java)
-
             startActivity(intent)
         }
         mainPageBinding.mainSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -803,6 +809,7 @@ class MainPage : AppCompatActivity() {
                 var clickedWineIndex = clickedCellIndex % 5//move 상황
                 if (!isInfo) {
                     var spaceVacant = true
+                    isWineSelected = false
                     if (clickedCellIndex<5){
                         for (w in WineList1){
                             if (w.Wine_Location == clickedWineIndex){
@@ -942,6 +949,20 @@ class MainPage : AppCompatActivity() {
                                 for ((index,w) in WineList1.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
+                                        when(w.Wine_Floor_Type){
+                                            1 -> {
+                                                firstlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.red_border_sel)
+                                                firstlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                            2 -> {
+                                                firstlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.white_border_sel)
+                                                firstlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                            3 -> {
+                                                firstlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.sparkling_border_sel)
+                                                firstlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                        }
                                         WineList1.removeAt(index)
                                         Toast.makeText(this@MainPage, "Cell 1, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
                                             .show()
@@ -952,6 +973,20 @@ class MainPage : AppCompatActivity() {
                                 for ((index,w) in WineList2.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
+                                        when(w.Wine_Floor_Type){
+                                            1 -> {
+                                                secondlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.red_border_sel)
+                                                secondlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                            2 -> {
+                                                secondlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.white_border_sel)
+                                                secondlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                            3 -> {
+                                                secondlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.sparkling_border_sel)
+                                                secondlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                        }
                                         WineList2.removeAt(index)
                                         Toast.makeText(this@MainPage, "Cell 2, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
                                             .show()
@@ -962,6 +997,20 @@ class MainPage : AppCompatActivity() {
                                 for ((index,w) in WineList3.withIndex()) {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
+                                        when(w.Wine_Floor_Type){
+                                            1 -> {
+                                                thirdlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.red_border_sel)
+                                                thirdlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                            2 -> {
+                                                thirdlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.white_border_sel)
+                                                thirdlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                            3 -> {
+                                                thirdlayout[w.Wine_Location+1].setBackgroundResource(R.drawable.sparkling_border_sel)
+                                                thirdlayout[w.Wine_Location+1].setPadding(5,5,5,5)
+                                            }
+                                        }
                                         WineList3.removeAt(index)
                                         Toast.makeText(this@MainPage, "Cell 3, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
                                             .show()
