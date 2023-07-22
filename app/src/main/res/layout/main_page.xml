@@ -165,7 +165,6 @@
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
                     android:background="@drawable/user_border"
                     android:padding="2dp">
                     <ImageView
@@ -289,7 +288,6 @@
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
                     android:background="@drawable/user_border"
                     android:padding="2dp">
                     <ImageView
@@ -416,7 +414,6 @@
                     android:layout_columnWeight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
                     android:background="@drawable/user_border"
                     android:padding="2dp">
                     <ImageView

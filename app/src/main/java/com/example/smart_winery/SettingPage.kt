@@ -1,5 +1,7 @@
 package com.example.smart_winery
 
+import android.app.ActivityManager
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -463,6 +465,10 @@ class SettingPage : AppCompatActivity() {
                 })
                 postSettingQueue.add(settingRequest)
                 finish()
+                MainPage.instance?.finish()
+                val intents = Intent(this@SettingPage,MainPage::class.java)
+                startActivity(intents)
+                overridePendingTransition(0, 0) //인텐트 효과 없애기
             }
 
             switch3.setOnCheckedChangeListener { _, isChecked ->
