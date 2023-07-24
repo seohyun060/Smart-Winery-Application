@@ -712,6 +712,7 @@ class SettingPage : AppCompatActivity() {
 
                 }
             }
+
             up1.setOnClickListener(upDownListener)
             up2.setOnClickListener(upDownListener)
             up3.setOnClickListener(upDownListener)

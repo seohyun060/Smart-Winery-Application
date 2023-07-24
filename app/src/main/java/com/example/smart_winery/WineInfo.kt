@@ -2,7 +2,7 @@ package com.example.smart_winery
 
 class WineInfo(     private val row:Int
                     ,private val col:Int
-                    ,private val id:String
+                    ,val id:String
                     ,private val eng_name:String
                     ,private val wine_img: String
                     ,private val price: Int
