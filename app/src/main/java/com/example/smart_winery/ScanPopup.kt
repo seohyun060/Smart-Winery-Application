@@ -104,7 +104,11 @@ class ScanPopup(@NonNull context: Context, private val barcodeTypeValue: String 
                             )
                         )
                         binding.proceed.isEnabled = true
-                        binding.resultText.text = "Add to cell $input_row?"
+                        when(input_row){
+                            1 -> binding.resultText.text = "Add to 1st Layer?"
+                            2 -> binding.resultText.text = "Add to 2nd Layer?"
+                            3 -> binding.resultText.text = "Add to 3rd Layer?"
+                        }
                         binding.moreInfoBtn.isEnabled = false
                         binding.moreInfoBtn.visibility = GONE
                     }

@@ -60,21 +60,6 @@ class SettingPage : AppCompatActivity() {
         var cell2AdjustTemp = 10
         var cell3AdjustTemp = 6
         val queue : RequestQueue = Volley.newRequestQueue(applicationContext)
-//        when(floor1type) {
-//            1 -> {
-//                binding.floor1Type.setText("RED")
-//                binding.floor1Type.setBackgroundColor(Color.parseColor("#9B1132"))
-//            }
-//            2 -> {
-//                binding.floor1Type.setText("WHITE")
-//                binding.floor1Type.setBackgroundColor(Color.parseColor("#CFE449"))
-//            }
-//            3 -> {
-//                binding.floor1Type.setText("SPARKLE")
-//                binding.floor1Type.setBackgroundColor(Color.parseColor("#2589FF"))
-//            }
-//        }
-        val typebuttonNumber = binding.floor1Type.id - 1
         val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             Log.d("responseebal",response.toString())
             cellfloor1 = response.getJSONObject("floor1")
@@ -298,6 +283,35 @@ class SettingPage : AppCompatActivity() {
 
             Log.d("floortype2",floor2type.toString())
             Log.d("floortype3",WineList1.size.toString())
+            setCellInfo(cell1TargetTemp,cell2TargetTemp,cell3TargetTemp,floor1type,floor2type,floor3type,floor1smart,floor2smart,floor3smart)
+            binding.switch3.isChecked = !floor3smart
+            binding.switch2.isChecked = !floor2smart
+            binding.switch1.isChecked = !floor1smart
+            var changeable1 = true
+            var changeable2 = true
+            var changeable3 = true
+            var wineLists:Array<MutableList<WineInfo>> = arrayOf(WineList1,WineList2,WineList3)
+            for (i in  0..2) {
+                var firstWineType = ""
+                if (wineLists[i].size !=0)
+                {
+                    firstWineType = wineLists[i][0].Wine_Type
+                    for (wine in wineLists[i]){
+                        if (wine.Wine_Type != firstWineType){
+                            when(i){
+                                0 -> changeable1 = false
+                                1 -> changeable2 = false
+                                2 -> changeable3 = false
+                            }
+                            break
+                        }
+                    }
+                }
+            }
+            binding.switch1.isEnabled = changeable1
+            binding.switch2.isEnabled = changeable2
+            binding.switch3.isEnabled = changeable3
+
         }, { error ->
             Log.e("TAGa", "RESPONSE IS $error")
             // in this case we are simply displaying a toast message.
@@ -307,33 +321,10 @@ class SettingPage : AppCompatActivity() {
 
         queue.add(request)
 
-//        if (!refresh)
-//        {
-//            refresh = true
-//            finish()
-//            overridePendingTransition(0, 0) //인텐트 효과 없애기
-//            val intent = intent //인텐트
-//            startActivity(intent) //액티비티 열기
-//            overridePendingTransition(0, 0) //인텐트 효과 없애기
-//        }
         cell1AdjustTemp = cell1TargetTemp
         cell2AdjustTemp = cell2TargetTemp
         cell3AdjustTemp = cell3TargetTemp
-        Log.d("floortype",floor2type.toString())
-        Log.d("floortype0",WineList1.size.toString())
-        initSettingPage()
-        //setCellInfo(cell1TargetTemp,cell2TargetTemp,cell3TargetTemp,floor1type,floor2type,floor3type,floor1smart,floor2smart,floor3smart)
-        val handler = Handler()
-        var time = 1000
-        val handlerTask = object : Runnable {
-            override fun run() {
-                setCellInfo(cell1TargetTemp,cell2TargetTemp,cell3TargetTemp,floor1type,floor2type,floor3type,floor1smart,floor2smart,floor3smart)
-                binding.switch3.isChecked = !floor3smart
-                binding.switch2.isChecked = !floor2smart
-                binding.switch1.isChecked = !floor1smart
-            }
-        }
-        handler.postDelayed(handlerTask, time.toLong())
+
 
         val upDownListener = object :View.OnClickListener {
             override fun onClick(view:View) {
@@ -347,7 +338,6 @@ class SettingPage : AppCompatActivity() {
                         cell3AdjustTemp = cell3TargetTemp
                         binding.temp1.text = intValue.toString()
                     }
-
                     R.id.down1 -> {
                         var rTempValue: String = binding.temp1.text.toString()
                         var intValue=rTempValue.toInt()
@@ -368,7 +358,6 @@ class SettingPage : AppCompatActivity() {
                         cell3AdjustTemp = cell3TargetTemp
                         binding.temp2.text = wTempValue
                     }
-
                     R.id.down2 -> {
                         var wTempValue: String = binding.temp2.text.toString()
                         var intValue=wTempValue.toInt()
@@ -390,7 +379,6 @@ class SettingPage : AppCompatActivity() {
                         cell2AdjustTemp = cell2TargetTemp
                         binding.temp3.text = intValue.toString()
                     }
-
                     R.id.down3 -> {
                         var sTempValue: String = binding.temp3.text.toString()
                         var intValue=sTempValue.toInt()
@@ -410,9 +398,6 @@ class SettingPage : AppCompatActivity() {
                 cell2AdjustTemp = cell2TargetTemp
                 cell3AdjustTemp = cell3TargetTemp
                 val clickedFloorButton = v?.id.toString().toInt()
-                Log.d("floortype",floor2type.toString())
-                Log.d("floortype0",WineList1.size.toString())
-                Log.d("clickedFloorButton","$clickedFloorButton")
                 when (clickedFloorButton) {
                     binding.floor1Type.id -> {
                         Log.d("floortype",floor1type.toString())
@@ -474,6 +459,11 @@ class SettingPage : AppCompatActivity() {
                                                 """.trimIndent()
                 var post_setting_data:JSONObject = JSONObject(postSettingReq)
                 val settingRequest = JsonObjectRequest(Request.Method.POST, postSettingURL, post_setting_data, { response ->
+                    finish()
+                    MainPage.instance?.finish()
+                    val intents = Intent(this@SettingPage,MainPage::class.java)
+                    startActivity(intents)
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
                 }, { error ->
                     Log.e("TAGa", "RESPONSE IS $error")
                     // in this case we are simply displaying a toast message.
@@ -481,11 +471,154 @@ class SettingPage : AppCompatActivity() {
                         .show()
                 })
                 postSettingQueue.add(settingRequest)
-                finish()
-                MainPage.instance?.finish()
-                val intents = Intent(this@SettingPage,MainPage::class.java)
-                startActivity(intents)
-                overridePendingTransition(0, 0) //인텐트 효과 없애기
+            }
+
+            switch1.setOnCheckedChangeListener { _, isChecked ->
+                cell1AdjustTemp = cell1TargetTemp
+                cell2AdjustTemp = cell2TargetTemp
+                cell3AdjustTemp = cell3TargetTemp
+                if (!isChecked) {
+                    Log.d("SIBAL","")
+                    var changeable = true
+                    var firstWineType = ""
+                    if (WineList1.size !=0)
+                    {
+                        firstWineType = WineList1[0].Wine_Type
+                        for (wine in WineList1){
+                            if (wine.Wine_Type != firstWineType){
+                                changeable= false
+                                break
+                            }
+                        }
+                    }
+                    else {
+                        floor1type = 1
+                        binding.floor1Type.setText("RED")
+                        binding.floor1Type.setBackgroundColor(Color.parseColor("#9B1132"))
+                        binding.temp1.setText(cell1TargetTemp.toString())
+                    }
+
+                    if (changeable)
+                    {
+                        up1.isEnabled=false
+                        floor1smart = true
+                        down1.isEnabled=false
+                        floor1Type.isEnabled=true
+                        updown1.background = getDrawable(R.drawable.border_blackout)
+                        state1.setText("Auto")
+
+                        when(firstWineType){
+                            "Red" -> {
+                                floor1type = 1
+                                binding.floor1Type.setText("RED")
+                                binding.floor1Type.setBackgroundColor(Color.parseColor("#9B1132"))
+                                binding.temp1.setText("${cell1TargetTemp}")
+                            }
+                            "White" -> {
+                                floor1type = 2
+                                binding.floor1Type.setText("WHITE")
+                                binding.floor1Type.setBackgroundColor(Color.parseColor("#CFE449"))
+                                binding.temp1.setText("${cell1TargetTemp}")
+                            }
+                            "Sparkling" -> {
+                                floor1type = 3
+                                binding.floor1Type.setText("SPARKLE")
+                                binding.floor1Type.setBackgroundColor(Color.parseColor("#2589FF"))
+                                binding.temp1.setText("${cell1TargetTemp}")
+                            }
+                        }
+                    }
+                    // On 할 때
+                    else{
+
+                    }
+                } else {
+                    // Off 할 때
+                    up1.isEnabled=true
+                    down1.isEnabled=true
+                    floor1smart = false
+                    binding.floor1Type.setText("USER")
+                    floor1smart = false
+                    binding.temp1.setText("${cell1TargetTemp}")
+                    binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor1Type.setTextColor(Color.WHITE)
+                    floor1Type.isEnabled = false
+                    updown1.background = getDrawable(R.drawable.timer_border)
+                    state1.setText("User")
+                }
+            }
+
+            switch2.setOnCheckedChangeListener { _, isChecked ->
+                cell1AdjustTemp = cell1TargetTemp
+                cell2AdjustTemp = cell2TargetTemp
+                cell3AdjustTemp = cell3TargetTemp
+                if (!isChecked) {
+                    var changeable = true
+                    var firstWineType = ""
+                    if (WineList2.size !=0)
+                    {
+                        firstWineType = WineList2[0].Wine_Type
+                        for (wine in WineList2){
+                            if (wine.Wine_Type != firstWineType){
+                                changeable= false
+                                break
+                            }
+                        }
+                    }
+                    else {
+                        floor2type = 2
+                        binding.floor2Type.setText("WHITE")
+                        binding.floor2Type.setBackgroundColor(Color.parseColor("#CFE449"))
+                        binding.temp2.setText(cell2TargetTemp.toString())
+                    }
+                    if (changeable)
+                    {
+                        up2.isEnabled=false
+                        down2.isEnabled=false
+                        floor2smart = true
+                        floor2Type.isEnabled=true
+                        updown2.background = getDrawable(R.drawable.border_blackout)
+                        state2.setText("Auto")
+
+                        when(firstWineType){
+                            "Red" -> {
+                                floor2type = 1
+                                binding.floor2Type.setText("RED")
+                                binding.floor2Type.setBackgroundColor(Color.parseColor("#9B1132"))
+                                binding.temp2.setText("${cell2TargetTemp}")
+                            }
+                            "White" -> {
+                                floor2type = 2
+                                binding.floor2Type.setText("WHITE")
+                                binding.floor2Type.setBackgroundColor(Color.parseColor("#CFE449"))
+                                binding.temp2.setText("${cell2TargetTemp}")
+                            }
+                            "Sparkling" -> {
+                                floor2type = 3
+                                binding.floor2Type.setText("SPARKLE")
+                                binding.floor2Type.setBackgroundColor(Color.parseColor("#2589FF"))
+                                binding.temp2.setText("${cell2TargetTemp}")
+                            }
+                        }
+                    }
+                    // On 할 때
+                    else{
+
+                    }
+                } else {
+                    // Off 할 때
+                    up2.isEnabled=true
+                    down2.isEnabled=true
+                    floor2smart =false
+                    binding.floor2Type.setText("USER")
+                    floor2Type.isEnabled = false
+                    floor2smart = false
+                    binding.temp2.setText("${cell2TargetTemp}")
+                    binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
+                    binding.floor2Type.setTextColor(Color.WHITE)
+                    updown2.background = getDrawable(R.drawable.timer_border)
+                    state2.setText("User")
+                }
             }
 
             switch3.setOnCheckedChangeListener { _, isChecked ->
@@ -508,7 +641,7 @@ class SettingPage : AppCompatActivity() {
                     else {
                         binding.floor3Type.setText("SPARKLE")
                         binding.floor3Type.setBackgroundColor(Color.parseColor("#2589FF"))
-                        binding.temp3.setText("6")
+                        binding.temp3.setText(cell3TargetTemp.toString())
                     }
                     if (changeable)
                     {
@@ -559,160 +692,6 @@ class SettingPage : AppCompatActivity() {
                 }
             }
 
-            switch2.setOnCheckedChangeListener { _, isChecked ->
-                cell1AdjustTemp = cell1TargetTemp
-                cell2AdjustTemp = cell2TargetTemp
-                cell3AdjustTemp = cell3TargetTemp
-                if (!isChecked) {
-                    var changeable = true
-                    var firstWineType = ""
-                    if (WineList2.size !=0)
-                    {
-                        firstWineType = WineList2[0].Wine_Type
-                        for (wine in WineList2){
-                            if (wine.Wine_Type != firstWineType){
-                                changeable= false
-                                break
-                            }
-                        }
-                    }
-                    else {
-                        floor2type = 2
-                        binding.floor2Type.setText("WHITE")
-                        binding.floor2Type.setBackgroundColor(Color.parseColor("#CFE449"))
-                        binding.temp2.setText("10")
-                    }
-                    if (changeable)
-                    {
-                        up2.isEnabled=false
-                        down2.isEnabled=false
-                        floor2smart = true
-                        floor2Type.isEnabled=true
-                        updown2.background = getDrawable(R.drawable.border_blackout)
-                        state2.setText("Auto")
-
-                        when(firstWineType){
-                            "Red" -> {
-                                floor2type = 1
-                                binding.floor2Type.setText("RED")
-                                binding.floor2Type.setBackgroundColor(Color.parseColor("#9B1132"))
-                                binding.temp2.setText("${cell2TargetTemp}")
-                            }
-                            "White" -> {
-                                floor2type = 2
-                                binding.floor2Type.setText("WHITE")
-                                binding.floor2Type.setBackgroundColor(Color.parseColor("#CFE449"))
-                                binding.temp2.setText("${cell2TargetTemp}")
-                            }
-                            "Sparkling" -> {
-                                floor2type = 3
-                                binding.floor2Type.setText("SPARKLE")
-                                binding.floor2Type.setBackgroundColor(Color.parseColor("#2589FF"))
-                                binding.temp2.setText("${cell2TargetTemp}")
-                            }
-                        }
-                    }
-                    // On 할 때
-                    else{
-
-                    }
-                } else {
-                    // Off 할 때
-                    up2.isEnabled=true
-                    down2.isEnabled=true
-                    floor2smart =false
-                    binding.floor2Type.setText("USER")
-                    floor2Type.isEnabled = false
-                    floor2smart = false
-                    binding.temp2.setText("${cell2TargetTemp}")
-                    binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
-                    binding.floor2Type.setTextColor(Color.WHITE)
-                    updown2.background = getDrawable(R.drawable.timer_border)
-                    //floor2.setBackgroundResource(R.drawable.border_top)
-                    state2.setText("User")
-                }
-            }
-
-            switch1.setOnCheckedChangeListener { _, isChecked ->
-                cell1AdjustTemp = cell1TargetTemp
-                cell2AdjustTemp = cell2TargetTemp
-                cell3AdjustTemp = cell3TargetTemp
-                if (!isChecked) {
-                    Log.d("SIBAL","")
-                    var changeable = true
-                    var firstWineType = ""
-                    if (WineList1.size !=0)
-                    {
-                        firstWineType = WineList1[0].Wine_Type
-                        for (wine in WineList1){
-                            if (wine.Wine_Type != firstWineType){
-                                changeable= false
-                                break
-                            }
-                        }
-                    }
-                    else {
-                        floor1type = 1
-                        binding.floor1Type.setText("RED")
-                        binding.floor1Type.setBackgroundColor(Color.parseColor("#9B1132"))
-                        binding.temp1.setText("16")
-                    }
-
-                    if (changeable)
-                    {
-                        up1.isEnabled=false
-                        floor1smart = true
-                        down1.isEnabled=false
-                        floor1Type.isEnabled=true
-                        updown1.background = getDrawable(R.drawable.border_blackout)
-                        state1.setText("Auto")
-
-                        when(firstWineType){
-                            "Red" -> {
-                                floor1type = 1
-                                binding.floor1Type.setText("RED")
-                                binding.floor1Type.setBackgroundColor(Color.parseColor("#9B1132"))
-                                binding.temp1.setText("${cell1TargetTemp}")
-                            }
-                            "White" -> {
-                                floor1type = 2
-                                binding.floor1Type.setText("WHITE")
-                                binding.floor1Type.setBackgroundColor(Color.parseColor("#CFE449"))
-                                binding.temp1.setText("${cell1TargetTemp}")
-                            }
-                            "Sparkling" -> {
-                                floor1type = 3
-                                binding.floor1Type.setText("SPARKLE")
-                                binding.floor1Type.setBackgroundColor(Color.parseColor("#2589FF"))
-                                binding.temp1.setText("${cell1TargetTemp}")
-                            }
-                        }
-                    }
-                    // On 할 때
-                    else{
-
-                    }
-                } else {
-                    // Off 할 때
-
-                    up1.isEnabled=true
-                    down1.isEnabled=true
-                    floor1smart = false
-                    binding.floor1Type.setText("USER")
-                    floor1smart = false
-
-                    binding.temp1.setText("${cell1TargetTemp}")
-                    binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
-                    binding.floor1Type.setTextColor(Color.WHITE)
-                    floor1Type.isEnabled = false
-                    updown1.background = getDrawable(R.drawable.timer_border)
-                    //floor2.setBackgroundResource(R.drawable.border_top)
-                    //floor1.setBackgroundResource(R.drawable.border_top_bottom)
-                    state1.setText("User")
-
-                }
-            }
-
             up1.setOnClickListener(upDownListener)
             up2.setOnClickListener(upDownListener)
             up3.setOnClickListener(upDownListener)
@@ -725,18 +704,7 @@ class SettingPage : AppCompatActivity() {
             floor3Type.setOnClickListener(typeButtonListener)
         }
     }
-    fun initSettingPage() {
-        binding.floor1Type.setText("")
-        binding.floor2Type.setText("")
-        binding.floor3Type.setText("")
-        binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
-        binding.floor1Type.setBackgroundColor(Color.parseColor("#888888"))
-        binding.floor2Type.setBackgroundColor(Color.parseColor("#888888"))
-        binding.floor3Type.setBackgroundColor(Color.parseColor("#888888"))
-        binding.temp1.setText("")
-        binding.temp2.setText("")
-        binding.temp3.setText("")
-    }
+
     public fun setCellInfo (cell1TargetTemp : Int
                      , cell2TargetTemp : Int
                      , cell3TargetTemp:Int

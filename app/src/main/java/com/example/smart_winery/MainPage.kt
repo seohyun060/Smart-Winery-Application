@@ -738,6 +738,12 @@ class MainPage : AppCompatActivity() {
                     floor2 = response.getJSONObject("floor2")
                     floor3 = response.getJSONObject("floor3")
                     displayWine()
+                    wineInfoDialog.dismiss()
+                    finish()
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
+                    val intent = intent //인텐트
+                    startActivity(intent) //액티비티 열기
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
                 }, { error ->
                     Log.e("TAGa", "RESPONSE IS $error")
                     // in this case we are simply displaying a toast message.
@@ -745,12 +751,6 @@ class MainPage : AppCompatActivity() {
                         .show()
                 })
                 getqueue.add(request1)
-                wineInfoDialog.dismiss()
-                finish()
-                overridePendingTransition(0, 0) //인텐트 효과 없애기
-                val intent = intent //인텐트
-                startActivity(intent) //액티비티 열기
-                overridePendingTransition(0, 0) //인텐트 효과 없애기
             }
             wineInfoBinding.reserve.setOnClickListener() {
                 wineInfoDialog.dismiss()
@@ -911,7 +911,13 @@ class MainPage : AppCompatActivity() {
                                     floor1 = response.getJSONObject("floor1")
                                     floor2 = response.getJSONObject("floor2")
                                     floor3 = response.getJSONObject("floor3")
-                                    displayWine()
+//                                    displayWine()
+                                    mainPageBinding.mainSwitch.isEnabled = true
+                                    finish()
+                                    overridePendingTransition(0, 0) //인텐트 효과 없애기
+                                    val intent = intent //인텐트
+                                    startActivity(intent) //액티비티 열기
+                                    overridePendingTransition(0, 0) //인텐트 효과 없애기
                                 }, { error ->
                                     Log.e("TAGa", "RESPONSE IS $error")
                                     // in this case we are simply displaying a toast message.
@@ -919,12 +925,6 @@ class MainPage : AppCompatActivity() {
                                         .show()
                                 })
                                 getqueue.add(request1)
-                                mainPageBinding.mainSwitch.isEnabled = true
-                                finish()
-                                overridePendingTransition(0, 0) //인텐트 효과 없애기
-                                val intent = intent //인텐트
-                                startActivity(intent) //액티비티 열기
-                                overridePendingTransition(0, 0) //인텐트 효과 없애기
                             }
                             else{
                                 isWineSelected = false
@@ -953,9 +953,11 @@ class MainPage : AppCompatActivity() {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
                                         firstlayout[w.Wine_Location].setBackgroundResource(R.drawable.select_border)
+                                        firstlayout[w.Wine_Location].elevation = 70F
                                         WineList1.removeAt(index)
                                         Toast.makeText(this@MainPage, "Cell 1, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
                                             .show()
+                                        break
                                     }
                                 }
                             }
@@ -964,9 +966,11 @@ class MainPage : AppCompatActivity() {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
                                         secondlayout[w.Wine_Location].setBackgroundResource(R.drawable.select_border)
+                                        secondlayout[w.Wine_Location].elevation = 70F
                                         WineList2.removeAt(index)
                                         Toast.makeText(this@MainPage, "Cell 2, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
                                             .show()
+                                        break
                                     }
                                 }
                             }
@@ -975,9 +979,11 @@ class MainPage : AppCompatActivity() {
                                     if (w.Wine_Location == clickedWineIndex){
                                         wineBefore = w.clone()
                                         thirdlayout[w.Wine_Location].setBackgroundResource(R.drawable.select_border)
+                                        thirdlayout[w.Wine_Location].elevation = 70F
                                         WineList3.removeAt(index)
                                         Toast.makeText(this@MainPage, "Cell 3, Index:${(clickedCellIndex%5)+1} wine selected.", Toast.LENGTH_SHORT)
                                             .show()
+                                        break
                                     }
                                 }
                             }
