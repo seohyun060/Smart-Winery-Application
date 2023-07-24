@@ -809,7 +809,6 @@ class MainPage : AppCompatActivity() {
                 var clickedWineIndex = clickedCellIndex % 5//move 상황
                 if (!isInfo) {
                     var spaceVacant = true
-                    isWineSelected = false
                     if (clickedCellIndex<5){
                         for (w in WineList1){
                             if (w.Wine_Location == clickedWineIndex){
