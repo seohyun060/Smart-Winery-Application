@@ -85,13 +85,14 @@ class SettingPage : AppCompatActivity() {
             val floor2wines: JSONArray = cellfloor2.getJSONArray("cell_ids")
             val floor3wines: JSONArray = cellfloor3.getJSONArray("cell_ids")
 
-            cell1NowTemp = cellfloor1.getInt("temperature_target")
+            cell1NowTemp = cellfloor1.getInt("temperature_now")
             cell1TargetTemp = cellfloor1.getInt("temperature_target")
-            cell2NowTemp = cellfloor2.getInt("temperature_now")
 
-             cell2TargetTemp = cellfloor2.getInt("temperature_target")
-             cell3NowTemp= cellfloor3.getInt("temperature_now")
-             cell3TargetTemp = cellfloor3.getInt("temperature_target")
+            cell2NowTemp = cellfloor2.getInt("temperature_now")
+            cell2TargetTemp = cellfloor2.getInt("temperature_target")
+
+            cell3NowTemp= cellfloor3.getInt("temperature_now")
+            cell3TargetTemp = cellfloor3.getInt("temperature_target")
 
 
             floor1type = cellfloor1.getInt("type")
@@ -101,6 +102,7 @@ class SettingPage : AppCompatActivity() {
             floor1smart = cellfloor1.getBoolean("is_smart_mode")
             floor2smart = cellfloor2.getBoolean("is_smart_mode")
             floor3smart = cellfloor3.getBoolean("is_smart_mode")
+
             for (j in 0 until floor1wines.length()){
                 val wine:JSONObject = floor1wines.getJSONObject(j)
                 try {
@@ -341,6 +343,8 @@ class SettingPage : AppCompatActivity() {
                         var intValue=rTempValue.toInt()
                         intValue++
                         cell1AdjustTemp= intValue
+                        cell2AdjustTemp = cell2TargetTemp
+                        cell3AdjustTemp = cell3TargetTemp
                         binding.temp1.text = intValue.toString()
                     }
 
@@ -350,6 +354,8 @@ class SettingPage : AppCompatActivity() {
                         intValue--
                         if (intValue < 0) intValue = 0
                         cell1AdjustTemp= intValue
+                        cell2AdjustTemp = cell2TargetTemp
+                        cell3AdjustTemp = cell3TargetTemp
                         binding.temp1.text = intValue.toString()
                     }
 
@@ -358,6 +364,8 @@ class SettingPage : AppCompatActivity() {
                         var intValue=wTempValue.toInt()
                         wTempValue = (intValue + 1).toString()
                         cell2AdjustTemp= intValue +1
+                        cell1AdjustTemp = cell1TargetTemp
+                        cell3AdjustTemp = cell3TargetTemp
                         binding.temp2.text = wTempValue
                     }
 
@@ -367,6 +375,8 @@ class SettingPage : AppCompatActivity() {
                         intValue--
                         if (intValue < 0) intValue = 0
                         cell2AdjustTemp= intValue
+                        cell1AdjustTemp = cell1TargetTemp
+                        cell3AdjustTemp = cell3TargetTemp
                         wTempValue = intValue.toString()
                         binding.temp2.text = wTempValue
                     }
@@ -376,6 +386,8 @@ class SettingPage : AppCompatActivity() {
                         var intValue=sTempValue.toInt()
                         intValue++
                         cell3AdjustTemp= intValue
+                        cell1AdjustTemp = cell1TargetTemp
+                        cell2AdjustTemp = cell2TargetTemp
                         binding.temp3.text = intValue.toString()
                     }
 
@@ -385,6 +397,8 @@ class SettingPage : AppCompatActivity() {
                         intValue--
                         if (intValue < 0) intValue = 0
                         cell3AdjustTemp= intValue
+                        cell1AdjustTemp = cell1TargetTemp
+                        cell2AdjustTemp = cell2TargetTemp
                         binding.temp3.text = intValue.toString()
                     }
                 }
@@ -392,6 +406,9 @@ class SettingPage : AppCompatActivity() {
         }
         val typeButtonListener = object : View.OnClickListener {
             override fun onClick (v:View?) {
+                cell1AdjustTemp = cell1TargetTemp
+                cell2AdjustTemp = cell2TargetTemp
+                cell3AdjustTemp = cell3TargetTemp
                 val clickedFloorButton = v?.id.toString().toInt()
                 Log.d("floortype",floor2type.toString())
                 Log.d("floortype0",WineList1.size.toString())
@@ -448,11 +465,11 @@ class SettingPage : AppCompatActivity() {
                                                     "floor1_temperature_target": ${cell1AdjustTemp},
                                                     "floor1_is_smart_mode": ${floor1smart},
                                                     "floor2_type": ${floor2type},
-                                                     "floor2_temperature_target": ${cell2AdjustTemp},                                                   
-                                                     "floor2_is_smart_mode": ${floor2smart},
-                                                     "floor3_type": ${floor3type},
-                                                     "floor3_temperature_target": ${cell3AdjustTemp},                                                   
-                                                     "floor3_is_smart_mode": ${floor3smart}                                                                                               
+                                                    "floor2_temperature_target": ${cell2AdjustTemp},                                                   
+                                                    "floor2_is_smart_mode": ${floor2smart},
+                                                    "floor3_type": ${floor3type},
+                                                    "floor3_temperature_target": ${cell3AdjustTemp},                                                   
+                                                    "floor3_is_smart_mode": ${floor3smart}                                                                                               
                                                 }
                                                 """.trimIndent()
                 var post_setting_data:JSONObject = JSONObject(postSettingReq)
@@ -472,6 +489,9 @@ class SettingPage : AppCompatActivity() {
             }
 
             switch3.setOnCheckedChangeListener { _, isChecked ->
+                cell1AdjustTemp = cell1TargetTemp
+                cell2AdjustTemp = cell2TargetTemp
+                cell3AdjustTemp = cell3TargetTemp
                 if (!isChecked) {
                     var changeable = true
                     var firstWineType = ""
@@ -540,6 +560,9 @@ class SettingPage : AppCompatActivity() {
             }
 
             switch2.setOnCheckedChangeListener { _, isChecked ->
+                cell1AdjustTemp = cell1TargetTemp
+                cell2AdjustTemp = cell2TargetTemp
+                cell3AdjustTemp = cell3TargetTemp
                 if (!isChecked) {
                     var changeable = true
                     var firstWineType = ""
@@ -611,6 +634,9 @@ class SettingPage : AppCompatActivity() {
             }
 
             switch1.setOnCheckedChangeListener { _, isChecked ->
+                cell1AdjustTemp = cell1TargetTemp
+                cell2AdjustTemp = cell2TargetTemp
+                cell3AdjustTemp = cell3TargetTemp
                 if (!isChecked) {
                     Log.d("SIBAL","")
                     var changeable = true
