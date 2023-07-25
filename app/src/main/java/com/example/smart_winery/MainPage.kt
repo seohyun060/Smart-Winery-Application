@@ -271,6 +271,11 @@ class MainPage : AppCompatActivity() {
                             try{
                                 winePairings = floor1wine.getJSONArray("pairing")
                             } catch (e:Exception){ }
+                            when(floor1wine.getString("type")){
+                                "Red"-> firstlayout[index].setBackgroundResource(R.drawable.red_border)
+                                "White"-> firstlayout[index].setBackgroundResource(R.drawable.white_border)
+                                "Sparkling" -> firstlayout[index].setBackgroundResource(R.drawable.sparkling_border)
+                            }
                             for (k in 0 until wineAromas.length()) {
                                 var wineAroma = AromaInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
@@ -345,6 +350,11 @@ class MainPage : AppCompatActivity() {
                             try{
                                 winePairings = floor2wine.getJSONArray("pairing")
                             } catch (e:Exception){ }
+                            when(floor2wine.getString("type")){
+                                "Red"-> secondlayout[index].setBackgroundResource(R.drawable.red_border)
+                                "White"-> secondlayout[index].setBackgroundResource(R.drawable.white_border)
+                                "Sparkling" -> secondlayout[index].setBackgroundResource(R.drawable.sparkling_border)
+                            }
                             for (k in 0 until wineAromas.length()) {
                                 var wineAroma = AromaInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
@@ -419,6 +429,11 @@ class MainPage : AppCompatActivity() {
                             try{
                                 winePairings = floor3wine.getJSONArray("pairing")
                             } catch (e:Exception){ }
+                            when(floor3wine.getString("type")){
+                                "Red"-> thirdlayout[index].setBackgroundResource(R.drawable.red_border)
+                                "White"-> thirdlayout[index].setBackgroundResource(R.drawable.white_border)
+                                "Sparkling" -> thirdlayout[index].setBackgroundResource(R.drawable.sparkling_border)
+                            }
                             for (k in 0 until wineAromas.length()) {
                                 var wineAroma = AromaInfo("", "", "", mutableListOf())
                                 var nameList: MutableList<String> = mutableListOf()
@@ -553,11 +568,21 @@ class MainPage : AppCompatActivity() {
                 4 -> wineInfoBinding.tanninLevel.background = getDrawable(R.drawable.level4)
                 5 -> wineInfoBinding.tanninLevel.background = getDrawable(R.drawable.level5)
             }
-
-            Log.i("wine_",w.toString())
-            Log.i("wine_aromas", w.Wine_Aromas?.size.toString())
-            Log.i("wine_pairings",w.Wine_Pairings?.size.toString())
-
+            if (w.Wine_Price != 0){
+                wineInfoBinding.price.text = "PRICE : ₹"+w.Wine_Price.toString()
+                wineInfoBinding.price.visibility = View.VISIBLE
+            }
+            else{
+                wineInfoBinding.price.visibility = View.GONE
+            }
+            if (w.Wine_Alcohol != "null"){
+                wineInfoBinding.alcohol.text = "ALC. : "+w.Wine_Alcohol
+                wineInfoBinding.alcohol.visibility = View.VISIBLE
+            }
+            else{
+                wineInfoBinding.alcohol.visibility = View.GONE
+            }
+            wineInfoBinding.temp.text = "TEMP. : " + w.Wine_Temp.toString() + "°C"
             if (w.Wine_Aromas?.isEmpty() == true){
                 wineInfoBinding.aromaContainer.visibility = View.GONE
             }
@@ -754,6 +779,11 @@ class MainPage : AppCompatActivity() {
             }
             wineInfoBinding.reserve.setOnClickListener() {
                 wineInfoDialog.dismiss()
+//                finish()
+//                overridePendingTransition(0, 0) //인텐트 효과 없애기
+//                val intent = intent //인텐트
+//                startActivity(intent) //액티비티 열기
+//                overridePendingTransition(0, 0) //인텐트 효과 없애기
                 reserveBinding.minuteET.setText("00")
                 reserveBinding.hourET.setText("00")
                 val reserveBuilder = AlertDialog.Builder(this)
@@ -762,7 +792,6 @@ class MainPage : AppCompatActivity() {
                     (reserveView.getParent() as ViewGroup).removeView(reserveView)
                 }
                 val reserveDialog = reserveBuilder.show()
-                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 reserveBinding.proceed.setOnClickListener() {
 
                     var hour = Integer.parseInt(reserveBinding.hourET.getText().toString())
@@ -797,6 +826,11 @@ class MainPage : AppCompatActivity() {
                     }
                     handler.postDelayed(handlerTask, reserveTime.toLong())
                     reserveDialog.dismiss()
+                    finish()
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
+                    val intent = intent //인텐트
+                    startActivity(intent) //액티비티 열기
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
                 }
                 reserveBinding.cancel.setOnClickListener(){
                     reserveDialog.dismiss()
@@ -840,15 +874,10 @@ class MainPage : AppCompatActivity() {
                     }
                     if (spaceVacant) {
                         var clickedFloor:Int = clickedCellIndex / 5
-                        Log.d("clickedF",clickedFloor.toString())
-                        Log.d("clickedF2",wineBefore.Wine_Floor_Type.toString())
                         var checkFloorWine = false
                         if(isWineSelected){
-                            Log.d("clickedF3",floor1type.toString())
-                            Log.d("clickedF4",wineBefore.Wine_Floor_Type.toString())
                             if (clickedFloor == 0){
                                 if (!floor1smart || floor1type == wineBefore.Wine_Floor_Type){
-
                                     checkFloorWine = true
                                 }
                             }
@@ -863,15 +892,12 @@ class MainPage : AppCompatActivity() {
                                 }
                             }
                             if(checkFloorWine) {
-                                Log.d("clickedF4",wineBefore.Wine_Floor_Type.toString())
                                 isWineSelected = false
                                 wineAfter = wineBefore.clone()
                                 wineAfter.Wine_Location = clickedWineIndex
                                 if (clickedCellIndex < 5) {
                                     wineAfter.Wine_Floor = 1
-                                    Log.d("clickedF5",wineBefore.Wine_Floor_Type.toString())
                                     WineList1.add(wineAfter)
-                                    Log.d("clickedF6",wineBefore.Wine_Floor_Type.toString())
                                 }
                                 else if (clickedCellIndex < 10) {
                                     wineAfter.Wine_Floor = 2
@@ -884,8 +910,6 @@ class MainPage : AppCompatActivity() {
                                 val postqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
                                 val getqueue : RequestQueue = Volley.newRequestQueue(this@MainPage)
                                 var postURL = "http://13.48.52.200:3000/winecellar/move"
-//                                var postURL = "http://10.0.2.2:3000/winecellar/move"
-
                                 val postDataReq = """
                                                 {
                                                     "cellarid": "64b4f9a38b4dc227def9b5b1",
@@ -927,19 +951,47 @@ class MainPage : AppCompatActivity() {
                                 getqueue.add(request1)
                             }
                             else{
+                                Toast.makeText(this@MainPage, "Wine-Floor type mismatch!\nTry again.", Toast.LENGTH_SHORT)
+                                    .show()
+                                mainPageBinding.mainSwitch.isEnabled = true
                                 isWineSelected = false
                                 when(wineBefore.Wine_Floor){
                                     1 -> WineList1.add(wineBefore)
                                     2 -> WineList2.add(wineBefore)
                                     3 -> WineList3.add(wineBefore)
                                 }
-                                Toast.makeText(this@MainPage, "Cannot move Wine!\nWine-Floor type mismatch", Toast.LENGTH_SHORT)
-                                    .show()
+                                when(wineBefore.Wine_Floor){
+                                    1 -> {
+                                        firstlayout[wineBefore.Wine_Location].elevation = 0F
+                                        when(wineBefore.Wine_Type){
+                                            "Red"-> firstlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.red_border)
+                                            "White"-> firstlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.white_border)
+                                            "Sparkling" -> firstlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.sparkling_border)
+                                        }
+                                    }
+                                    2 -> {
+                                        secondlayout[wineBefore.Wine_Location].elevation = 0F
+                                        when(wineBefore.Wine_Type){
+                                            "Red"-> secondlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.red_border)
+                                            "White"-> secondlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.white_border)
+                                            "Sparkling" -> secondlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.sparkling_border)
+                                        }
+                                    }
+                                    3 -> {
+                                        thirdlayout[wineBefore.Wine_Location].elevation = 0F
+                                        when(wineBefore.Wine_Type){
+                                            "Red"-> thirdlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.red_border)
+                                            "White"-> thirdlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.white_border)
+                                            "Sparkling" -> thirdlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.sparkling_border)
+                                        }
+                                    }
+                                }
                             }
                         }
                         else{
                             Toast.makeText(this@MainPage, "Nothing selected.", Toast.LENGTH_SHORT)
                                 .show()
+
                         }
                     }
                     else {
@@ -989,8 +1041,41 @@ class MainPage : AppCompatActivity() {
                             }
                         }
                         else{
+                            mainPageBinding.mainSwitch.isEnabled = true
                             Toast.makeText(this@MainPage, "This space is not vacant!", Toast.LENGTH_SHORT)
                                 .show()
+                            isWineSelected = false
+                            when(wineBefore.Wine_Floor){
+                                1 -> WineList1.add(wineBefore)
+                                2 -> WineList2.add(wineBefore)
+                                3 -> WineList3.add(wineBefore)
+                            }
+                            when(wineBefore.Wine_Floor){
+                                1 -> {
+                                    firstlayout[wineBefore.Wine_Location].elevation = 0F
+                                    when(wineBefore.Wine_Type){
+                                        "Red"-> firstlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.red_border)
+                                        "White"-> firstlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.white_border)
+                                        "Sparkling" -> firstlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.sparkling_border)
+                                    }
+                                }
+                                2 -> {
+                                    secondlayout[wineBefore.Wine_Location].elevation = 0F
+                                    when(wineBefore.Wine_Type){
+                                        "Red"-> secondlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.red_border)
+                                        "White"-> secondlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.white_border)
+                                        "Sparkling" -> secondlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.sparkling_border)
+                                    }
+                                }
+                                3 -> {
+                                    thirdlayout[wineBefore.Wine_Location].elevation = 0F
+                                    when(wineBefore.Wine_Type){
+                                        "Red"-> thirdlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.red_border)
+                                        "White"-> thirdlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.white_border)
+                                        "Sparkling" -> thirdlayout[wineBefore.Wine_Location].setBackgroundResource(R.drawable.sparkling_border)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1037,17 +1122,9 @@ class MainPage : AppCompatActivity() {
         mainPageBinding.btn33.setOnClickListener(cellListener)
         mainPageBinding.btn34.setOnClickListener(cellListener)
         mainPageBinding.btn35.setOnClickListener(cellListener)
-
-
     }
 
-//    override fun onRestart() {
-//        super.onRestart()
-//        overridePendingTransition(0, 0) //인텐트 효과 없애기
-//        val intent = intent //인텐트
-//        startActivity(intent) //액티비티 열기
-//        overridePendingTransition(0, 0) //인텐트 효과 없애기
-//    }
+
     private fun requestCameraAndStartScanner() {
         if (isPermissionGranted(cameraPermission)) {
             startScanner()
