@@ -163,7 +163,10 @@ class ScanPopup(@NonNull context: Context, private val barcodeTypeValue: String 
                 Log.d("flag_num", "FLAG_IN_PROCEED_ELSE = $flag")
                 Log.d("post_request", "POST DATA BEFORE = $post_data")
                 val post_request = JsonObjectRequest(Request.Method.POST, url + post_url, post_data, { response ->
-                    Log.d("post_request", "RESPONSE = $response")
+                    dismiss()
+                    MainPage.instance?.finish()
+                    val intents = Intent(this.context,MainPage::class.java)
+                    context.startActivity(intents)
                     }, { error ->
                         Log.e("TAG_post", "RESPONSE IS $error")
                         // in this case we are simply displaying a toast message.
@@ -171,10 +174,6 @@ class ScanPopup(@NonNull context: Context, private val barcodeTypeValue: String 
                             .show()
                     })
                 queue.add(post_request)
-                dismiss()
-                MainPage.instance?.finish()
-                val intents = Intent(this.context,MainPage::class.java)
-                context.startActivity(intents)
             }
         }
         binding.cancel.setOnClickListener {
