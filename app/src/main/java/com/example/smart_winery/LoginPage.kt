@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.smart_winery.databinding.LoginPageBinding
+import java.util.Timer
 
 
 class LoginPage : AppCompatActivity() {
@@ -14,13 +15,11 @@ class LoginPage : AppCompatActivity() {
         val loginPageBinding = LoginPageBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(loginPageBinding.root)
-       loginPageBinding.loginNaver.setOnClickListener {
+
+       loginPageBinding.logo.setOnClickListener {
            val intent = Intent(this, MainPage::class.java)
            startActivity(intent)
        }
-        loginPageBinding.loginKakao.setOnClickListener {
-            val intent = Intent(this, MainPage::class.java)
-            startActivity(intent)
-        }
+
     }
 }
