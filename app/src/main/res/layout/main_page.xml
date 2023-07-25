@@ -4,22 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_grid"
-    android:orientation="vertical"
+    android:orientation="vertical">
 
-    >
-
-    <TextView
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_rowWeight="0.8"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:id="@+id/main_logo"
-        android:text="SMART WINERY"
-        android:textColor="#9B1132"
-        android:textStyle="bold"
-        />
+        android:layout_rowWeight="0.8">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="65dp"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:id="@+id/main_logo"
+            android:text="SMART WINERY"
+            android:textColor="#9B1132"
+            android:textStyle="bold"
+            />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="30dp"
+            android:id="@+id/refresh"
+            android:src="@drawable/refresh"/>
+
+    </GridLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
