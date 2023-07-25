@@ -76,7 +76,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:gravity="right"
-                   android:layout_marginLeft="80dp"
+                   android:layout_marginLeft="140dp"
                     android:layout_height="match_parent">
                     <TextView
                         android:layout_width="70dp"
@@ -207,7 +207,7 @@
                 <TextView
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="140dp"
                     android:id="@+id/floor2_now"
                     android:layout_marginRight="10dp"
                     android:text=""
@@ -331,7 +331,7 @@
                     android:textSize="15dp"/>
 
                 <TextView
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="140dp"
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:id="@+id/floor3_now"
