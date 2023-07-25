@@ -553,11 +553,21 @@ class MainPage : AppCompatActivity() {
                 4 -> wineInfoBinding.tanninLevel.background = getDrawable(R.drawable.level4)
                 5 -> wineInfoBinding.tanninLevel.background = getDrawable(R.drawable.level5)
             }
-
-            Log.i("wine_",w.toString())
-            Log.i("wine_aromas", w.Wine_Aromas?.size.toString())
-            Log.i("wine_pairings",w.Wine_Pairings?.size.toString())
-
+            if (w.Wine_Price != 0){
+                wineInfoBinding.price.text = "PRICE : ₹"+w.Wine_Price.toString()
+                wineInfoBinding.price.visibility = View.VISIBLE
+            }
+            else{
+                wineInfoBinding.price.visibility = View.GONE
+            }
+            if (w.Wine_Alcohol != "null"){
+                wineInfoBinding.alcohol.text = "ALC. : "+w.Wine_Alcohol
+                wineInfoBinding.alcohol.visibility = View.VISIBLE
+            }
+            else{
+                wineInfoBinding.alcohol.visibility = View.GONE
+            }
+            wineInfoBinding.temp.text = "TEMP. : " + w.Wine_Temp.toString() + "°C"
             if (w.Wine_Aromas?.isEmpty() == true){
                 wineInfoBinding.aromaContainer.visibility = View.GONE
             }
@@ -754,6 +764,11 @@ class MainPage : AppCompatActivity() {
             }
             wineInfoBinding.reserve.setOnClickListener() {
                 wineInfoDialog.dismiss()
+//                finish()
+//                overridePendingTransition(0, 0) //인텐트 효과 없애기
+//                val intent = intent //인텐트
+//                startActivity(intent) //액티비티 열기
+//                overridePendingTransition(0, 0) //인텐트 효과 없애기
                 reserveBinding.minuteET.setText("00")
                 reserveBinding.hourET.setText("00")
                 val reserveBuilder = AlertDialog.Builder(this)
@@ -762,7 +777,6 @@ class MainPage : AppCompatActivity() {
                     (reserveView.getParent() as ViewGroup).removeView(reserveView)
                 }
                 val reserveDialog = reserveBuilder.show()
-                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 reserveBinding.proceed.setOnClickListener() {
 
                     var hour = Integer.parseInt(reserveBinding.hourET.getText().toString())
@@ -797,6 +811,11 @@ class MainPage : AppCompatActivity() {
                     }
                     handler.postDelayed(handlerTask, reserveTime.toLong())
                     reserveDialog.dismiss()
+                    finish()
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
+                    val intent = intent //인텐트
+                    startActivity(intent) //액티비티 열기
+                    overridePendingTransition(0, 0) //인텐트 효과 없애기
                 }
                 reserveBinding.cancel.setOnClickListener(){
                     reserveDialog.dismiss()
@@ -1037,17 +1056,9 @@ class MainPage : AppCompatActivity() {
         mainPageBinding.btn33.setOnClickListener(cellListener)
         mainPageBinding.btn34.setOnClickListener(cellListener)
         mainPageBinding.btn35.setOnClickListener(cellListener)
-
-
     }
 
-//    override fun onRestart() {
-//        super.onRestart()
-//        overridePendingTransition(0, 0) //인텐트 효과 없애기
-//        val intent = intent //인텐트
-//        startActivity(intent) //액티비티 열기
-//        overridePendingTransition(0, 0) //인텐트 효과 없애기
-//    }
+
     private fun requestCameraAndStartScanner() {
         if (isPermissionGranted(cameraPermission)) {
             startScanner()
